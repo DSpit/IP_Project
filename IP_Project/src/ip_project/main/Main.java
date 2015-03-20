@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -87,12 +89,21 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	        Menu calcMenu = new Menu("Calculus");
 	        Menu exitMenu = new Menu("Exit");
 	        
-	        MenuItem Newton = new MenuItem("Newton's Second Law");
-	        MenuItem pMotion = new MenuItem("Projectile Motion");
-	        MenuItem Optics = new MenuItem("Optics and Lenses");
-	        MenuItem rDecay = new MenuItem("Radioactive Decay");
-	        MenuItem gSeries = new MenuItem("Geometric Series");
-	        MenuItem NSB = new MenuItem("New Sports Bike");
+	        // needs fixing, can't fucking figure out how to link a path from the git project to here ~a
+	        
+	        Image apple = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/apple_64.png", 32, 32, false, false);
+	        Image projectile = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/file01_64.png", 32, 32, false, false);
+	        Image glasses = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/glasses_64.png", 32, 32, false, false);
+	        Image decay = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/molecule_64.png", 32, 32, false, false);
+	        Image ball = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/ball_64.png", 32, 32, false, false);
+	        Image bike = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/abacus_64.png", 32, 32, false, false);
+	        
+	        MenuItem Newton = new MenuItem("Newton's Second Law", new ImageView(apple));
+	        MenuItem pMotion = new MenuItem("Projectile Motion", new ImageView(projectile));
+	        MenuItem Optics = new MenuItem("Optics and Lenses", new ImageView(glasses));
+	        MenuItem rDecay = new MenuItem("Radioactive Decay", new ImageView(decay));
+	        MenuItem gSeries = new MenuItem("Geometric Series", new ImageView(ball));
+	        MenuItem NSB = new MenuItem("New Sports Bike", new ImageView(bike));
 	        
 	        mechMenu.getItems().addAll(Newton, pMotion);
 	        wavesMenu.getItems().addAll(Optics, rDecay);
@@ -104,7 +115,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	            public void handle(ActionEvent t) {
 	                System.exit(0);
 	            }
-	        });
+;	        });
 	        
 	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu, exitMenu);
 	        
