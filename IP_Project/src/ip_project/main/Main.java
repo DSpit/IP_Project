@@ -15,7 +15,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -64,24 +63,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			test2.setWidth(1000);
 			root.getChildren().addAll(test, test2);*/
 			
-			//setup buttons
-			mStart = new Button("Start");	//TODO make constant in Res (all buttons)
-			mRestart = new Button("Restart");
-			mDone = new Button("Done");
-			mContinue = new Button("Continue");
-			mPause = new Button("Pause");
-			mHelp = new Button("Help");
-			mExit = new Button("Exit");
-			mStart.setOnAction(this);
-			mRestart.setOnAction(this);
-			mDone.setOnAction(this);
-			mContinue.setOnAction(this);
-			mPause.setOnAction(this);
-			mHelp.setOnAction(this);
-			mExit.setOnAction(this);
-			
-			//TODO create menu
-			
+			//create menu
 	        MenuBar menuBar = new MenuBar();
 	        
 	        Menu mechMenu = new Menu("Mechanics");
@@ -90,7 +72,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	        Menu exitMenu = new Menu("Exit");
 	        
 	        // needs fixing, can't fucking figure out how to link a path from the git project to here ~a
-	        
+	        //menu items images
 	        Image apple = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/apple_64.png", 32, 32, false, false);
 	        Image projectile = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/file01_64.png", 32, 32, false, false);
 	        Image glasses = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/glasses_64.png", 32, 32, false, false);
@@ -98,12 +80,19 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	        Image ball = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/ball_64.png", 32, 32, false, false);
 	        Image bike = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/abacus_64.png", 32, 32, false, false);
 	        
+	        //create menu items
 	        MenuItem Newton = new MenuItem("Newton's Second Law", new ImageView(apple));
 	        MenuItem pMotion = new MenuItem("Projectile Motion", new ImageView(projectile));
 	        MenuItem Optics = new MenuItem("Optics and Lenses", new ImageView(glasses));
 	        MenuItem rDecay = new MenuItem("Radioactive Decay", new ImageView(decay));
 	        MenuItem gSeries = new MenuItem("Geometric Series", new ImageView(ball));
 	        MenuItem NSB = new MenuItem("New Sports Bike", new ImageView(bike));
+	        
+	        //handler for menu items
+	        MenuHandler mHandle = new MenuHandler();
+	        Newton.setOnAction(mHandle);
+	        // DO THIS FOR EVERY MENU ITEM ~d
+	        
 	        
 	        mechMenu.getItems().addAll(Newton, pMotion);
 	        wavesMenu.getItems().addAll(Optics, rDecay);
@@ -120,27 +109,37 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu, exitMenu);
 	        
 	        // CHANGED TO VBOX INSTEAD OF PANE ~a
-	        
-			VBox tempMenu = new VBox();
-			tempMenu.getChildren().add(menuBar);
-			tempMenu.setPrefHeight(50);
-			tempMenu.setStyle("-fx-background-color: darkgrey;");
-			        
-		
-			
-			//TODO create buttonBar (consider ToolBar (just saw something about it while looking for something else))
-			Pane tempBBar = new Pane();
-			tempBBar.getChildren().add(new Label("Button Bar"));
-			tempBBar.setPrefHeight(75);
-			tempBBar.setStyle("-fx-background-color: darkgrey;");
 			
 			//TODO create starting container
 			mContainer = new Test();		//TODO change Test class to whatever container is opened first 
 			VBox.setVgrow(mContainer, Priority.ALWAYS);
 			mContainer.setStyle("-fx-background-color: blue");
 			
+			//TODO create buttonBar (consider ToolBar (just saw something about it while looking for something else))
+			//setup buttons
+			mStart = new Button("Start");	//TODO make constant in Res (all buttons)
+			mRestart = new Button("Restart");
+			mDone = new Button("Done");
+			mContinue = new Button("Continue");
+			mPause = new Button("Pause");
+			mHelp = new Button("Help");
+			mExit = new Button("Exit");
+			mStart.setOnAction(this);
+			mRestart.setOnAction(this);
+			mDone.setOnAction(this);
+			mContinue.setOnAction(this);
+			mPause.setOnAction(this);
+			mHelp.setOnAction(this);
+			mExit.setOnAction(this);
 			
-			centeredPane.getChildren().addAll(tempMenu, mContainer, tempBBar);
+			//temporary pane to represent button bar
+			Pane tempBBar = new Pane();
+			tempBBar.getChildren().add(new Label("Button Bar"));
+			tempBBar.setPrefHeight(75);
+			tempBBar.setStyle("-fx-background-color: darkgrey;");
+			
+			
+			centeredPane.getChildren().addAll(menuBar, mContainer, tempBBar);
 			
 			//set main scene
 			Scene scene = new Scene(root);
@@ -192,5 +191,19 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	private class MenuHandler implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			
+			switch(((MenuItem)event.getSource()).getText()){
+			case "Newton's Second Law":
+				mContainer = new Test();	//TODO change to newtonsExperiment
+				break;
+			}
+		}
+		
 	}
 }
