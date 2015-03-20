@@ -50,26 +50,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			
 			root.getChildren().add(centeredPane);
 			
-			
-/*			//DEBug
-			Rectangle test = new Rectangle();
-			test.setStyle("-fx-background-color: red;");
-			test.setWidth(500);
-			test.setHeight(700);
-			
-			Rectangle test2 = new Rectangle();
-			test2.setStyle("-fx-background-color: red;");
-			test2.setHeight(100);
-			test2.setWidth(1000);
-			root.getChildren().addAll(test, test2);*/
-			
 			//create menu
 	        MenuBar menuBar = new MenuBar();
 	        
 	        Menu mechMenu = new Menu("Mechanics");
 	        Menu wavesMenu = new Menu("Waves");
 	        Menu calcMenu = new Menu("Calculus");
-	        Menu exitMenu = new Menu("Exit");
 	        
 	        // needs fixing, can't fucking figure out how to link a path from the git project to here ~a
 	        //menu items images
@@ -98,15 +84,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	        wavesMenu.getItems().addAll(Optics, rDecay);
 	        calcMenu.getItems().addAll(gSeries, NSB);
 	        
-	        // needs fixing ~a 
-	        
-	        exitMenu.setOnAction(new EventHandler<ActionEvent>() {
-	            public void handle(ActionEvent t) {
-	                System.exit(0);
-	            }
-;	        });
-	        
-	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu, exitMenu);
+	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu);
 	        
 	        // CHANGED TO VBOX INSTEAD OF PANE ~a
 			
