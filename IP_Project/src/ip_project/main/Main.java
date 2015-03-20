@@ -10,6 +10,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -76,10 +79,42 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			mExit.setOnAction(this);
 			
 			//TODO create menu
-			Pane tempMenu = new Pane();
-			tempMenu.getChildren().add(new Label("MENU"));
+			
+	        MenuBar menuBar = new MenuBar();
+	        
+	        Menu mechMenu = new Menu("Mechanics");
+	        Menu wavesMenu = new Menu("Waves");
+	        Menu calcMenu = new Menu("Calculus");
+	        Menu exitMenu = new Menu("Exit");
+	        
+	        MenuItem Newton = new MenuItem("Newton's Second Law");
+	        MenuItem pMotion = new MenuItem("Projectile Motion");
+	        MenuItem Optics = new MenuItem("Optics and Lenses");
+	        MenuItem rDecay = new MenuItem("Radioactive Decay");
+	        MenuItem gSeries = new MenuItem("Geometric Series");
+	        MenuItem NSB = new MenuItem("New Sports Bike");
+	        
+	        mechMenu.getItems().addAll(Newton, pMotion);
+	        wavesMenu.getItems().addAll(Optics, rDecay);
+	        calcMenu.getItems().addAll(gSeries, NSB);
+	        
+	        // needs fixing ~a 
+	        
+	        exitMenu.setOnAction(new EventHandler<ActionEvent>() {
+	            public void handle(ActionEvent t) {
+	                System.exit(0);
+	            }
+	        });
+	        
+	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu, exitMenu);
+	        
+	        // CHANGED TO VBOX INSTEAD OF PANE ~a
+	        
+			VBox tempMenu = new VBox();
+			tempMenu.getChildren().add(menuBar);
 			tempMenu.setPrefHeight(50);
 			tempMenu.setStyle("-fx-background-color: darkgrey;");
+			        
 		
 			
 			//TODO create buttonBar (consider ToolBar (just saw something about it while looking for something else))
