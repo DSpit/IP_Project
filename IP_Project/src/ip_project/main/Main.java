@@ -56,6 +56,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	        Menu mechMenu = new Menu("Mechanics");
 	        Menu wavesMenu = new Menu("Waves");
 	        Menu calcMenu = new Menu("Calculus");
+	        Menu exitMenu = new Menu("Exit");
 	        
 	        // needs fixing, can't fucking figure out how to link a path from the git project to here ~a
 	        //menu items images
@@ -67,24 +68,27 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	        Image bike = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/abacus_64.png", 32, 32, false, false);
 	        
 	        //create menu items
-	        MenuItem Newton = new MenuItem("Newton's Second Law", new ImageView(apple));
-	        MenuItem pMotion = new MenuItem("Projectile Motion", new ImageView(projectile));
-	        MenuItem Optics = new MenuItem("Optics and Lenses", new ImageView(glasses));
-	        MenuItem rDecay = new MenuItem("Radioactive Decay", new ImageView(decay));
-	        MenuItem gSeries = new MenuItem("Geometric Series", new ImageView(ball));
-	        MenuItem NSB = new MenuItem("New Sports Bike", new ImageView(bike));
+	        MenuItem newtonItem = new MenuItem("Newton's Second Law", new ImageView(apple));
+	        MenuItem pMotionItem = new MenuItem("Projectile Motion", new ImageView(projectile));
+	        MenuItem opticsItem = new MenuItem("Optics and Lenses", new ImageView(glasses));
+	        MenuItem rDecayItem = new MenuItem("Radioactive Decay", new ImageView(decay));
+	        MenuItem gSeriesItem = new MenuItem("Geometric Series", new ImageView(ball));
+	        MenuItem nSBikeItem = new MenuItem("New Sports Bike", new ImageView(bike));
+	        MenuItem exitItem = new MenuItem("Exit");
 	        
 	        //handler for menu items
 	        MenuHandler mHandle = new MenuHandler();
-	        Newton.setOnAction(mHandle);
+	        newtonItem.setOnAction(mHandle);
 	        // DO THIS FOR EVERY MENU ITEM ~d
+	        exitItem.setOnAction(mHandle);
 	        
 	        
-	        mechMenu.getItems().addAll(Newton, pMotion);
-	        wavesMenu.getItems().addAll(Optics, rDecay);
-	        calcMenu.getItems().addAll(gSeries, NSB);
+	        mechMenu.getItems().addAll(newtonItem, pMotionItem);
+	        wavesMenu.getItems().addAll(opticsItem, rDecayItem);
+	        calcMenu.getItems().addAll(gSeriesItem, nSBikeItem);
+	        exitMenu.getItems().addAll(exitItem);
 	        
-	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu);
+	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu, exitMenu);
 	        
 	        // CHANGED TO VBOX INSTEAD OF PANE ~a
 			
@@ -179,6 +183,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			switch(((MenuItem)event.getSource()).getText()){
 			case "Newton's Second Law":
 				mContainer = new Test();	//TODO change to newtonsExperiment
+				break;
+				
+			case "Exit": 
+				System.exit(0);
 				break;
 			}
 		}
