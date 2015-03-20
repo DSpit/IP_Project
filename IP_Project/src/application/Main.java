@@ -5,12 +5,13 @@ package application;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -33,8 +34,28 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		try {
 			
 			//root setup
-			BorderPane root = new BorderPane();	//maybe make AnchorPane
-
+			StackPane root = new StackPane();
+			root.setAlignment(Pos.CENTER);
+			
+			AnchorPane centeredPane = new AnchorPane();
+			centeredPane.setMinSize(1500, 900);		//TODO <arbitrary> take these values and put them in an interface for general access
+			centeredPane.setMaxSize(1500, 900);
+			
+			root.getChildren().add(centeredPane);
+			
+			
+/*			//DEBug
+			Rectangle test = new Rectangle();
+			test.setStyle("-fx-background-color: red;");
+			test.setWidth(500);
+			test.setHeight(700);
+			
+			Rectangle test2 = new Rectangle();
+			test2.setStyle("-fx-background-color: red;");
+			test2.setHeight(100);
+			test2.setWidth(1000);
+			root.getChildren().addAll(test, test2);*/
+			
 			//setup buttons
 			mStart = new Button("Start");	//TODO make constant in Res (all buttons)
 			mRestart = new Button("Restart");
@@ -51,20 +72,40 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			mHelp.setOnAction(this);
 			mExit.setOnAction(this);
 			
-			//TODO add buttons to root
-			
 			//TODO create menu
+			Pane tempMenu = new Pane();
+			tempMenu.getChildren().add(new Label("MENU"));
+			tempMenu.setPrefHeight(50);
+			tempMenu.setStyle("-fx-background-color: darkgrey;");
+			AnchorPane.setLeftAnchor(tempMenu, 0.0);
+			AnchorPane.setRightAnchor(tempMenu, 0.0);
+			AnchorPane.setTopAnchor(tempMenu, 0.0);
+		
 			
-			//TODO create buttonBar
+			//TODO create buttonBar (consider ToolBar (just saw something about it while looking for something else))
+			Pane tempBBar = new Pane();
+			tempBBar.getChildren().add(new Label("Button Bar"));
+			tempBBar.setPrefHeight(75);
+			tempBBar.setStyle("-fx-background-color: darkgrey;");
+			AnchorPane.setLeftAnchor(tempBBar, 0.0);
+			AnchorPane.setRightAnchor(tempBBar, 0.0);
+			AnchorPane.setBottomAnchor(tempBBar, 0.0);
 			
 			//TODO create starting container
+//			mContainer = ;		//TODO TEMP 
+			
+			centeredPane.getChildren().addAll(tempMenu, tempBBar);
 			
 			//set main scene
-			Scene scene = new Scene(root,400,400);		//TODO set to full size
+			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm()); //TODO CSS
-			
 			primaryStage.setScene(scene);
+			primaryStage.setMinHeight(1000);	//TODO should have formula MIN_MAIN_PAIN_SIZE + 100 for a padded effect
+			primaryStage.setMinWidth(1600);
 			primaryStage.show();
+			primaryStage.sizeToScene();
+			
+			primaryStage.setMaximized(true);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
