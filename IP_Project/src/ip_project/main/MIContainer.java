@@ -1,6 +1,6 @@
 
 
-package application;
+package ip_project.main;
 
 import javafx.scene.layout.Pane;
 

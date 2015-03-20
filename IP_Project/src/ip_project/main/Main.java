@@ -1,7 +1,8 @@
 
 
-package application;
+package ip_project.main;
 	
+import ip_project.experiments.Test;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,7 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -37,7 +40,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			StackPane root = new StackPane();
 			root.setAlignment(Pos.CENTER);
 			
-			AnchorPane centeredPane = new AnchorPane();
+			VBox centeredPane = new VBox();
 			centeredPane.setMinSize(1500, 900);		//TODO <arbitrary> take these values and put them in an interface for general access
 			centeredPane.setMaxSize(1500, 900);
 			
@@ -77,9 +80,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			tempMenu.getChildren().add(new Label("MENU"));
 			tempMenu.setPrefHeight(50);
 			tempMenu.setStyle("-fx-background-color: darkgrey;");
-			AnchorPane.setLeftAnchor(tempMenu, 0.0);
-			AnchorPane.setRightAnchor(tempMenu, 0.0);
-			AnchorPane.setTopAnchor(tempMenu, 0.0);
 		
 			
 			//TODO create buttonBar (consider ToolBar (just saw something about it while looking for something else))
@@ -87,18 +87,18 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			tempBBar.getChildren().add(new Label("Button Bar"));
 			tempBBar.setPrefHeight(75);
 			tempBBar.setStyle("-fx-background-color: darkgrey;");
-			AnchorPane.setLeftAnchor(tempBBar, 0.0);
-			AnchorPane.setRightAnchor(tempBBar, 0.0);
-			AnchorPane.setBottomAnchor(tempBBar, 0.0);
 			
 			//TODO create starting container
-//			mContainer = ;		//TODO TEMP 
+			mContainer = new Test();		//TODO change Test class to whatever container is opened first 
+			VBox.setVgrow(mContainer, Priority.ALWAYS);
+			mContainer.setStyle("-fx-background-color: blue");
 			
-			centeredPane.getChildren().addAll(tempMenu, tempBBar);
+			
+			centeredPane.getChildren().addAll(tempMenu, mContainer, tempBBar);
 			
 			//set main scene
 			Scene scene = new Scene(root);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm()); //TODO CSS
+			//scene.getStylesheets().add(getClass().getResource("ip_project.main.css").toExternalForm()); //TODO CSS
 			primaryStage.setScene(scene);
 			primaryStage.setMinHeight(1000);	//TODO should have formula MIN_MAIN_PAIN_SIZE + 100 for a padded effect
 			primaryStage.setMinWidth(1600);
