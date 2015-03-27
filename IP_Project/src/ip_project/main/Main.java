@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 /**
  * Main class which contains graphical and structural necessities. 
  */
-public class Main extends Application implements EventHandler<ActionEvent>{
+public class Main extends Application implements EventHandler<ActionEvent>, Resources{
 	
 	private Button mStart;
 	private Button mRestart;
@@ -112,12 +112,19 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			//TODO create buttonBar (consider ToolBar (just saw something about it while looking for something else))
 			//setup buttons
 			mStart = new Button("Start");	//TODO make constant in Res (all buttons)
+			mStart.setStyle(buttonStyle);
 			mRestart = new Button("Restart");
+			mRestart.setStyle(buttonStyle);
 			mDone = new Button("Done");
+			mDone.setStyle(buttonStyle);
 			mContinue = new Button("Continue");
+			mContinue.setStyle(buttonStyle);
 			mPause = new Button("Pause");
+			mPause.setStyle(buttonStyle);
 			mHelp = new Button("Help");
+			mHelp.setStyle(buttonStyle);
 			mExit = new Button("Exit");
+			mExit.setStyle(buttonStyle);
 			mStart.setOnAction(this);
 			mRestart.setOnAction(this);
 			mDone.setOnAction(this);
