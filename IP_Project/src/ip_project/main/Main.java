@@ -2,9 +2,14 @@
 
 package ip_project.main;
 	
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+
 import ip_project.experiments.Test;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,11 +22,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -59,7 +66,16 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	        Menu mechMenu = new Menu("Mechanics");
 	        Menu wavesMenu = new Menu("Waves");
 	        Menu calcMenu = new Menu("Calculus");
-	        Menu exitMenu = new Menu("Exit");
+	        Label exitLabel = new Label("Exit");
+	        Menu exitMenu = new Menu();
+	        exitMenu.setGraphic(exitLabel);
+	        
+	        exitLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent event) {
+	               System.exit(0);
+	            }
+	        });
 	        
 	        // needs fixing, can't fucking figure out how to link a path from the git project to here ~a
 	        //menu items images
@@ -80,13 +96,13 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 //	        MenuItem exitItem = new MenuItem("Exit");
 	        
 	        
-	        exitMenu.setOnAction(new EventHandler<ActionEvent>() {
-
-	            @Override
-	            public void handle(ActionEvent e) {
-	                Platform.exit();
-	            }
-	        });
+//	        exitMenu.setOnAction(new EventHandler<ActionEvent>() {
+//
+//	            @Override
+//	            public void handle(ActionEvent e) {
+//	                Platform.exit();
+//	            }
+//	        });
 	        
 	        //handler for menu items
 	        MenuHandler mHandle = new MenuHandler();
@@ -155,8 +171,8 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("ip_project.main.css").toExternalForm()); //TODO CSS
 			primaryStage.setScene(scene);
-			primaryStage.setMinHeight(1000);	//TODO should have formula MIN_MAIN_PAIN_SIZE + 100 for a padded effect
-			primaryStage.setMinWidth(1600);
+			primaryStage.setMinHeight(WINDOW_HEIGHT);	//TODO should have formula MIN_MAIN_PAIN_SIZE + 100 for a padded effect
+			primaryStage.setMinWidth(WINDOW_WIDTH);
 			primaryStage.show();
 			primaryStage.sizeToScene();
 			
