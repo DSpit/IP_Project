@@ -4,8 +4,10 @@ package ip_project.main;
 	
 import ip_project.experiments.Test;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +17,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -74,19 +77,28 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	        MenuItem rDecayItem = new MenuItem("Radioactive Decay", new ImageView(decay));
 	        MenuItem gSeriesItem = new MenuItem("Geometric Series", new ImageView(ball));
 	        MenuItem nSBikeItem = new MenuItem("New Sports Bike", new ImageView(bike));
-	        MenuItem exitItem = new MenuItem("Exit");
+//	        MenuItem exitItem = new MenuItem("Exit");
+	        
+	        
+	        exitMenu.setOnAction(new EventHandler<ActionEvent>() {
+
+	            @Override
+	            public void handle(ActionEvent e) {
+	                Platform.exit();
+	            }
+	        });
 	        
 	        //handler for menu items
 	        MenuHandler mHandle = new MenuHandler();
 	        newtonItem.setOnAction(mHandle);
 	        // DO THIS FOR EVERY MENU ITEM ~d
-	        exitItem.setOnAction(mHandle);
+//	        exitItem.setOnAction(mHandle);
 	        
 	        
 	        mechMenu.getItems().addAll(newtonItem, pMotionItem);
 	        wavesMenu.getItems().addAll(opticsItem, rDecayItem);
 	        calcMenu.getItems().addAll(gSeriesItem, nSBikeItem);
-	        exitMenu.getItems().addAll(exitItem);
+//	        exitMenu.getItems().addAll(exitItem);
 	        
 	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu, exitMenu);
 	        
@@ -114,14 +126,23 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			mHelp.setOnAction(this);
 			mExit.setOnAction(this);
 			
-			//temporary pane to represent button bar
-			Pane tempBBar = new Pane();
-			tempBBar.getChildren().add(new Label("Button Bar"));
-			tempBBar.setPrefHeight(75);
-			tempBBar.setStyle("-fx-background-color: darkgrey;");
+			HBox buttonBar = new HBox();
+		    buttonBar.setPadding(new Insets(15, 12, 15, 12));
+			buttonBar.setSpacing(50);
+	        buttonBar.setAlignment(Pos.CENTER);
+
+			
+			buttonBar.getChildren().addAll(mStart, mRestart, mDone, mContinue, mPause, mHelp, mExit);
 			
 			
-			centeredPane.getChildren().addAll(menuBar, mContainer, tempBBar);
+			StackPane buttonHolder = new StackPane();
+			buttonHolder.setAlignment(Pos.CENTER);
+			buttonHolder.getChildren().add(buttonBar);
+			buttonHolder.setPrefHeight(75);
+			buttonHolder.setStyle("-fx-background-color: darkgrey;");
+			
+			
+			centeredPane.getChildren().addAll(menuBar, mContainer, buttonHolder);
 			
 			//set main scene
 			Scene scene = new Scene(root);
