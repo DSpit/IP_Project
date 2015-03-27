@@ -107,7 +107,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			//TODO create starting container
 			mContainer = new Test();		//TODO change Test class to whatever container is opened first 
 			VBox.setVgrow(mContainer, Priority.ALWAYS);
-			mContainer.setStyle("-fx-background-color: blue");
+//			mContainer.setStyle("-fx-background-color: blue");
 			
 			//TODO create buttonBar (consider ToolBar (just saw something about it while looking for something else))
 			//setup buttons
