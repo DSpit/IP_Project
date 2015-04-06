@@ -2,9 +2,15 @@
 
 package ip_project.main;
 
+import java.util.ArrayList;
+
+import javafx.animation.Transition;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.chart.Chart;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -23,6 +29,9 @@ public abstract class MIContainer extends HBox{
 	
 	private VBox mGContainer = new VBox();
 	private HBox mIContainer = new HBox();
+	private Pane mCanvas = new Pane();
+	private ArrayList<Transition> mAnimation = new ArrayList<Transition>();
+	private boolean mIsChanged = false;
 	
 	public MIContainer(){
 		
@@ -44,12 +53,11 @@ public abstract class MIContainer extends HBox{
 		bar.getChildren().addAll(mGContainer, mIContainer);
 		
 		//create animation pane
-		Pane canvas = new Pane();
-		canvas.setBorder(new Border(new BorderStroke(Color.RED,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(1))));	
-		HBox.setHgrow(canvas, Priority.ALWAYS);
+		mCanvas.setBorder(new Border(new BorderStroke(Color.RED,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(1))));	
+		HBox.setHgrow(mCanvas, Priority.ALWAYS);
 		
 		//add elements to the container
-		this.getChildren().addAll(canvas, bar);
+		this.getChildren().addAll(mCanvas, bar);
 	}
 	
 	public void addInputs(Slider... inputs){
@@ -60,18 +68,106 @@ public abstract class MIContainer extends HBox{
 		mGContainer.getChildren().addAll(graphs);
 	}
 	
-	public void help(){
-		//TODO add dialog box (whatever predefined one there is in javafx) and output a help message (writen in Res)
+	public void addAnimationElements(Node... node){
+		mCanvas.getChildren().addAll(node);
 	}
 	
-	abstract public void start();
+	public void addAnimations(Transition... animations){
+		for(Transition animation: animations){
+			mAnimation.add(animation);
+		}
+	}
 	
-	abstract public void done();
+	public void help(){
+		//TODO add dialog box (whatever predefined one there is in javafx) and output a help message (written in Res)
+	}
 	
-	abstract public void unpause();	//Note: Could not use "Continue" because clash with reserved syntax
+	public void start(){
+		for(Node input: mIContainer.getChildren()){
+			input.setDisable(true);
+		}
+		for(Transition animation : mAnimation){
+			animation.playFromStart();
+		}
+		
+		//makes sure that change flag is set to false
+		mIsChanged = false;
+	}
 	
-	abstract public void pause();
+	public void done(){
+		for(Node input : mIContainer.getChildren()){
+			input.setDisable(false);
+			((Slider)input).setValue(((Slider)input).getMin());	//reset to default (min) value
+			input.setOnMouseReleased(null);
+		}
+		for(Transition animation: mAnimation){
+			animation.stop();
+		}
+		
+		//TODO clear graphs of all trials
+		
+		//makes sure that change flag is set to false
+		mIsChanged = false;
+	}
 	
-	abstract public void restart();
+	public void unpause(){	//Note: Could not use "Continue" because clash with reserved syntax
+		for(Node input: mIContainer.getChildren()){
+			input.setDisable(true);
+			input.setOnMouseReleased(null);
+		}
+		
+		if(mIsChanged){
+			//TODO create new trial in graphs
+			this.start();
+		}else{
+			for(Transition animation : mAnimation){
+				animation.play();
+			}
+		}
+	}
+		
+	public void pause(){
+		for(Node input: mIContainer.getChildren()){
+			input.setDisable(true);
+		}
+		
+		for(Transition animation : mAnimation){
+			animation.pause();
+		}
+		
+		//makes sure that change flag is set to false
+		mIsChanged = false;
+	}
+	
+	public void reset(){ 
+		for(Node input : mIContainer.getChildren()){
+			input.setDisable(false);
+			((Slider)input).setOnMouseReleased(new InputChangeListener(((Slider)input).getValue()));
+		}
+		for(Transition animation : mAnimation){
+			animation.pause();
+		}
+	}
+	
+	/**
+	 * Listener which watches for changes in input slider values
+	 */
+	private class InputChangeListener implements EventHandler<MouseEvent>{
 
+		private double mOriginal;
+		
+		public InputChangeListener(double original){
+			mOriginal = original;
+		}
+		
+		@Override
+		public void handle(MouseEvent event) {
+			//if the slider value is different from the original value then set the changed flag to true
+			if(((Slider)event.getSource()).getValue() != mOriginal){
+				mIsChanged = true;
+			}else{
+				mIsChanged = false;
+			}
+		}
+	}
 }

@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 public class Main extends Application implements EventHandler<ActionEvent>, Resources{
 	
 	private Button mStart;
-	private Button mRestart;
+	private Button mReset;
 	private Button mDone;
 	private Button mContinue;
 	private Button mPause;
@@ -93,16 +93,6 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	        MenuItem rDecayItem = new MenuItem("Radioactive Decay", new ImageView(decay));
 	        MenuItem gSeriesItem = new MenuItem("Geometric Series", new ImageView(ball));
 	        MenuItem nSBikeItem = new MenuItem("New Sports Bike", new ImageView(bike));
-//	        MenuItem exitItem = new MenuItem("Exit");
-	        
-	        
-//	        exitMenu.setOnAction(new EventHandler<ActionEvent>() {
-//
-//	            @Override
-//	            public void handle(ActionEvent e) {
-//	                Platform.exit();
-//	            }
-//	        });
 	        
 	        //handler for menu items
 	        MenuHandler mHandle = new MenuHandler();
@@ -114,35 +104,37 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	        mechMenu.getItems().addAll(newtonItem, pMotionItem);
 	        wavesMenu.getItems().addAll(opticsItem, rDecayItem);
 	        calcMenu.getItems().addAll(gSeriesItem, nSBikeItem);
-//	        exitMenu.getItems().addAll(exitItem);
 	        
 	        menuBar.getMenus().addAll(mechMenu, wavesMenu, calcMenu, exitMenu);
 	        
-	        // CHANGED TO VBOX INSTEAD OF PANE ~a
 			
-			//TODO create starting container
+			//create starting container
 			mContainer = new Test();		//TODO change Test class to whatever container is opened first 
 			VBox.setVgrow(mContainer, Priority.ALWAYS);
 //			mContainer.setStyle("-fx-background-color: blue");
 			
-			//TODO create buttonBar (consider ToolBar (just saw something about it while looking for something else))
 			//setup buttons
 			mStart = new Button("Start");	//TODO make constant in Res (all buttons)
 			mStart.setStyle(buttonStyle);
-			mRestart = new Button("Restart");
-			mRestart.setStyle(buttonStyle);
+			mReset = new Button("Reset");
+			mReset.setStyle(buttonStyle);
+			mReset.setDisable(true);
 			mDone = new Button("Done");
 			mDone.setStyle(buttonStyle);
+			mDone.setDisable(true);
 			mContinue = new Button("Continue");
 			mContinue.setStyle(buttonStyle);
+			mContinue.setDisable(true);
 			mPause = new Button("Pause");
 			mPause.setStyle(buttonStyle);
+			mPause.setDisable(true);
 			mHelp = new Button("Help");
 			mHelp.setStyle(buttonStyle);
 			mExit = new Button("Exit");
 			mExit.setStyle(buttonStyle);
+			
 			mStart.setOnAction(this);
-			mRestart.setOnAction(this);
+			mReset.setOnAction(this);
 			mDone.setOnAction(this);
 			mContinue.setOnAction(this);
 			mPause.setOnAction(this);
@@ -155,7 +147,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	        buttonBar.setAlignment(Pos.CENTER);
 
 			
-			buttonBar.getChildren().addAll(mStart, mRestart, mDone, mContinue, mPause, mHelp, mExit);
+			buttonBar.getChildren().addAll(mStart, mReset, mDone, mContinue, mPause, mHelp, mExit);
 			
 			
 			StackPane buttonHolder = new StackPane();
@@ -188,7 +180,13 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			
 		switch(((Button)event.getSource()).getText()){
 		case "Start"://TODO make constant (all cases)
-			System.out.println(event.toString()); //DEBUG TODO remove
+			//update control bar
+			mStart.setDisable(true);
+			mContinue.setDisable(true);
+			mPause.setDisable(false);
+			mReset.setDisable(false);
+			mDone.setDisable(false);
+			
 			mContainer.start();
 			break;
 			
@@ -196,15 +194,48 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			System.exit(0);
 			break;
 		
-		case "Restart":
-			mContainer.restart();
-			break;
+		case "Reset":
+			//update control bar
+			mStart.setDisable(true);
+			mContinue.setDisable(false);
+			mPause.setDisable(true);
+			mReset.setDisable(true);
+			mDone.setDisable(false);
 			
+			mContainer.reset();
+			break;
+		
+		case "Pause":
+			//update control bar
+			mStart.setDisable(true);
+			mContinue.setDisable(false);
+			mPause.setDisable(true);
+			mReset.setDisable(false);
+			mDone.setDisable(false);
+			
+			mContainer.pause();
+			break;
+		
 		case "Done":
+			//update control bar
+			mStart.setDisable(false);
+			mContinue.setDisable(true);
+			mPause.setDisable(true);
+			mReset.setDisable(true);
+			mDone.setDisable(true);
+			
 			mContainer.done();
+			
 			break;
 			
 		case "Continue":
+			//update control bar
+			mStart.setDisable(true);
+			mContinue.setDisable(true);
+			mPause.setDisable(false);
+			mReset.setDisable(false);
+			mDone.setDisable(false);
+			
 			mContainer.unpause();
 			break;
 			
