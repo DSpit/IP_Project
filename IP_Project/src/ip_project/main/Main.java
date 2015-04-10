@@ -2,14 +2,14 @@
 
 package ip_project.main;
 	
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-
 import ip_project.experiments.Test;
+import ip_project.experiments.calculus.GeomSeriesContainer;
+import ip_project.experiments.calculus.NewSportsBikeContainer;
+import ip_project.experiments.mechanics.NewtonContainer;
+import ip_project.experiments.mechanics.ProjContainer;
+import ip_project.experiments.waves.OpticsContainer;
+import ip_project.experiments.waves.RadioActContainer;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -24,11 +24,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -59,7 +57,6 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			centeredPane.setMaxSize(1500, 900);
 			
 			root.getChildren().add(centeredPane);
-			
 			//create menu
 	        MenuBar menuBar = new MenuBar();
 	        
@@ -97,7 +94,11 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	        //handler for menu items
 	        MenuHandler mHandle = new MenuHandler();
 	        newtonItem.setOnAction(mHandle);
-	        // DO THIS FOR EVERY MENU ITEM ~d
+	        pMotionItem.setOnAction(mHandle);
+	        opticsItem.setOnAction(mHandle);
+	        rDecayItem.setOnAction(mHandle);
+	        gSeriesItem.setOnAction(mHandle);
+	        nSBikeItem.setOnAction(mHandle);
 //	        exitItem.setOnAction(mHandle);
 	        
 	        
@@ -110,6 +111,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			
 			//create starting container
 			mContainer = new Test();		//TODO change Test class to whatever container is opened first 
+			mContainer.setManaged(true);
 			VBox.setVgrow(mContainer, Priority.ALWAYS);
 //			mContainer.setStyle("-fx-background-color: blue");
 			
@@ -256,8 +258,38 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		public void handle(ActionEvent event) {
 			
 			switch(((MenuItem)event.getSource()).getText()){
-			case "Newton's Second Law":
-				mContainer = new Test();	//TODO change to newtonsExperiment
+			case "Newton's Second Law":				
+				// TODO ~D menu items aren't updating (probably have to change the way I wrote this, 
+				//Problem: I suspect that just reassigning mContainer doesn't cause a visual update, 
+				//Possible Sol: switch out the root scene (i was reading at it looks like that automatically updates the display))
+				mContainer = new NewtonContainer();
+				mContainer.requestLayout();
+				System.out.println("Newton");	//~D Debug
+				break;
+			
+			case "Projectile Motion":
+				mContainer = new ProjContainer();
+				System.out.println("Proj");	//~D Debug
+				break;
+			
+			case "Optics and Lenses":
+				mContainer = new OpticsContainer();
+				System.out.println("Optics");	//~D Debug
+				break;
+				
+			case "Radioactive Decay":
+				mContainer = new RadioActContainer();
+				System.out.println("Decay");	//~D Debug
+				break;
+				
+			case "Geometric Series":
+				mContainer = new GeomSeriesContainer();
+				System.out.println("Geom");	//~D Debug
+				break;
+				
+			case "New Sports Bike":
+				mContainer = new NewSportsBikeContainer();
+				System.out.println("Sports");	//~D Debug
 				break;
 				
 			case "Exit": 
