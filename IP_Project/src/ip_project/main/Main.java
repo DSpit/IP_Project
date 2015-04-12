@@ -55,7 +55,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			
 			//set main scene
 			mStage.setScene(this.createScene());
-			mStage.setMinHeight(WINDOW_HEIGHT);	//TODO should have formula MIN_MAIN_PAIN_SIZE + 100 for a padded effect
+			mStage.setMinHeight(WINDOW_HEIGHT);
 			mStage.setMinWidth(WINDOW_WIDTH);
 			mStage.show();
 			mStage.sizeToScene();
@@ -74,10 +74,10 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		//create menu
         MenuBar menubar = new MenuBar();
         
-        Menu mechMenu = new Menu("Mechanics");
-        Menu wavesMenu = new Menu("Waves");
-        Menu calcMenu = new Menu("Calculus");
-        Label exitLabel = new Label("Exit");
+        Menu mechMenu = new Menu(MECH_MENU);
+        Menu wavesMenu = new Menu(WAVES_MENU);
+        Menu calcMenu = new Menu(CALC_MENU);
+        Label exitLabel = new Label(EXIT);
         Menu exitMenu = new Menu();
         exitMenu.setGraphic(exitLabel);
         
@@ -90,12 +90,12 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
         
         // TODO needs fixing, can't fucking figure out how to link a path from the git project to here ~a
         //menu items images
-        Image apple = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/apple_64.png", 32, 32, false, false);
-        Image projectile = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/file01_64.png", 32, 32, false, false);
-        Image glasses = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/glasses_64.png", 32, 32, false, false);
-        Image decay = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/molecule_64.png", 32, 32, false, false);
-        Image ball = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/ball_64.png", 32, 32, false, false);
-        Image bike = new Image("https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/abacus_64.png", 32, 32, false, false);
+        Image apple = new Image(APPLE_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image projectile = new Image(PROJ_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image glasses = new Image(GLASSES_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image decay = new Image(DECAY_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image ball = new Image(BALL_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image bike = new Image(BIKE_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
         
         //create menu items
         MenuItem newtonItem = new MenuItem(NEWTON_TITLE, new ImageView(apple));
@@ -128,23 +128,23 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	 */
 	private StackPane createControl(){
 		//setup buttons
-		mStart = new Button("Start");	//TODO make constant in Res (all buttons)
+		mStart = new Button(START_TITLE);
 		mStart.setStyle(buttonStyle);
-		mReset = new Button("Reset");
+		mReset = new Button(RESET_TITLE);
 		mReset.setStyle(buttonStyle);
 		mReset.setDisable(true);
-		mDone = new Button("Done");
+		mDone = new Button(DONE_TITLE);
 		mDone.setStyle(buttonStyle);
 		mDone.setDisable(true);
-		mContinue = new Button("Continue");
+		mContinue = new Button(CONTINUE_TITLE);
 		mContinue.setStyle(buttonStyle);
 		mContinue.setDisable(true);
-		mPause = new Button("Pause");
+		mPause = new Button(PAUSE_TITLE);
 		mPause.setStyle(buttonStyle);
 		mPause.setDisable(true);
-		mHelp = new Button("Help");
+		mHelp = new Button(HELP_TITLE);
 		mHelp.setStyle(buttonStyle);
-		mExit = new Button("Exit");
+		mExit = new Button(EXIT);
 		mExit.setStyle(buttonStyle);
 		
 		//adds event handler for buttons
@@ -158,8 +158,8 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		
 		//set up bar
 		HBox buttonHolder = new HBox();
-	    buttonHolder.setPadding(new Insets(15, 12, 15, 12));
-		buttonHolder.setSpacing(50);
+	    buttonHolder.setPadding(new Insets(CONTROL_BUTTON_PADDING));
+		buttonHolder.setSpacing(CONTROL_BUTTON_SPACING);
         buttonHolder.setAlignment(Pos.CENTER);
 
 		
@@ -181,8 +181,8 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		root.setAlignment(Pos.CENTER);
 		
 		mCenteredPane = new VBox();
-		mCenteredPane.setMinSize(1500, 900);		//TODO <arbitrary> take these values and put them in an interface for general access
-		mCenteredPane.setMaxSize(1500, 900);
+		mCenteredPane.setMinSize(CONTENT_WIDTH, CONTENT_HEIGHT);
+		mCenteredPane.setMaxSize(CONTENT_WIDTH, CONTENT_HEIGHT);
 		
 		root.getChildren().add(mCenteredPane);
 		
@@ -210,7 +210,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	public void handle(ActionEvent event) {
 			
 		switch(((Button)event.getSource()).getText()){
-		case "Start"://TODO make constant (all cases)
+		case START_TITLE:
 			//update control bar
 			mStart.setDisable(true);
 			mContinue.setDisable(true);
@@ -221,11 +221,11 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			mContainer.start();
 			break;
 			
-		case "Exit":
+		case EXIT:
 			System.exit(0);
 			break;
 		
-		case "Reset":
+		case RESET_TITLE:
 			//update control bar
 			mStart.setDisable(true);
 			mContinue.setDisable(false);
@@ -236,7 +236,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			mContainer.reset();
 			break;
 		
-		case "Pause":
+		case PAUSE_TITLE:
 			//update control bar
 			mStart.setDisable(true);
 			mContinue.setDisable(false);
@@ -247,7 +247,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			mContainer.pause();
 			break;
 		
-		case "Done":
+		case DONE_TITLE:
 			//update control bar
 			mStart.setDisable(false);
 			mContinue.setDisable(true);
@@ -259,7 +259,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			
 			break;
 			
-		case "Continue":
+		case CONTINUE_TITLE:
 			//update control bar
 			mStart.setDisable(true);
 			mContinue.setDisable(true);
@@ -270,7 +270,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			mContainer.unpause();
 			break;
 			
-		case "Help":
+		case HELP_TITLE:
 			mContainer.help();
 			break;
 			
