@@ -169,7 +169,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		StackPane controlbar = new StackPane();
 		controlbar.setAlignment(Pos.CENTER);
 		controlbar.getChildren().add(buttonHolder);
-		controlbar.setPrefHeight(75);
+		controlbar.setPrefHeight(CONTROL_HEIGHT);
 		controlbar.setStyle("-fx-background-color: darkgrey;");
 		
 		return controlbar;

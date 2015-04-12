@@ -22,6 +22,7 @@ public interface Resources {
 	
 	public int CONTROL_BUTTON_PADDING = 15;
 	public int CONTROL_BUTTON_SPACING = 50;
+	public int CONTROL_HEIGHT = 75;
 	
 	public String NEWTON_TITLE = "Newton's Second Law";
 	public String PROJ_TITLE = "Projectile Motion";
