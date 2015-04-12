@@ -149,6 +149,8 @@ public abstract class MIContainer extends HBox{
 		}
 	}
 	
+	abstract public String getTitle();
+	
 	/**
 	 * Listener which watches for changes in input slider values
 	 */

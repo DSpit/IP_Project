@@ -16,5 +16,10 @@ public class Test extends MIContainer{
 		LineChart<Number, Number> graph1 = new LineChart<Number, Number>(xAxis, yAxis);
 		this.addGraphs(graph1);
 	}
+	
+	@Override
+	public String getTitle(){
+		return "Test";
+	}
 
 }

@@ -14,5 +14,12 @@ public interface Resources {
 	
 	int WINDOW_WIDTH = 1600;
 	int WINDOW_HEIGHT = 1000;
+	
+	public String NEWTON_TITLE = "Newton's Second Law";
+	public String PROJ_TITLE = "Projectile Motion";
+	public String OPTIC_TITLE = "Optics and Lenses";
+	public String RAD_ACT_TITLE = "Radioactive Decay";
+	public String BIKE_TITLE = ;
+	public String GEOM_SER_TITLE = ;
 
 }

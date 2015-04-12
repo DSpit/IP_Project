@@ -10,6 +10,9 @@ public class NewtonContainer extends MIContainer {
 
 	public NewtonContainer(){
 		super();
-		this.getChildren().add(new Label("Newton's Second Law"));
+	}
+	
+	public String getTitle(){
+		return ""
 	}
 }
