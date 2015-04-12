@@ -13,6 +13,6 @@ public interface Resources {
 							+ "-fx-pref-width: 150px;";
 	
 	int WINDOW_WIDTH = 1600;
-	int WINDOW_HEIGHT = 1600;
+	int WINDOW_HEIGHT = 900;
 
 }
