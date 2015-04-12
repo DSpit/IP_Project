@@ -1,16 +1,19 @@
 package ip_project.experiments.calculus;
 
-import javafx.scene.control.Label;
 import ip_project.main.MIContainer;
+import ip_project.main.Resources;
+import javafx.scene.control.Label;
 
 /**
  * New Sports Bike Calculus Experiment
  */
-public class NewSportsBikeContainer extends MIContainer {
+public class NewSportsBikeContainer extends MIContainer implements Resources{
 	
 	public NewSportsBikeContainer(){
 		super();
-		
-		this.getChildren().add(new Label("New Sports Bike"));
+	}
+	
+	public String getTitle(){
+		return BIKE_TITLE;
 	}
 }

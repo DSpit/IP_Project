@@ -19,7 +19,7 @@ public interface Resources {
 	public String PROJ_TITLE = "Projectile Motion";
 	public String OPTIC_TITLE = "Optics and Lenses";
 	public String RAD_ACT_TITLE = "Radioactive Decay";
-	public String BIKE_TITLE = ;
-	public String GEOM_SER_TITLE = ;
-
+	public String BIKE_TITLE = "New Sports Bike";
+	public String GEOM_SER_TITLE = "Geometric Series";
+	public String EXIT = "Exit";
 }

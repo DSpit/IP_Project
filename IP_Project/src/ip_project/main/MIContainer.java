@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.Chart;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
@@ -19,13 +20,14 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
  *
  */
-public abstract class MIContainer extends HBox{
+public abstract class MIContainer extends VBox{
 	
 	private VBox mGContainer = new VBox();
 	private HBox mIContainer = new HBox();
@@ -34,7 +36,14 @@ public abstract class MIContainer extends HBox{
 	private boolean mIsChanged = false;
 	
 	public MIContainer(){
+		super();
 		
+		//add a title bar
+		StackPane titlebar = new StackPane();
+		titlebar.setAlignment(Pos.CENTER_RIGHT);
+		titlebar.getChildren().add(new Label(this.getTitle()));
+		
+		HBox content = new HBox();
 		//create graph and input bar
 		VBox bar = new VBox();
 		bar.setPrefWidth(500);
@@ -57,7 +66,10 @@ public abstract class MIContainer extends HBox{
 		HBox.setHgrow(mCanvas, Priority.ALWAYS);
 		
 		//add elements to the container
-		this.getChildren().addAll(mCanvas, bar);
+		content.getChildren().addAll(mCanvas, bar);
+		VBox.setVgrow(content, Priority.ALWAYS);
+		
+		this.getChildren().addAll(titlebar, content);
 	}
 	
 	public void addInputs(Slider... inputs){
