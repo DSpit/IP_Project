@@ -32,7 +32,7 @@ public class NewtonContainer extends MIContainer implements Resources{
 	
 	//private ObservableList<XYChart.Series> XYlist;
 	XYChart.Series<Number, Number> series;
-	ScatterChart<Number, Number> mGraph1;
+	LineChart<Number, Number> mGraph1;
 	Slider mSlider1, mSlider2;
 	Animation gAnim;
 	double mForce, mMass, mAcceleration;
@@ -66,7 +66,7 @@ public class NewtonContainer extends MIContainer implements Resources{
 				//example of graph set up
 				NumberAxis xAxis = new NumberAxis();
 				NumberAxis yAxis = new NumberAxis();
-				mGraph1 = new ScatterChart<Number, Number>(xAxis, yAxis);
+				mGraph1 = new LineChart<Number, Number>(xAxis, yAxis);
 				this.addGraphs(mGraph1);
 				
 				//specify object- look and location
