@@ -5,6 +5,8 @@ package ip_project.main;
 import java.util.ArrayList;
 
 import javafx.animation.Transition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -32,6 +34,7 @@ public abstract class MIContainer extends VBox{
 	private VBox mGContainer = new VBox();
 	private HBox mIContainer = new HBox();
 	private Pane mCanvas = new Pane();
+	private ArrayList<Slider> mInputs = new ArrayList<Slider>();
 	private ArrayList<Transition> mAnimation = new ArrayList<Transition>();
 	private boolean mIsChanged = false;
 	
@@ -73,7 +76,16 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void addInputs(Slider... inputs){
-			mIContainer.getChildren().addAll(inputs);
+		for(Slider s : inputs){
+			mInputs.add(s);
+			HBox c = new HBox();
+			Label l = new Label(String.valueOf(s.getValue()));
+			s.valueProperty().addListener(new ValueChangeListener(l));
+			
+			c.getChildren().addAll(s, l);
+			
+			mIContainer.getChildren().add(c);
+		}
 	}
 	
 	public void addGraphs(Chart... graphs){
@@ -95,7 +107,7 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void start(){
-		for(Node input: mIContainer.getChildren()){
+		for(Node input: mInputs){
 			input.setDisable(true);
 		}
 		for(Transition animation : mAnimation){
@@ -107,12 +119,12 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void done(){
-		for(Node input : mIContainer.getChildren()){
+		for(Node input : mInputs){
 			input.setDisable(false);
-			((Slider)input).setValue(((Slider)input).getMin());	//reset to default (min) value
 			input.setOnMouseReleased(null);
 		}
 		for(Transition animation: mAnimation){
+			animation.playFromStart();
 			animation.stop();
 		}
 		
@@ -154,7 +166,7 @@ public abstract class MIContainer extends VBox{
 	public void reset(){ 
 		for(Node input : mIContainer.getChildren()){
 			input.setDisable(false);
-			((Slider)input).setOnMouseReleased(new InputChangeListener(((Slider)input).getValue()));
+			((Slider)input).setOnMouseReleased(new InputChangeHandler(((Slider)input).getValue()));
 		}
 		for(Transition animation : mAnimation){
 			animation.pause();
@@ -166,11 +178,11 @@ public abstract class MIContainer extends VBox{
 	/**
 	 * Listener which watches for changes in input slider values
 	 */
-	private class InputChangeListener implements EventHandler<MouseEvent>{
+	private class InputChangeHandler implements EventHandler<MouseEvent>{
 
 		private double mOriginal;
 		
-		public InputChangeListener(double original){
+		public InputChangeHandler(double original){
 			mOriginal = original;
 		}
 		
@@ -183,5 +195,21 @@ public abstract class MIContainer extends VBox{
 				mIsChanged = false;
 			}
 		}
+	}
+	
+	private class ValueChangeListener implements ChangeListener<Number>{
+		
+		private Label mValueDisplay;
+		
+		public ValueChangeListener(Label l){
+			mValueDisplay = l;
+		}
+
+		@Override
+		public void changed(ObservableValue<? extends Number> ov,
+				Number oldNum, Number newNum) {
+			mValueDisplay.setText(String.valueOf(newNum.doubleValue()));
+		}
+		
 	}
 }

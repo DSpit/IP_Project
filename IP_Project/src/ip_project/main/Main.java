@@ -200,6 +200,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	}
 	
 	private void updateContainer(MIContainer experiment){
+		mDone.fire();
 		mCenteredPane.getChildren().remove(mContainer);
 		mContainer = experiment;
 		VBox.setVgrow(mContainer, Priority.ALWAYS);
@@ -323,7 +324,6 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			default: 
 				return;
 			}
-		}
-		
+		}	
 	}
 }
