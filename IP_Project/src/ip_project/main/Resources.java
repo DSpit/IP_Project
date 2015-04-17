@@ -2,8 +2,18 @@ package ip_project.main;
 
 public interface Resources {
 	
+	
+	//temporary until added to CSS
+	String buttonStyle = "-fx-background-color:  #000000, linear-gradient(#7ebcea, #2f4b8f), linear-gradient(#426ab7, #263e75), linear-gradient(#395cab, #223768); "
+							+ "-fx-background-insets: 0,1,2,3;"
+						    + "-fx-background-radius: 3,2,2,2;"
+						    + "-fx-padding: 12 30 12 30;"
+						    + "-fx-text-fill: white;"
+						    + "-fx-font-size: 12px;"
+							+ "-fx-pref-width: 150px;";
+	
 	public int CONTENT_HEIGHT = 900;
-	public int CONTENT_WIDTH = 1500;
+	public int CONTENT_WIDTH = 1000;
 	public int WINDOW_PADDING = 100;
 	public int WINDOW_HEIGHT = CONTENT_HEIGHT + WINDOW_PADDING;
 	public int WINDOW_WIDTH = CONTENT_WIDTH + WINDOW_PADDING;
@@ -39,4 +49,7 @@ public interface Resources {
 	public String DECAY_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/molecule_64.png";
 	public String BALL_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/ball_64.png";
 	public String BIKE_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/abacus_64.png";
+
+	public int MAX_FORCE = 100, MAX_WEIGHT = 100, MIN_FORCE = 5, MIN_WEIGHT = 5;
+
 }
