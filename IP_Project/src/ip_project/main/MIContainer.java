@@ -26,6 +26,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -47,6 +48,8 @@ public abstract class MIContainer extends VBox{
 		//add a title bar
 		StackPane titlebar = new StackPane();
 		titlebar.setAlignment(Pos.CENTER_RIGHT);
+		Label title = new Label(this.getTitle());
+		
 		titlebar.getChildren().add(new Label(this.getTitle()));
 		
 		HBox content = new HBox();
@@ -94,6 +97,8 @@ public abstract class MIContainer extends VBox{
 	public void addGraphs(LineChart<Number, Number>... graphs){
 		for(LineChart<Number, Number> c : graphs){
 			mGraphs.add(c);
+			c.setCreateSymbols(false);
+			
 		}
 		mGContainer.getChildren().addAll(graphs);
 	}
