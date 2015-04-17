@@ -26,7 +26,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -48,7 +47,6 @@ public abstract class MIContainer extends VBox{
 		//add a title bar
 		StackPane titlebar = new StackPane();
 		titlebar.setAlignment(Pos.CENTER_RIGHT);
-		Label title = new Label(this.getTitle());
 		
 		titlebar.getChildren().add(new Label(this.getTitle()));
 		
@@ -138,6 +136,7 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void done(){
+		
 		for(Slider input : mInputs){
 			input.setDisable(false);
 			input.setOnMouseReleased(null);
@@ -147,10 +146,16 @@ public abstract class MIContainer extends VBox{
 			animation.stop();
 		}
 		
+		//removes all the previous experiments
+		for(LineChart<Number, Number> graph : mGraphs){
+			int dataSetCount = graph.getData().size();
+			for(int i = 0; i < dataSetCount; ++i){
+				graph.getData().remove(0);
+			}
+		}
+		
 		//resets the experiment count
 		mExperimentCount = 1;
-		
-		//TODO clear graphs of all trials
 		
 		//makes sure that change flag is set to false
 		mIsChanged = false;

@@ -80,12 +80,6 @@ public class NewtonContainer extends MIContainer implements Resources{
 				anim1.setFromX(10);
 				anim1.setCycleCount(1);
 				anim1.setToX(500);
-				
-				
-		       // calculateForce();
-		      //  calculateMass();
-		       // calculateAcceleration();
-		        populateGraph();
 		        
 				TranslateTransition anim2 = new TranslateTransition(Duration.seconds(5), object1);
 				anim2.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
@@ -108,38 +102,13 @@ public class NewtonContainer extends MIContainer implements Resources{
 				
 			}
 			
-	
-			private void populateGraph(){
-				
-				series = new Series<Number, Number>();
-		        series.setName("Newton's Second Law");
-
-		        for(int i = 0; i<25; ++i){
-		        	series.getData().add(new Data<Number, Number>(i, (calculateAcceleration() * Math.pow(i, 2))));
-		        }
-		        mGraph1.getData().add(series);		
-			}
-	
 			private double calculateAcceleration(){
-					
-				calculateForce();
-				calculateMass();
-				
-				return (mForce/mMass);	
+				return (mSlider1.getValue()/mSlider2.getValue());	
 			}
 			
-			private  void calculateForce(){
-				if(mSlider1.getValue()!=0)
-					mForce = (mSlider1.getValue()*MAX_FORCE);
-				else
-					mForce = MIN_FORCE;	
-			}
-
-			private void calculateMass(){
-				if(mSlider2.getValue()!=0)
-					mMass = (mSlider2.getValue()*MAX_WEIGHT);
-				else
-					mMass = MIN_WEIGHT;
+			@Override
+			public double calculate(double value, double time){
+				return value * Math.pow(time, 2);
 			}
 			
 			private class NewtonInterpolator extends Interpolator{
@@ -147,12 +116,18 @@ public class NewtonContainer extends MIContainer implements Resources{
 				@Override
 				protected double curve(double t) {
 					
-					//mGraph1.getData();
-					if(calculateAcceleration() * Math.pow(t, 2)<1)
+					double value = calculate( calculateAcceleration(), t);
+					
+					//get top level series
+					XYChart.Series<Number, Number> series = mGraph1.getData().get(mGraph1.getData().size() - 1);
+					
+					if(value<1)
 					{
-						return calculateAcceleration() * Math.pow(t, 2);
+						series.getData().add(new Data<Number, Number>(t, value));
+						return value;
 					}
 					else 
+						series.getData().add(new Data<Number, Number>(t, 1));
 						return 1;
 				}
 				
