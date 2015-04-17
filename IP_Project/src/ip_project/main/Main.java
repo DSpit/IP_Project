@@ -129,23 +129,16 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	private StackPane createControl(){
 		//setup buttons
 		mStart = new Button(START_TITLE);
-		mStart.setStyle(buttonStyle);
 		mReset = new Button(RESET_TITLE);
-		mReset.setStyle(buttonStyle);
 		mReset.setDisable(true);
 		mDone = new Button(DONE_TITLE);
-		mDone.setStyle(buttonStyle);
 		mDone.setDisable(true);
 		mContinue = new Button(CONTINUE_TITLE);
-		mContinue.setStyle(buttonStyle);
 		mContinue.setDisable(true);
 		mPause = new Button(PAUSE_TITLE);
-		mPause.setStyle(buttonStyle);
 		mPause.setDisable(true);
 		mHelp = new Button(HELP_TITLE);
-		mHelp.setStyle(buttonStyle);
 		mExit = new Button(EXIT);
-		mExit.setStyle(buttonStyle);
 		
 		//adds event handler for buttons
 		mStart.setOnAction(this);
@@ -194,7 +187,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		mCenteredPane.getChildren().addAll(this.createMenu(), mContainer, this.createControl());
 		
 		Scene scene = new Scene(root);
-		//scene.getStylesheets().add(getClass().getResource("ip_project.main.css").toExternalForm()); //TODO CSS
+		scene.getStylesheets().add("ip_project/main/application.css");
 		
 		return scene;
 	}
