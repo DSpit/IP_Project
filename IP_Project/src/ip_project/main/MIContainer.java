@@ -76,7 +76,9 @@ public abstract class MIContainer extends VBox{
 		//create input container
 		mIContainer.setPrefHeight(150);
 		mIContainer.setAlignment(Pos.CENTER);
-		mIContainer.setBorder(new Border(new BorderStroke(Color.GREEN,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(2))));
+		mIContainer.getStyleClass().add("linear-grad-repeat2");
+		
+//		mIContainer.setBorder(new Border(new BorderStroke(Color.GREEN,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(2))));
 		
 		//add elements to bar
 		bar.getChildren().addAll(mGContainer, mIContainer);
@@ -100,6 +102,7 @@ public abstract class MIContainer extends VBox{
 			s.valueProperty().addListener(new ValueChangeListener(l));
 			
 			c.getChildren().addAll(s, l);
+			c.setAlignment(Pos.CENTER);
 			
 			mIContainer.getChildren().add(c);
 		}
