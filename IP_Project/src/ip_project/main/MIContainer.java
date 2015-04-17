@@ -107,7 +107,7 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void start(){
-		for(Node input: mInputs){
+		for(Slider input: mInputs){
 			input.setDisable(true);
 		}
 		for(Transition animation : mAnimation){
@@ -119,7 +119,7 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void done(){
-		for(Node input : mInputs){
+		for(Slider input : mInputs){
 			input.setDisable(false);
 			input.setOnMouseReleased(null);
 		}
@@ -135,7 +135,7 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void unpause(){	//Note: Could not use "Continue" because clash with reserved syntax
-		for(Node input: mIContainer.getChildren()){
+		for(Slider input: mInputs){
 			input.setDisable(true);
 			input.setOnMouseReleased(null);
 		}
@@ -151,7 +151,7 @@ public abstract class MIContainer extends VBox{
 	}
 		
 	public void pause(){
-		for(Node input: mIContainer.getChildren()){
+		for(Slider input: mInputs){
 			input.setDisable(true);
 		}
 		
@@ -164,9 +164,9 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void reset(){ 
-		for(Node input : mIContainer.getChildren()){
+		for(Slider input : mInputs){
 			input.setDisable(false);
-			((Slider)input).setOnMouseReleased(new InputChangeHandler(((Slider)input).getValue()));
+			input.setOnMouseReleased(new InputChangeHandler(input.getValue()));
 		}
 		for(Transition animation : mAnimation){
 			animation.pause();
@@ -208,8 +208,7 @@ public abstract class MIContainer extends VBox{
 		@Override
 		public void changed(ObservableValue<? extends Number> ov,
 				Number oldNum, Number newNum) {
-			mValueDisplay.setText(String.valueOf(newNum.doubleValue()));
+			mValueDisplay.setText(String.valueOf((double)Math.round(100 * newNum.doubleValue()) / 100));
 		}
-		
 	}
 }
