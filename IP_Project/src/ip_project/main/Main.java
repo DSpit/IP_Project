@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,6 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -50,15 +52,24 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		
 		try {
 			
+			Screen screen = Screen.getPrimary();
+			
+			Rectangle2D bounds = screen.getVisualBounds();
+			
 			//assign primary stage to private member variable for future access
 			mStage = primaryStage;
 			
 			//set main scene
-			mStage.setScene(this.createScene());
-			mStage.setMinHeight(WINDOW_HEIGHT);
-			mStage.setMinWidth(WINDOW_WIDTH);
+
+			mStage.setX(0);
+			mStage.setY(0);
+//			mStage.setMinHeight(WINDOW_HEIGHT);
+//			mStage.setMinWidth(WINDOW_WIDTH);
+			mStage.setWidth(bounds.getWidth()/2);
+			mStage.setHeight(bounds.getHeight()/2);
 			mStage.show();
 			mStage.sizeToScene();
+			mStage.setScene(this.createScene());
 			
 			mStage.setMaximized(true);
 			
@@ -90,12 +101,12 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
         
         // TODO needs fixing, can't fucking figure out how to link a path from the git project to here ~a
         //menu items images
-        Image apple = new Image(APPLE_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
-        Image projectile = new Image(PROJ_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
-        Image glasses = new Image(GLASSES_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
-        Image decay = new Image(DECAY_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
-        Image ball = new Image(BALL_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
-        Image bike = new Image(BIKE_IMAGE_URL, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image apple = new Image(APPLE_IMAGE_PATH, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image projectile = new Image(PROJ_IMAGE_PATH, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image glasses = new Image(GLASSES_IMAGE_PATH, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image decay = new Image(DECAY_IMAGE_PATH, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image ball = new Image(BALL_IMAGE_PATH, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
+        Image bike = new Image(BIKE_IMAGE_PATH, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
         
         //create menu items
         MenuItem newtonItem = new MenuItem(NEWTON_TITLE, new ImageView(apple));
@@ -171,8 +182,8 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	private Scene createScene(){
 		
 		mCenteredPane = new VBox();
-		mCenteredPane.setMinSize(CONTENT_WIDTH, CONTENT_HEIGHT);
-		mCenteredPane.setMaxSize(CONTENT_WIDTH, CONTENT_HEIGHT);
+//		mCenteredPane.setMinSize(CONTENT_WIDTH, CONTENT_HEIGHT);
+//		mCenteredPane.setMaxSize(CONTENT_WIDTH, CONTENT_HEIGHT);
 		
 		//root setup
 		mCenteredPane.setAlignment(Pos.CENTER);

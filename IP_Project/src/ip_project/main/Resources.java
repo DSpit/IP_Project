@@ -43,12 +43,12 @@ public interface Resources {
 	
 	public String EXIT = "Exit";
 	
-	public String APPLE_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/apple_64.png";
-	public String PROJ_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/file01_64.png";
-	public String GLASSES_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/glasses_64.png";
-	public String DECAY_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/molecule_64.png";
-	public String BALL_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/ball_64.png";
-	public String BIKE_IMAGE_URL = "https://cdn4.iconfinder.com/data/icons/brainy-icons-free-36-science-and-education-icons/64/abacus_64.png";
+	public String APPLE_IMAGE_PATH = "ip_project/icons/apple.png";
+	public String PROJ_IMAGE_PATH = "ip_project/icons/projectile.png";
+	public String GLASSES_IMAGE_PATH = "ip_project/icons/glasses.png";
+	public String DECAY_IMAGE_PATH = "ip_project/icons/molecule.png";
+	public String BALL_IMAGE_PATH = "ip_project/icons/ball.png";
+	public String BIKE_IMAGE_PATH = "ip_project/icons/abacus.png";
 
 	public int MAX_FORCE = 100, MAX_WEIGHT = 100, MIN_FORCE = 5, MIN_WEIGHT = 5;
 
