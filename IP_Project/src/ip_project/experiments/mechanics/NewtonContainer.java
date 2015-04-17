@@ -1,14 +1,17 @@
 package ip_project.experiments.mechanics;
 
 //import ip_project.experiments.Test.TestInterpolator;
+import javafx.scene.paint.Color;
 import ip_project.main.MIContainer;
 import ip_project.main.Resources;
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
@@ -29,8 +32,9 @@ public class NewtonContainer extends MIContainer implements Resources{
 	
 	//private ObservableList<XYChart.Series> XYlist;
 	XYChart.Series<Number, Number> series;
-	LineChart<Number, Number> mGraph1;
+	ScatterChart<Number, Number> mGraph1;
 	Slider mSlider1, mSlider2;
+	Animation gAnim;
 	double mForce, mMass, mAcceleration;
 	
 	public NewtonContainer(){
@@ -62,13 +66,14 @@ public class NewtonContainer extends MIContainer implements Resources{
 				//example of graph set up
 				NumberAxis xAxis = new NumberAxis();
 				NumberAxis yAxis = new NumberAxis();
-				mGraph1 = new LineChart<Number, Number>(xAxis, yAxis);
+				mGraph1 = new ScatterChart<Number, Number>(xAxis, yAxis);
 				this.addGraphs(mGraph1);
 				
 				//specify object- look and location
 				Circle object1 = new Circle(10);
+				object1.setFill(Color.RED);
 				object1.setTranslateX(10);
-				object1.setTranslateY(10);
+				object1.setTranslateY(200);
 				
 				TranslateTransition anim1 = new TranslateTransition(Duration.seconds(5), object1);
 				anim1.setInterpolator(new NewtonInterpolator());		
@@ -83,10 +88,10 @@ public class NewtonContainer extends MIContainer implements Resources{
 		        populateGraph();
 		        
 				TranslateTransition anim2 = new TranslateTransition(Duration.seconds(5), object1);
-				anim2.setInterpolator(new NewtonInterpolator());		//this is where you put in the custom interpolator
-				anim2.setFromY(10);
+				anim2.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
+				anim2.setFromY(200);
 				anim2.setCycleCount(1);
-				anim2.setToY(10);
+				anim2.setToY(200);
 		        
 				//set up the animation
 				ParallelTransition comboAnim = new ParallelTransition();
@@ -95,6 +100,12 @@ public class NewtonContainer extends MIContainer implements Resources{
 				
 				this.addAnimations(comboAnim);
 				this.addAnimationElements(object1);
+				
+				mGraph1.setAnimated(true);
+				
+				
+				
+				
 			}
 			
 	
@@ -103,12 +114,10 @@ public class NewtonContainer extends MIContainer implements Resources{
 				series = new Series<Number, Number>();
 		        series.setName("Newton's Second Law");
 
-		        for(int i = 0; i<100; ++i){
-		        	series.getData().add(new Data<Number, Number>(i, (calculateAcceleration() * 2* Math.pow(i, 2))));
-
+		        for(int i = 0; i<25; ++i){
+		        	series.getData().add(new Data<Number, Number>(i, (calculateAcceleration() * Math.pow(i, 2))));
 		        }
-		        mGraph1.getData().add(series);
-				
+		        mGraph1.getData().add(series);		
 			}
 	
 			private double calculateAcceleration(){
@@ -116,16 +125,14 @@ public class NewtonContainer extends MIContainer implements Resources{
 				calculateForce();
 				calculateMass();
 				
-				return (mForce/mMass);
-		
+				return (mForce/mMass);	
 			}
 			
 			private  void calculateForce(){
 				if(mSlider1.getValue()!=0)
 					mForce = (mSlider1.getValue()*MAX_FORCE);
 				else
-					mForce = MIN_FORCE;
-				
+					mForce = MIN_FORCE;	
 			}
 
 			private void calculateMass(){
@@ -141,16 +148,13 @@ public class NewtonContainer extends MIContainer implements Resources{
 				protected double curve(double t) {
 					
 					//mGraph1.getData();
-					return  calculateAcceleration() * 0.5* Math.pow(t, 2);
+					if(calculateAcceleration() * Math.pow(t, 2)<1)
+					{
+						return calculateAcceleration() * Math.pow(t, 2);
+					}
+					else 
+						return 1;
 				}
 				
 			}
-
-		
-		
-		
-		
-	
-	
-
 }
