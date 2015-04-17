@@ -4,7 +4,10 @@ package ip_project.main;
 
 import java.util.ArrayList;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -26,6 +29,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 /**
  *
@@ -48,7 +52,16 @@ public abstract class MIContainer extends VBox{
 		StackPane titlebar = new StackPane();
 		titlebar.setAlignment(Pos.CENTER_RIGHT);
 		
-		titlebar.getChildren().add(new Label(this.getTitle()));
+		Label title = new Label(this.getTitle());
+		
+		titlebar.getChildren().add(title);
+		
+		TranslateTransition st = new TranslateTransition (Duration.millis(5000), title);
+	    st.setToX(-java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width);
+	    st.setCycleCount(Timeline.INDEFINITE);
+	    st.setAutoReverse(true);
+	 
+	    st.play();
 		
 		HBox content = new HBox();
 		//create graph and input bar
