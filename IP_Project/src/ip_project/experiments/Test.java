@@ -4,9 +4,10 @@ import ip_project.main.MIContainer;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Slider;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -68,9 +69,14 @@ public class Test extends MIContainer{
 
 		@Override
 		protected double curve(double t) {
+			//calculations
+			double value = mSlider1.getValue() * Math.pow(t, 0.5);
+			//get top level series
+			System.out.println( String.valueOf(mGraph1.getData().size()) + mGraph1.getData());
+			XYChart.Series<Number, Number> series = mGraph1.getData().get(mGraph1.getData().size() - 1);
+			series.getData().add(new Data<Number, Number>(t, value));
 			
-			mGraph1.getData();
-			return mSlider1.getValue() * Math.pow(t, 0.5);
+			return value;
 		}
 		
 	}

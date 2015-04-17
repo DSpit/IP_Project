@@ -10,7 +10,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.chart.Chart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
@@ -36,7 +37,9 @@ public abstract class MIContainer extends VBox{
 	private Pane mCanvas = new Pane();
 	private ArrayList<Slider> mInputs = new ArrayList<Slider>();
 	private ArrayList<Transition> mAnimation = new ArrayList<Transition>();
+	private ArrayList<LineChart<Number, Number>> mGraphs = new ArrayList<LineChart<Number,Number>>();
 	private boolean mIsChanged = false;
+	private int mExperimentCount = 1;
 	
 	public MIContainer(){
 		super();
@@ -88,7 +91,10 @@ public abstract class MIContainer extends VBox{
 		}
 	}
 	
-	public void addGraphs(Chart... graphs){
+	public void addGraphs(LineChart<Number, Number>... graphs){
+		for(LineChart<Number, Number> c : graphs){
+			mGraphs.add(c);
+		}
 		mGContainer.getChildren().addAll(graphs);
 	}
 	
@@ -107,6 +113,14 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void start(){
+		
+		//create new series of points
+		for(int i = 0; i < mGraphs.size(); i++){
+			XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+			series.setName("Exp: " + mExperimentCount);
+			mGraphs.get(i).getData().add(series);
+		}
+		
 		for(Slider input: mInputs){
 			input.setDisable(true);
 		}
@@ -127,6 +141,9 @@ public abstract class MIContainer extends VBox{
 			animation.playFromStart();
 			animation.stop();
 		}
+		
+		//resets the experiment count
+		mExperimentCount = 1;
 		
 		//TODO clear graphs of all trials
 		
@@ -171,6 +188,9 @@ public abstract class MIContainer extends VBox{
 		for(Transition animation : mAnimation){
 			animation.pause();
 		}
+		
+		//increment experiment
+		mExperimentCount++;
 	}
 	
 	abstract public String getTitle();

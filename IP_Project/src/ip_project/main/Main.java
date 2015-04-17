@@ -169,15 +169,13 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 	}
 	
 	private Scene createScene(){
-		//root setup
-		StackPane root = new StackPane();
-		root.setAlignment(Pos.CENTER);
 		
 		mCenteredPane = new VBox();
 		mCenteredPane.setMinSize(CONTENT_WIDTH, CONTENT_HEIGHT);
 		mCenteredPane.setMaxSize(CONTENT_WIDTH, CONTENT_HEIGHT);
 		
-		root.getChildren().add(mCenteredPane);
+		//root setup
+		mCenteredPane.setAlignment(Pos.CENTER);
 		
 		//create starting container
 		mContainer = new Test();	//TODO change to starting experiment
@@ -186,7 +184,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		
 		mCenteredPane.getChildren().addAll(this.createMenu(), mContainer, this.createControl());
 		
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(mCenteredPane);
 		scene.getStylesheets().add("ip_project/main/application.css");
 		
 		return scene;
