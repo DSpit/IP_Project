@@ -195,6 +195,8 @@ public abstract class MIContainer extends VBox{
 	
 	abstract public String getTitle();
 	
+	abstract public double calculate(double value, double time);
+	
 	/**
 	 * Listener which watches for changes in input slider values
 	 */
@@ -228,7 +230,7 @@ public abstract class MIContainer extends VBox{
 		@Override
 		public void changed(ObservableValue<? extends Number> ov,
 				Number oldNum, Number newNum) {
-			mValueDisplay.setText(String.valueOf((double)Math.round(100 * newNum.doubleValue()) / 100));
+			mValueDisplay.setText(String.valueOf((double)Math.round(10 * newNum.doubleValue()) / 10));
 		}
 	}
 }

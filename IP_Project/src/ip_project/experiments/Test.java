@@ -65,14 +65,18 @@ public class Test extends MIContainer{
 		return "Test";
 	}
 	
+	@Override
+	public double calculate(double dynamicValue, double time){
+		return  dynamicValue * Math.pow(time, 0.5);
+	}
+	
 	private class TestInterpolator extends Interpolator{
 
 		@Override
 		protected double curve(double t) {
 			//calculations
-			double value = mSlider1.getValue() * Math.pow(t, 0.5);
+			double value = calculate(mSlider1.getValue(), t);
 			//get top level series
-			System.out.println( String.valueOf(mGraph1.getData().size()) + mGraph1.getData());
 			XYChart.Series<Number, Number> series = mGraph1.getData().get(mGraph1.getData().size() - 1);
 			series.getData().add(new Data<Number, Number>(t, value));
 			
