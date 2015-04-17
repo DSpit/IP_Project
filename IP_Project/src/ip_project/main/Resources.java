@@ -50,6 +50,6 @@ public interface Resources {
 	public String BALL_IMAGE_PATH = "ip_project/icons/ball.png";
 	public String BIKE_IMAGE_PATH = "ip_project/icons/abacus.png";
 
-	public int MAX_FORCE = 100, MAX_WEIGHT = 100, MIN_FORCE = 5, MIN_WEIGHT = 5;
+	public int MAX_FORCE = 100, MAX_MASS = 100, MIN_FORCE = 5, MIN_MASS = 5;
 
 }
