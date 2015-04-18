@@ -137,12 +137,18 @@ public class NewtonContainer extends MIContainer implements Resources{
 				
 							
 			}
+	
+	
+	
+	
+	
+	
 			
 			private double calculateAcceleration(){
 				return (mSlider1.getValue()/mSlider2.getValue());	
 			}
 			
-			@Override
+			//@Override
 			public double calculate(double value, double time){
 				return value * Math.pow(time, 2);
 			}

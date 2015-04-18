@@ -221,7 +221,7 @@ public abstract class MIContainer extends VBox{
 	
 	abstract public String getTitle();
 	
-	abstract public double calculate(double value, double time);
+	//abstract public double calculate(double value, double time);
 	
 	/**
 	 * Listener which watches for changes in input slider values

@@ -51,5 +51,7 @@ public interface Resources {
 	public String BIKE_IMAGE_PATH = "ip_project/icons/abacus.png";
 
 	public int MAX_FORCE = 100, MAX_MASS = 100, MIN_FORCE = 5, MIN_MASS = 5;
+	
+	public double GravityConstant = 9.8;
 
 }
