@@ -2,9 +2,10 @@
 
 package ip_project.main;
 
+import ip_project.experiments.mechanics.ProjContainer;
+
 import java.util.ArrayList;
 
-import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
@@ -38,7 +39,7 @@ public abstract class MIContainer extends VBox{
 	
 	private VBox mGContainer = new VBox();
 	private HBox mIContainer = new HBox();
-	private Pane mCanvas = new Pane();
+	protected Pane mCanvas = new Pane();
 	private ArrayList<Slider> mInputs = new ArrayList<Slider>();
 	private ArrayList<Transition> mAnimation = new ArrayList<Transition>();
 	private ArrayList<LineChart<Number, Number>> mGraphs = new ArrayList<LineChart<Number,Number>>();
@@ -141,9 +142,17 @@ public abstract class MIContainer extends VBox{
 		}
 		
 		for(Slider input: mInputs){
-			input.setDisable(true);
+			input.setDisable(true);		
 		}
+		
 		for(Transition animation : mAnimation){
+			
+			if(this.getTitle()=="Projectile Motion")
+			{
+				((ProjContainer) this).updateSetToX();
+				((ProjContainer) this).updateSetToY();
+			}
+			
 			animation.playFromStart();
 		}
 		
@@ -188,6 +197,10 @@ public abstract class MIContainer extends VBox{
 			this.start();
 		}else{
 			for(Transition animation : mAnimation){
+				
+				((ProjContainer) this).updateSetToX();
+				((ProjContainer) this).updateSetToY();
+
 				animation.play();
 			}
 		}
@@ -244,6 +257,9 @@ public abstract class MIContainer extends VBox{
 			}
 		}
 	}
+	
+	
+	
 	
 	private class ValueChangeListener implements ChangeListener<Number>{
 		

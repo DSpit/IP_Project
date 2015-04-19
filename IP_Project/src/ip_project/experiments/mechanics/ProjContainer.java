@@ -26,15 +26,15 @@ public class ProjContainer extends MIContainer implements Resources{
 	XYChart.Series<Number, Number> series1, series2;
 	LineChart<Number, Number> mGraph1, mGraph2;
 	Slider mSlider1, mSlider2;
-	Animation gAnim;
-	double mAngle, mXVelocity, mYVelocity;
+	TranslateTransition anim1, anim2;
+
 	
 	
 	
 	public ProjContainer(){
 		
 		//example of slider set up
-		mSlider1 = new Slider(1, 10, 5);
+		mSlider1 = new Slider(1, 5, 5);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
 		mSlider1.setMajorTickUnit(1);
@@ -63,32 +63,11 @@ public class ProjContainer extends MIContainer implements Resources{
 			
 		
 		//example of graph set up
-		NumberAxis xAxis1 = new NumberAxis(Xstr1,
-				0,
-				1,
-		         (double)0.1);
-		
-		NumberAxis yAxis1 =new NumberAxis(Ystr1,
-				-5,
-				5
-				//calculateXPosition(mSlider1.getValue() , mSlider2.getValue(),1.0)
-				, 1);
+		NumberAxis xAxis1 = new NumberAxis(Xstr1,0, 1,0.1);
+		NumberAxis yAxis1 =new NumberAxis(Ystr1,-5,	5, 1);
 		         
-
-		
-		NumberAxis xAxis2 = new NumberAxis(Xstr2,
-				0,
-				1,
-		         (double)0.1);
-		
-		
-		NumberAxis yAxis2 =new NumberAxis(Ystr2,
-				-5,
-				5
-				//calculateYPosition(mSlider1.getValue() , mSlider2.getValue(),1.0)
-				, 1);
-		
-		
+		NumberAxis xAxis2 = new NumberAxis(Xstr2,0,	1,0.1);	
+		NumberAxis yAxis2 =new NumberAxis(Ystr2, -1,1, 0.2);
 		
 		
 		yAxis1.setAutoRanging(false);
@@ -108,19 +87,20 @@ public class ProjContainer extends MIContainer implements Resources{
 		Circle object1 = new Circle(10);
 		object1.setFill(Color.BLUE);
 		object1.setTranslateX(10);
-		object1.setTranslateY(200);
+		object1.setTranslateY(700);
 		
-		TranslateTransition anim1 = new TranslateTransition(Duration.seconds(5), object1);
+		anim1 = new TranslateTransition(Duration.seconds(5), object1);
 		anim1.setInterpolator(new ProjXInterpolator());		
 		anim1.setFromX(10);
 		anim1.setCycleCount(1);
 		anim1.setToX(500);
-        
-		TranslateTransition anim2 = new TranslateTransition(Duration.seconds(5), object1);
+		
+		
+		anim2 = new TranslateTransition(Duration.seconds(5), object1);
 		anim2.setInterpolator(new ProjYInterpolator());		//this is where you put in the custom interpolator
-		anim2.setFromY(500);
+		anim2.setFromY(this.mCanvas.getHeight()/2); //useless line, values is updated before playing animation
 		anim2.setCycleCount(1);
-		anim2.setToY(10);
+		anim2.setToY(700);
         
 		//set up the animation
 		ParallelTransition comboAnim = new ParallelTransition();
@@ -129,16 +109,12 @@ public class ProjContainer extends MIContainer implements Resources{
 		
 		this.addAnimations(comboAnim);
 		this.addAnimationElements(object1);
+
+		//mGraph1.setAnimated(false);
 		
-		mGraph1.setAnimated(false);
-		
-		
-		
-		
-		
+	
 	}
-	
-	
+
 	
 	private class ProjYInterpolator extends Interpolator{
 
@@ -151,20 +127,15 @@ public class ProjContainer extends MIContainer implements Resources{
 			//get top level series
 		//	XYChart.Series<Number, Number> series1 = mGraph1.getData().get(mGraph1.getData().size() - 1);
 			XYChart.Series<Number, Number> series2 = mGraph2.getData().get(mGraph2.getData().size() - 1);
-
-
-			
+	
 				series2.getData().add(new Data<Number, Number>(t, value));
 			//	XYChart.Series<Number, Number> series2 = mGraph2.getData().get(mGraph2.getData().size() - 1);
 
 				return value;
-			
-		}
-		
+		}	
 	}
 	
-	
-	
+
 	private class ProjXInterpolator extends Interpolator{
 
 		@Override
@@ -176,34 +147,44 @@ public class ProjContainer extends MIContainer implements Resources{
 			//get top level series
 			XYChart.Series<Number, Number> series1 = mGraph1.getData().get(mGraph1.getData().size() - 1);
 			//XYChart.Series<Number, Number> series2 = mGraph2.getData().get(mGraph2.getData().size() - 1);
-
-
-			
+	
 			series1.getData().add(new Data<Number, Number>(t, value));
 			//series2.getData().add(new Data<Number, Number>(t, value));
 
 				return t;
-			}
-			
+			}		
 		}
 		
-	
-	
-	
-	
-	
-	
-	
-	
-
 	public double calculateXPosition(double velocity, double angle, double time){
-		return (velocity * Math.cos(Math.toRadians(angle)) * time );
+		return ((velocity) * Math.cos(Math.toRadians(angle)) * time );
 	}	
+	
 	
 	public double calculateYPosition(double velocity, double angle, double time){
+		
 		return ((time * velocity * Math.sin(Math.toRadians(angle))) -
-				( 0.5 * Math.pow(time, 2)* GravityConstant));
+				( 0.5 * Math.pow(time, 2)* GravityConstant))/1.27551;
 	}	
+	
+	
+	public double maxHeight(){
+		double time = ((mSlider1.getValue()*Math.sin(Math.toRadians(mSlider2.getValue())))
+				/ GravityConstant);
+		
+		return (calculateYPosition(mSlider1.getValue(), mSlider2.getValue(), time));
+	}
+	
+	
+	public void updateSetToX(){
+		anim1.setToX((this.mCanvas.getWidth()/5)*calculateXPosition(mSlider1.getValue(), mSlider2.getValue(),1));
+	}
+	
+	public void updateSetToY(){
+		anim2.setFromY(this.mCanvas.getHeight()/2);
+
+		anim2.setToY((this.mCanvas.getHeight()/2) -	(this.mCanvas.getHeight()/(2))
+				* maxHeight());
+	}
 	
 	
 	public String getTitle(){
