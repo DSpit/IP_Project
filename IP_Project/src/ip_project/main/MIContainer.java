@@ -12,6 +12,7 @@ import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
@@ -52,6 +53,7 @@ public abstract class MIContainer extends VBox{
 		//add a title bar
 		StackPane titlebar = new StackPane();
 		titlebar.setAlignment(Pos.CENTER_RIGHT);
+//		this.setPadding(new Insets(10,10,10,10)); //works
 		
 		Label title = new Label(this.getTitle());
 		
@@ -70,13 +72,16 @@ public abstract class MIContainer extends VBox{
 		bar.setPrefWidth(500);
 		
 		//create graph container
-		mGContainer.setBorder(new Border(new BorderStroke(Color.BROWN,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(2))));
+//		mGContainer.setBorder(new Border(new BorderStroke(Color.BROWN,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(2))));
+//		mGContainer.setPadding(new Insets(20, 20, 20, 20));
+		mGContainer.getStyleClass().add("graph-container");
 		mGContainer.setAlignment(Pos.CENTER);
 		VBox.setVgrow(mGContainer, Priority.ALWAYS);
 		
 		//create input container
 		mIContainer.setPrefHeight(150);
 		mIContainer.setAlignment(Pos.CENTER);
+//		mIContainer.setPadding(new Insets(20, 20, 20, 20));
 		mIContainer.getStyleClass().add("linear-grad-repeat2");
 		
 //		mIContainer.setBorder(new Border(new BorderStroke(Color.GREEN,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(2))));
@@ -85,12 +90,18 @@ public abstract class MIContainer extends VBox{
 		bar.getChildren().addAll(mGContainer, mIContainer);
 		
 		//create animation pane
-		mCanvas.setBorder(new Border(new BorderStroke(Color.RED,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(1))));	
+//		mCanvas.setBorder(new Border(new BorderStroke(Color.RED,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(1))));	
+		mCanvas.getStyleClass().add("main-container");
+//		mCanvas.setPadding(new Insets(20, 20, 20, 20));
 		HBox.setHgrow(mCanvas, Priority.ALWAYS);
 		
 		//add elements to the container
 		content.getChildren().addAll(mCanvas, bar);
 		VBox.setVgrow(content, Priority.ALWAYS);
+		
+		content.setPadding(new Insets(10, 10, 10, 10));
+		content.setSpacing(10);
+		bar.setSpacing(10);
 		
 		this.getChildren().addAll(titlebar, content);
 	}
