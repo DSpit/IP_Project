@@ -174,7 +174,8 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		controlbar.setAlignment(Pos.CENTER);
 		controlbar.getChildren().add(buttonHolder);
 		controlbar.setPrefHeight(CONTROL_HEIGHT);
-		controlbar.setStyle("-fx-background-color: darkgrey;");
+		controlbar.setPadding(new Insets(10, 10, 10, 10));
+		controlbar.getStyleClass().add("button-container");
 		
 		return controlbar;
 	}
@@ -191,7 +192,6 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		//create starting container
 		mContainer = new Test();	//TODO change to starting experiment
 		VBox.setVgrow(mContainer, Priority.ALWAYS);	
-		mContainer.setStyle("-fx-background-color: blue");
 		
 		mCenteredPane.getChildren().addAll(this.createMenu(), mContainer, this.createControl());
 		

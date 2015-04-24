@@ -63,11 +63,11 @@ public class ProjContainer extends MIContainer implements Resources{
 			
 		
 		//example of graph set up
-		NumberAxis xAxis1 = new NumberAxis(Xstr1,0, 1,0.1);
+		NumberAxis xAxis1 = new NumberAxis(Xstr1, 0, 1, 0.1);
 		NumberAxis yAxis1 =new NumberAxis(Ystr1,-5,	5, 1);
 		         
-		NumberAxis xAxis2 = new NumberAxis(Xstr2,0,	1,0.1);	
-		NumberAxis yAxis2 =new NumberAxis(Ystr2, -1,1, 0.2);
+		NumberAxis xAxis2 = new NumberAxis(Xstr2, 0, 1, 0.1);	
+		NumberAxis yAxis2 =new NumberAxis(Ystr2, -1, 1, 1);
 		
 		
 		yAxis1.setAutoRanging(false);
