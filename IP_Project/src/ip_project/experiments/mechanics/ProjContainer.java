@@ -14,6 +14,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -86,17 +88,22 @@ public class ProjContainer extends MIContainer implements Resources{
 		//specify object- look and location
 		Circle object1 = new Circle(10);
 		object1.setFill(Color.BLUE);
-		object1.setTranslateX(10);
-		object1.setTranslateY(700);
+		Image image1 = new Image("ip_project/icons/ovni.png");
+		ImageView image = new ImageView();
+		image.setImage(image1);
 		
-		anim1 = new TranslateTransition(Duration.seconds(5), object1);
+		
+		image.setTranslateX(10);
+		image.setTranslateY(700);
+		
+		anim1 = new TranslateTransition(Duration.seconds(5), image);
 		anim1.setInterpolator(new ProjXInterpolator());		
 		anim1.setFromX(10);
 		anim1.setCycleCount(1);
 		anim1.setToX(500);
 		
 		
-		anim2 = new TranslateTransition(Duration.seconds(5), object1);
+		anim2 = new TranslateTransition(Duration.seconds(5), image);
 		anim2.setInterpolator(new ProjYInterpolator());		//this is where you put in the custom interpolator
 		anim2.setFromY(this.mCanvas.getHeight()/2); //useless line, values is updated before playing animation
 		anim2.setCycleCount(1);
@@ -108,9 +115,9 @@ public class ProjContainer extends MIContainer implements Resources{
 
 		
 		this.addAnimations(comboAnim);
-		this.addAnimationElements(object1);
+		this.addAnimationElements(image);
 		
-		this.getStyleClass().add("newton-canvas");
+		this.getStyleClass().add("projectile-motion-canvas");
 
 		//mGraph1.setAnimated(false);
 		
