@@ -109,6 +109,8 @@ public class ProjContainer extends MIContainer implements Resources{
 		
 		this.addAnimations(comboAnim);
 		this.addAnimationElements(object1);
+		
+		this.getStyleClass().add("newton-canvas");
 
 		//mGraph1.setAnimated(false);
 		

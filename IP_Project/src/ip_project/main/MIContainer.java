@@ -92,6 +92,7 @@ public abstract class MIContainer extends VBox{
 		//create animation pane
 //		mCanvas.setBorder(new Border(new BorderStroke(Color.RED,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(1))));	
 		mCanvas.getStyleClass().add("main-container");
+		mCanvas.setId("canvas");
 //		mCanvas.setPadding(new Insets(20, 20, 20, 20));
 		HBox.setHgrow(mCanvas, Priority.ALWAYS);
 		

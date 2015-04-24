@@ -191,7 +191,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		//create starting container
 		mContainer = new Test();	//TODO change to starting experiment
 		VBox.setVgrow(mContainer, Priority.ALWAYS);	
-//		mContainer.setStyle("-fx-background-color: blue");
+		mContainer.setStyle("-fx-background-color: blue");
 		
 		mCenteredPane.getChildren().addAll(this.createMenu(), mContainer, this.createControl());
 		
