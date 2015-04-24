@@ -172,13 +172,13 @@ public class ProjContainer extends MIContainer implements Resources{
 	public double calculateYPosition(double velocity, double angle, double time){
 		
 		return ((time * velocity * Math.sin(Math.toRadians(angle))) -
-				( 0.5 * Math.pow(time, 2)* GravityConstant))/1.27551;
+				( 0.5 * Math.pow(time, 2)* GRAVITY_CONSTANT))/1.27551;
 	}	
 	
 	
 	public double maxHeight(){
 		double time = ((mSlider1.getValue()*Math.sin(Math.toRadians(mSlider2.getValue())))
-				/ GravityConstant);
+				/ GRAVITY_CONSTANT);
 		
 		return (calculateYPosition(mSlider1.getValue(), mSlider2.getValue(), time));
 	}

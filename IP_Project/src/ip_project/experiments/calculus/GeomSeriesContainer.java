@@ -1,9 +1,10 @@
 package ip_project.experiments.calculus;
 
-import ip_project.experiments.mechanics.ProjContainer.ProjXInterpolator;
+
 import ip_project.main.MIContainer;
 import ip_project.main.Resources;
 import javafx.animation.Interpolator;
+import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -11,6 +12,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -21,25 +24,25 @@ import javafx.util.Duration;
 public class GeomSeriesContainer extends MIContainer implements Resources{
 
 	XYChart.Series<Number, Number> series1;
-	TranslateTransition anim1;
+	TranslateTransition anim1, anim2;
 	Slider mSlider1, mSlider2;
-	LineChart<Number, Number> mGraph1;
+	LineChart<Number, Number> mGraph1, mGraph2;
 	
 	public GeomSeriesContainer(){
 		
 		
 		//example of slider set up
-				mSlider1 = new Slider(1, 5, 5);
+				mSlider1 = new Slider(0, 1, 0.75);
 				mSlider1.setShowTickMarks(true);
 				mSlider1.setShowTickLabels(true);
-				mSlider1.setMajorTickUnit(1);
+				mSlider1.setMajorTickUnit(0.1);
 				mSlider1.setMinorTickCount(0);
 				mSlider1.setSnapToTicks(true);
 				mSlider1.setId("Slider 1");
 				this.addInputs(mSlider1);
 				
 			
-				mSlider2 = new Slider(0, 90, 45);
+				mSlider2 = new Slider(3, 10, 5);
 				mSlider2.setShowTickMarks(true);
 				mSlider2.setShowTickLabels(true);
 				mSlider2.setMajorTickUnit(1);
@@ -50,63 +53,96 @@ public class GeomSeriesContainer extends MIContainer implements Resources{
 		
 		
 				
+				
 				String Xstr1 = "Time";
-				String Ystr1 = "Position";
+				String Ystr1 = "X Position";
 
+							
+
+				//example of graph set up
+				NumberAxis xAxis1 = new NumberAxis(Xstr1, 0, 1, 0.1);
+				NumberAxis yAxis1 =new NumberAxis(Ystr1,-50,	50, 5);
 				
-				
-				NumberAxis xAxis1 = new NumberAxis(Xstr1,0, 1,0.1);
-				NumberAxis yAxis1 =new NumberAxis(Ystr1,-5,	5, 1);
-				         
-	
 				
 				
 				yAxis1.setAutoRanging(false);
 				xAxis1.setAutoRanging(false);
-	
+			
+
 				mGraph1 = new LineChart<Number, Number>(xAxis1, yAxis1);
 				
 				this.addGraphs(mGraph1);
-		
 				
 				
+				
+				//specify object- look and location
 				Circle object1 = new Circle(10);
 				object1.setFill(Color.BLUE);
-				object1.setTranslateX(10);
-				object1.setTranslateY(700);
+				Image image1 = new Image("ip_project/icons/leaf.gif");
+				ImageView image = new ImageView();
 				
-				anim1 = new TranslateTransition(Duration.seconds(5), object1);
-				anim1.setInterpolator(new GeomSeriesInterpolator());		
-				anim1.setFromX(10);
+				image.setImage(image1);
+				image.setFitHeight( 100); 
+				image.setFitWidth( 100); 
+
+				image.setTranslateX(10);
+				image.setTranslateY(700);
+				
+				anim1 = new TranslateTransition(Duration.seconds(5), image);
+				anim1.setInterpolator(new GeomSeriesXInterpolator());		
+				anim1.setFromX(350);
 				anim1.setCycleCount(1);
-				anim1.setToX(500);
+
+				anim1.setToX(356);
 				
-		
+				
+				anim2 = new TranslateTransition(Duration.seconds(5), image);
+				anim2.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
+				anim2.setFromY(100); 
+				anim2.setCycleCount(1);
+
+				
+				anim2.setToY(700);
+		        
+				//set up the animation
+				ParallelTransition comboAnim = new ParallelTransition();
+				comboAnim.getChildren().addAll(anim1, anim2);
+
+				
+				this.addAnimations(comboAnim);
+				this.addAnimationElements(image);
+				
+				//this.getStyleClass().add("projectile-motion-canvas");
+
 	}
 	
 	
 	
-	public double calculatePosition(double maxBounces, double angle, double time){
-		return ((velocity) * Math.cos(Math.toRadians(angle)) * time );
+
+	
+	public double calculateYPosition(double percentage, double bounces, double time){
+		return INITIAL_HEIGHT * Math.pow(percentage, bounces) * 
+				Math.sin(Math.toRadians(360*time*mSlider2.getValue()));
 	}	
 	
 	
-	private class GeomSeriesInterpolator extends Interpolator{
+	private class GeomSeriesXInterpolator extends Interpolator{
 
 		@Override
 		protected double curve(double t) {
 			
-			double value = calculatePosition(mSlider1.getValue() ,
-					mSlider2.getValue(), t);
+		double fraction	= 1/mSlider2.getValue();
+				
+		double bounces = (int)(t/fraction);
+				
+			double value = calculateYPosition(mSlider1.getValue() ,
+					bounces, t);
 			
 			//get top level series
 			XYChart.Series<Number, Number> series1 = mGraph1.getData().get(mGraph1.getData().size() - 1);
-			//XYChart.Series<Number, Number> series2 = mGraph2.getData().get(mGraph2.getData().size() - 1);
 	
 			series1.getData().add(new Data<Number, Number>(t, value));
-			//series2.getData().add(new Data<Number, Number>(t, value));
-
-				return t;
+				return value;
 			}		
 		}
 		

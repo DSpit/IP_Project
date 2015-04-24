@@ -52,6 +52,8 @@ public interface Resources {
 
 	public int MAX_FORCE = 100, MAX_MASS = 100, MIN_FORCE = 5, MIN_MASS = 5;
 	
-	public double GravityConstant = 9.8;
-
+	public double GRAVITY_CONSTANT = 9.8;
+	
+	
+	public double INITIAL_HEIGHT = 50;
 }
