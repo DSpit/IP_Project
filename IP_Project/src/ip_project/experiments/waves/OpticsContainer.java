@@ -27,6 +27,9 @@ public class OpticsContainer extends MIContainer implements Resources{
 	
 	LineChart<Number, Number> mGraph1;
 	Slider mSlider1, mSlider2;
+	Circle object1;
+	ScaleTransition anim2;
+	TranslateTransition anim1;
 	
 	public OpticsContainer(){
 		//example of slider set up
@@ -63,20 +66,23 @@ public class OpticsContainer extends MIContainer implements Resources{
 		Rectangle2D bounds = screen.getVisualBounds();
 		
 		//specify object- look and location
-		Circle object1 = new Circle(10);
+		object1 = new Circle(10);
 		object1.setTranslateX(bounds.getWidth()*0.294140625);
 		object1.setTranslateY((bounds.getHeight()/2));
 		
-		TranslateTransition anim1 = new TranslateTransition(Duration.seconds(5), object1);
+		anim1 = new TranslateTransition(Duration.seconds(5), object1);
 		anim1.setInterpolator(new OpticsInterpolator());		//this is where you put in the custom interpolator
 		anim1.setFromX(bounds.getWidth()*0.294140625);
 		anim1.setCycleCount(1);
-		anim1.setToX(calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));
+//		anim1.setToX(200);
+//		anim1.setToX(calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));
+
 		
-	     ScaleTransition anim2 = new ScaleTransition(Duration.seconds(5), object1);
+		 anim2 = new ScaleTransition(Duration.seconds(5), object1);
 	     anim2.setInterpolator(Interpolator.LINEAR);	
+	     anim2.setFromY(1);
 //	     anim2.setByX(1.5f);
-	     anim2.setByY(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), 10));
+//	     anim2.setByY(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), 10));
 	     anim2.setCycleCount(1);
 //	     anim2.setAutoReverse(true);
         
@@ -113,5 +119,30 @@ public class OpticsContainer extends MIContainer implements Resources{
 			return t;
 		}
 		
+	}
+
+	@Override
+	public void updateValues() {
+		
+		Screen screen = Screen.getPrimary();
+		
+		Rectangle2D bounds = screen.getVisualBounds();
+		
+		anim1.setToX((bounds.getWidth()*0.294140625) + calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));
+		anim2.setByY(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), 20));
+		
+		
+		object1.setRadius(10);	
+		System.out.println(calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));
+		System.out.println(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), 20));
+
+		
+		
+	}
+
+	@Override
+	public String getHelp() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
