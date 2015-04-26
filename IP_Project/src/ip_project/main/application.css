@@ -10,12 +10,13 @@
 }
 
 .linear-grad-repeat2{
+	
     -fx-background-color: linear-gradient(from 41px 34px to 50px 50px, reflect,  #ff7f50 30%, #faebd7  47%);
     -fx-background-radius: 30;
     -fx-border-radius: 30;
  	-fx-border-width: 1;
  	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); 	
-
+ 	
 }
 
 .main-container{
@@ -29,13 +30,16 @@
 }
 
 .button-container{
+	
 	-fx-background-color: darkgrey;
 	-fx-border-width: 3;
 	-fx-border-color: #FF0000;
+	-fx-border-insets: 0 -4 -4 -4;
 
 }
 
 .graph-container {
+	
 	-fx-background-radius: 30;
 	-fx-border-radius: 30;
 	-fx-border-width: 1;
@@ -45,7 +49,6 @@
 	-fx-padding: 30;
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 	
-
 }
 
 .projectile-motion-canvas #canvas{
@@ -67,9 +70,11 @@
     -fx-stroke: #3278fa;
 }
 .chart-horizontal-grid-lines {
+	
     -fx-stroke: #3278fa;
 }
 .chart-alternative-row-fill {
+	
     -fx-fill: #99bcfd;
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
