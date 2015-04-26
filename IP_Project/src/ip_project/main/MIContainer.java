@@ -11,12 +11,15 @@ import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
@@ -30,7 +33,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -46,6 +53,7 @@ public abstract class MIContainer extends VBox{
 	private ArrayList<LineChart<Number, Number>> mGraphs = new ArrayList<LineChart<Number,Number>>();
 	private boolean mIsChanged = false;
 	private int mExperimentCount = 1;
+	private Button btn;
 	
 	public MIContainer(){
 		super();
@@ -141,7 +149,28 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	public void help(){
-		//TODO add dialog box (whatever predefined one there is in javafx) and output a help message (written in Res)
+		
+		
+		btn = new Button("Ok");
+		
+		Stage dialogStage = new Stage();
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.setScene(new Scene(VBoxBuilder.create().
+		    children(new Text(this.getHelp()), btn).
+		    alignment(Pos.CENTER).padding(new Insets(5)).build()));
+		
+
+		   btn.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent event) {
+	                dialogStage.close();
+	            }
+	        });
+		
+		
+		dialogStage.show();
+		
+		
 	}
 	
 	public void start(){
@@ -159,11 +188,8 @@ public abstract class MIContainer extends VBox{
 		
 		for(Transition animation : mAnimation){
 			
-			if(this.getTitle()=="Projectile Motion")
-			{
-				((ProjContainer) this).updateSetToX();
-				((ProjContainer) this).updateSetToY();
-			}
+			this.updateValues();
+
 			
 			animation.playFromStart();
 		}
@@ -210,8 +236,7 @@ public abstract class MIContainer extends VBox{
 		}else{
 			for(Transition animation : mAnimation){
 				
-				((ProjContainer) this).updateSetToX();
-				((ProjContainer) this).updateSetToY();
+				this.updateValues();
 
 				animation.play();
 			}
@@ -245,8 +270,9 @@ public abstract class MIContainer extends VBox{
 	}
 	
 	abstract public String getTitle();
+	abstract public void  updateValues();
+	abstract public String getHelp();
 	
-	//abstract public double calculate(double value, double time);
 	
 	/**
 	 * Listener which watches for changes in input slider values

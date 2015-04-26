@@ -13,7 +13,17 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 		super();
 	}
 	
+	@Override
+	public void updateValues(){
+	}
+	
+	
+
 	public String getTitle(){
 		return BIKE_TITLE;
+	}
+	
+	public String getHelp(){
+		return BIKE_HELP;
 	}
 }

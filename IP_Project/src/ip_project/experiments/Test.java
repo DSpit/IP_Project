@@ -65,6 +65,18 @@ public class Test extends MIContainer{
 		return "Test";
 	}
 	
+	@Override
+	public String getHelp(){
+		return "Test";
+	}
+	
+	@Override
+	public void updateValues(){
+	}
+	
+	
+	
+	
 	//@Override
 	public double calculate(double dynamicValue, double time){
 		return  dynamicValue * Math.pow(time, 0.5);

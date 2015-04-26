@@ -56,4 +56,17 @@ public interface Resources {
 	
 	
 	public double INITIAL_HEIGHT = 50;
+	
+	
+	
+	public String NEWTON_HELP = "The first Slider is Force \n "
+			+ "The second Slider is Mass  " ;
+			
+	public String PROJ_HELP = "The first Slider is Initial velocity \n "
+			+ "The second Slider is Angle  " ;
+	public String OPTIC_HELP = "Optics and Lenses";
+	public String RAD_ACT_HELP = "Radioactive Decay";
+	public String BIKE_HELP = "New Sports Bike";
+	public String GEOM_SER_HELP = "The first Slider is Percentaje? \n "
+			+ "The second Slider is Bounces  " ;
 }

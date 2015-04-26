@@ -27,6 +27,7 @@ public class GeomSeriesContainer extends MIContainer implements Resources{
 	TranslateTransition anim1, anim2;
 	Slider mSlider1, mSlider2;
 	LineChart<Number, Number> mGraph1, mGraph2;
+	ImageView image;
 	
 	public GeomSeriesContainer(){
 		
@@ -79,7 +80,7 @@ public class GeomSeriesContainer extends MIContainer implements Resources{
 				Circle object1 = new Circle(10);
 				object1.setFill(Color.BLUE);
 				Image image1 = new Image("ip_project/icons/leaf.gif");
-				ImageView image = new ImageView();
+				image = new ImageView();
 				
 				image.setImage(image1);
 				image.setFitHeight( 100); 
@@ -90,7 +91,7 @@ public class GeomSeriesContainer extends MIContainer implements Resources{
 				
 				anim1 = new TranslateTransition(Duration.seconds(5), image);
 				anim1.setInterpolator(new GeomSeriesXInterpolator());		
-				anim1.setFromX(350);
+				anim1.setFromX(15);
 				anim1.setCycleCount(1);
 
 				anim1.setToX(356);
@@ -146,10 +147,23 @@ public class GeomSeriesContainer extends MIContainer implements Resources{
 			}		
 		}
 		
+	public void updateValues(){
+		anim1.setFromX((this.mCanvas.getWidth()/2) - 15);
+		anim1.setToX((this.mCanvas.getWidth()/2)-10 );
+		
+		anim2.setToY(this.mCanvas.getHeight() -100);
 	
+		image.setFitHeight(100);
+		image.setFitHeight(80);
+	}
 	
 	
 	public String getTitle(){
 		return GEOM_SER_TITLE;
 	}
+	
+	public String getHelp(){
+		return GEOM_SER_HELP;
+	}
+	
 }

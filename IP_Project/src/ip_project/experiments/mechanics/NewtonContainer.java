@@ -30,6 +30,10 @@ public class NewtonContainer extends MIContainer implements Resources{
 		return NEWTON_TITLE;
 	}
 	
+	public String getHelp(){
+		return NEWTON_HELP;
+	}
+	
 	//private ObservableList<XYChart.Series> XYlist;
 	XYChart.Series<Number, Number> series1, series2;
 	LineChart<Number, Number> mGraph1, mGraph2;
@@ -137,7 +141,10 @@ public class NewtonContainer extends MIContainer implements Resources{
 				
 							
 			}
-	
+	@Override
+	public void updateValues(){
+		
+	}
 	
 	
 	

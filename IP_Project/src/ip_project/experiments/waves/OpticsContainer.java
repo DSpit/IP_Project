@@ -12,7 +12,16 @@ public class OpticsContainer extends MIContainer implements Resources{
 		super();
 	}
 	
+	@Override
+	public void updateValues(){	
+	}
+	
+	
 	public String getTitle(){
 		return OPTIC_TITLE;
+	}
+	
+	public String getHelp(){
+		return OPTIC_HELP;
 	}
 }

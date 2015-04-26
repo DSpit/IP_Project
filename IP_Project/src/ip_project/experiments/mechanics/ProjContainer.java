@@ -29,6 +29,7 @@ public class ProjContainer extends MIContainer implements Resources{
 	LineChart<Number, Number> mGraph1, mGraph2;
 	Slider mSlider1, mSlider2;
 	TranslateTransition anim1, anim2;
+	ImageView image;
 
 	
 	
@@ -89,7 +90,7 @@ public class ProjContainer extends MIContainer implements Resources{
 		Circle object1 = new Circle(10);
 		object1.setFill(Color.BLUE);
 		Image image1 = new Image("ip_project/icons/ovni.png");
-		ImageView image = new ImageView();
+		image = new ImageView();
 		image.setImage(image1);
 		
 		
@@ -182,19 +183,27 @@ public class ProjContainer extends MIContainer implements Resources{
 		
 		return (calculateYPosition(mSlider1.getValue(), mSlider2.getValue(), time));
 	}
-	
-	
-	public void updateSetToX(){
-		anim1.setToX((this.mCanvas.getWidth()/5)*calculateXPosition(mSlider1.getValue(), mSlider2.getValue(),1));
-	}
-	
-	public void updateSetToY(){
-		anim2.setFromY(this.mCanvas.getHeight()/2);
 
+
+	public void updateValues(){
+		anim1.setToX((this.mCanvas.getWidth()/5)*calculateXPosition(mSlider1.getValue(), mSlider2.getValue(),1));
+
+
+		anim2.setFromY(this.mCanvas.getHeight()/2);
 		anim2.setToY((this.mCanvas.getHeight()/2) -	(this.mCanvas.getHeight()/(2))
 				* maxHeight());
+		
+		
+		image.setFitHeight(this.mCanvas.getHeight()/15);
+		image.setFitWidth(this.mCanvas.getWidth()/10);
+
+		
 	}
 	
+	
+	public String getHelp(){
+		return PROJ_HELP;
+	}
 	
 	public String getTitle(){
 		return PROJ_TITLE;

@@ -12,7 +12,18 @@ public class RadioActContainer extends MIContainer implements Resources{
 		super();
 	}
 	
+	
+	@Override
+	public void updateValues(){
+	}
+	
+	
 	public String getTitle(){
 		return RAD_ACT_TITLE;
+	}
+	
+	
+	public String getHelp(){
+		return RAD_ACT_HELP;
 	}
 }
