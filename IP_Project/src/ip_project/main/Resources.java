@@ -58,6 +58,12 @@ public interface Resources {
 	public double INITIAL_HEIGHT = 50;
 	
 	
+	public double OBJECT_HEIGHT = 100;
+	public double OBJECT_WIDTH = 10;
+	public double WIDTH_CONSTANT = 0.294140625; 
+	public double FOCAL_WIDTH = 5;
+	public double FOCAL_HEIGHT = 10;
+	
 	
 	public String NEWTON_HELP = "The first Slider is Force \n "
 			+ "The second Slider is Mass  " ;
