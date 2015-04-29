@@ -94,7 +94,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		
 		mCanvas.getChildren().add(ellipse);
 		
-		anim1 = new TranslateTransition(Duration.seconds(4), object);
+		anim1 = new TranslateTransition(Duration.seconds(4), image);
 		anim1.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
 		anim1.setFromX(bounds.getWidth()*WIDTH_CONSTANT);
 //		anim1.setFromY((bounds.getHeight()/2));
@@ -105,7 +105,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		anim2.setFromX(bounds.getWidth()*WIDTH_CONSTANT);
 		anim2.setCycleCount(1);
 		
-		anim3 = new TranslateTransition(Duration.seconds(4), image);
+		anim3 = new TranslateTransition(Duration.seconds(4), object);
 		anim3.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
 		anim3.setFromX(bounds.getWidth()*WIDTH_CONSTANT);
 		anim3.setToX(calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));
@@ -135,7 +135,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 
 		
 		this.addAnimations(comboAnim, anim2, anim3);
-		this.addAnimationElements(object, focalpoint1, image);
+		this.addAnimationElements(image, focalpoint1, object);
 		
 	}
 
@@ -175,10 +175,10 @@ public class OpticsContainer extends MIContainer implements Resources {
 
 		Rectangle2D bounds = screen.getVisualBounds();
 		
-		image.setWidth(OBJECT_WIDTH);
-		image.setHeight(OBJECT_HEIGHT);
-		image.setTranslateX(bounds.getWidth()*0.294140625);
-		image.setTranslateY((bounds.getHeight()/2));
+//		image.setWidth(OBJECT_WIDTH);
+//		image.setHeight(OBJECT_HEIGHT);
+//		image.setTranslateX(bounds.getWidth()*0.294140625);
+//		image.setTranslateY((bounds.getHeight()/2));
 
 		anim1.setToX((bounds.getWidth() * WIDTH_CONSTANT) - mSlider2.getValue());
 		anim2.setToX((bounds.getWidth() * WIDTH_CONSTANT) - mSlider1.getValue());
@@ -207,27 +207,27 @@ public class OpticsContainer extends MIContainer implements Resources {
 		 {
 			 
 		 anim3.setToY((bounds.getHeight()/2) + calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT));	 
-		 image.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)));
+		 object.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)));
 //		 image.setTranslateX((bounds.getWidth()*WIDTH_CONSTANT) + calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));	 
- 	     image.setTranslateY((bounds.getHeight()/2) + calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT));
+ 	     object.setTranslateY((bounds.getHeight()/2) + calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT));
 	     
 	     double testvalue = (bounds.getHeight()/2) - calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT);
 	     
 		 System.out.println("estoy aca ~~ " + testvalue);
 	     
-		 image.setVisible(true);
+		 object.setVisible(true);
 		 
 		 }
 		 
 		 else{
 		 
 //		 image.setTranslateX((bounds.getWidth()*WIDTH_CONSTANT) + calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));	 
-		 image.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)));
-		 image.setTranslateY((bounds.getHeight()/2));
+	     object.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)));
+		 object.setTranslateY((bounds.getHeight()/2));
 		 
 		 double value = (bounds.getHeight()/2) - calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT);
 		 
-		 image.setVisible(true);
+		 object.setVisible(true);
 		 
 		 System.out.println("estoy aca~~ " + value);
 		 
