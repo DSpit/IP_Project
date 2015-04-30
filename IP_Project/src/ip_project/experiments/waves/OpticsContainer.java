@@ -35,10 +35,11 @@ public class OpticsContainer extends MIContainer implements Resources {
 	Slider mSlider1, mSlider2;
 	Rectangle object, image, focalpoint1, focalpoint2;
 	TranslateTransition anim1, anim2, anim3;
+	
 
 	public OpticsContainer(){
 		//example of slider set up
-		mSlider1 = new Slider(1, 200, 3);
+		mSlider1 = new Slider(100, 300, 100);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
 		mSlider1.setMajorTickUnit(1);
@@ -47,7 +48,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		mSlider1.setId("Slider 1");
 		this.addInputs(mSlider1);
 		
-		mSlider2 = new Slider(1, 200, 20);
+		mSlider2 = new Slider(100, 300, 150);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
 		mSlider2.setMajorTickUnit(0.5);
@@ -57,11 +58,19 @@ public class OpticsContainer extends MIContainer implements Resources {
 		this.addInputs(mSlider2);
 		
 		String Xstr1 = "Time";
-		String Ystr1 = "X Position";
+		String Ystr1 = "Image Height";
 	
 		//example of graph set up
-		NumberAxis xAxis = new NumberAxis();
-		NumberAxis yAxis = new NumberAxis();
+		//NumberAxis xAxis = new NumberAxis();
+		// yAxis = new NumberAxis();
+	
+		
+		NumberAxis xAxis = new NumberAxis(Xstr1, 0, 1, 0.1);
+		NumberAxis yAxis =new NumberAxis(Ystr1,-500,	500, 50);
+		
+		
+		
+		
 		mGraph1 = new LineChart<Number, Number>(xAxis, yAxis);
 		
 		this.addGraphs(mGraph1);
@@ -71,7 +80,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		Rectangle2D bounds = screen.getVisualBounds();
 		
 		image = new Rectangle(OBJECT_WIDTH, OBJECT_HEIGHT);
-
+		image.setFill(Color.BLUE);
 		image.setTranslateX(bounds.getWidth()*WIDTH_CONSTANT);
 		image.setTranslateY((bounds.getHeight()/2)- OBJECT_HEIGHT);
 		image.setVisible(true);
@@ -79,8 +88,10 @@ public class OpticsContainer extends MIContainer implements Resources {
 		
 		//specify object- look and location
 		object = new Rectangle(OBJECT_WIDTH, OBJECT_HEIGHT);
+		object.setFill(Color.RED);
 		object.setTranslateX(bounds.getWidth()*WIDTH_CONSTANT);
 		object.setTranslateY((bounds.getHeight()/2) - OBJECT_HEIGHT);
+		object.setVisible(false);
 		
 		Ellipse ellipse = new Ellipse(); 
 		ellipse.setTranslateX(bounds.getWidth()*WIDTH_CONSTANT);
@@ -101,7 +112,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		anim1.setCycleCount(1);
 		
 		anim2 = new TranslateTransition(Duration.seconds(3), focalpoint1);
-		anim2.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
+		anim2.setInterpolator(new OpticsInterpolator());		//this is where you put in the custom interpolator
 		anim2.setFromX(bounds.getWidth()*WIDTH_CONSTANT);
 		anim2.setCycleCount(1);
 		
@@ -157,11 +168,11 @@ public class OpticsContainer extends MIContainer implements Resources {
 			double value = calculateImageDistance(mSlider1.getValue(),
 					mSlider2.getValue());
 			double value2 = calculateImageHeight(mSlider1.getValue(),
-					mSlider2.getValue(), 10);
+					mSlider2.getValue(), OBJECT_HEIGHT);
 			// get top level series
 			XYChart.Series<Number, Number> series = mGraph1.getData().get(
 					mGraph1.getData().size() - 1);
-			series.getData().add(new Data<Number, Number>(value2, value));
+			series.getData().add(new Data<Number, Number>(t, value2*t));
 
 			return t;
 		}
@@ -182,6 +193,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 
 		anim1.setToX((bounds.getWidth() * WIDTH_CONSTANT) - mSlider2.getValue());
 		anim2.setToX((bounds.getWidth() * WIDTH_CONSTANT) - mSlider1.getValue());
+		object.setVisible(false);
 
 		// object.setHeight(50);
 		//
@@ -228,8 +240,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		 double value = (bounds.getHeight()/2) - calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT);
 		 
 		 object.setVisible(true);
-		 
-		 System.out.println("estoy aca~~ " + value);
+		 System.out.println(bounds.getHeight()/2);
 		 
 		 }
 		 
@@ -251,6 +262,6 @@ public class OpticsContainer extends MIContainer implements Resources {
 	@Override
 	public String getHelp() {
 		// TODO Auto-generated method stub
-		return null;
+		return OPTIC_HELP;
 	}
 }
