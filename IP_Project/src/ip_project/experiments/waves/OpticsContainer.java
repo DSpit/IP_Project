@@ -1,5 +1,8 @@
 package ip_project.experiments.waves;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
@@ -35,11 +38,12 @@ public class OpticsContainer extends MIContainer implements Resources {
 	Slider mSlider1, mSlider2;
 	Rectangle object, image, focalpoint1, focalpoint2;
 	TranslateTransition anim1, anim2, anim3;
+	JFrame frame;
 	
 
 	public OpticsContainer(){
 		//example of slider set up
-		mSlider1 = new Slider(100, 300, 100);
+		mSlider1 = new Slider(30, 100, 50);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
 		mSlider1.setMajorTickUnit(1);
@@ -48,7 +52,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		mSlider1.setId("Slider 1");
 		this.addInputs(mSlider1);
 		
-		mSlider2 = new Slider(100, 300, 150);
+		mSlider2 = new Slider(50, 300, 150);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
 		mSlider2.setMajorTickUnit(0.5);
@@ -59,17 +63,9 @@ public class OpticsContainer extends MIContainer implements Resources {
 		
 		String Xstr1 = "Time";
 		String Ystr1 = "Image Height";
-	
-		//example of graph set up
-		//NumberAxis xAxis = new NumberAxis();
-		// yAxis = new NumberAxis();
-	
 		
 		NumberAxis xAxis = new NumberAxis(Xstr1, 0, 1, 0.1);
-		NumberAxis yAxis =new NumberAxis(Ystr1,-500,	500, 50);
-		
-		
-		
+		NumberAxis yAxis =new NumberAxis(Ystr1,  -500,	500, 50);
 		
 		mGraph1 = new LineChart<Number, Number>(xAxis, yAxis);
 		
@@ -81,7 +77,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		
 		image = new Rectangle(OBJECT_WIDTH, OBJECT_HEIGHT);
 		image.setFill(Color.BLUE);
-		image.setTranslateX(bounds.getWidth()*WIDTH_CONSTANT);
+		image.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
 		image.setTranslateY((bounds.getHeight()/2)- OBJECT_HEIGHT);
 		image.setVisible(true);
 		
@@ -108,7 +104,6 @@ public class OpticsContainer extends MIContainer implements Resources {
 		anim1 = new TranslateTransition(Duration.seconds(4), image);
 		anim1.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
 		anim1.setFromX(bounds.getWidth()*WIDTH_CONSTANT);
-//		anim1.setFromY((bounds.getHeight()/2));
 		anim1.setCycleCount(1);
 		
 		anim2 = new TranslateTransition(Duration.seconds(3), focalpoint1);
@@ -120,7 +115,6 @@ public class OpticsContainer extends MIContainer implements Resources {
 		anim3.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
 		anim3.setFromX(bounds.getWidth()*WIDTH_CONSTANT);
 		anim3.setToX(calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));
-//		anim3.setFromY(bounds.getHeight()/2);
 		anim3.setCycleCount(1);
 
 
@@ -131,14 +125,6 @@ public class OpticsContainer extends MIContainer implements Resources {
 		line1.setStroke(Color.BLACK);
 		mCanvas.getChildren().addAll(line1);
 		
-//		 anim2 = new ScaleTransition(Duration.seconds(5), object);
-//	     anim2.setInterpolator(Interpolator.LINEAR);	
-//	     anim2.setFromY(1);
-//	     anim2.setByX(1.5f);
-//	     anim2.setByY(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), 10));
-//	     anim2.setCycleCount(1);
-//	     anim2.setAutoReverse(true);
-        
 //        
 		//set up the animation
 		ParallelTransition comboAnim = new ParallelTransition();
@@ -151,11 +137,22 @@ public class OpticsContainer extends MIContainer implements Resources {
 	}
 
 	// @Override
-	public double calculateImageDistance(double focal, double object) {
+	/** Calculates the distance of the image from the lens 
+	 * @param focal focal distance
+	 * @param object object distance 
+	 * @return
+	 */
+	private double calculateImageDistance(double focal, double object) {
 		return 1 / (1 / focal - 1 / object);
 	}
 
-	public double calculateImageHeight(double focal, double object,
+	/** Calculates the height of the image based on the height of the object
+	 * @param focal focal distance
+	 * @param object object distance
+	 * @param objectHeight height of the object
+	 * @return
+	 */
+	private double calculateImageHeight(double focal, double object,
 			double objectHeight) {
 		return (calculateImageDistance(focal, object) / object) * objectHeight;
 	}
@@ -186,76 +183,58 @@ public class OpticsContainer extends MIContainer implements Resources {
 
 		Rectangle2D bounds = screen.getVisualBounds();
 		
-//		image.setWidth(OBJECT_WIDTH);
-//		image.setHeight(OBJECT_HEIGHT);
-//		image.setTranslateX(bounds.getWidth()*0.294140625);
-//		image.setTranslateY((bounds.getHeight()/2));
+		object.setVisible(false);
 
 		anim1.setToX((bounds.getWidth() * WIDTH_CONSTANT) - mSlider2.getValue());
 		anim2.setToX((bounds.getWidth() * WIDTH_CONSTANT) - mSlider1.getValue());
-		object.setVisible(false);
-
-		// object.setHeight(50);
-		//
-
-		//
-		// double value = object.getHeight() /
-		// calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), 20);
-		//
-		 anim3.setToX((bounds.getWidth()*WIDTH_CONSTANT) + calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));
+		anim3.setToX((bounds.getWidth() * WIDTH_CONSTANT) + calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));
 		 
-		// // anim2.setToY((bounds.getHeight()/2) +
-		// calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), 20));
-		//
 		 anim1.setOnFinished(new EventHandler<ActionEvent>() {
 		
-		 @Override
-		 public void handle(ActionEvent event) {
-		
-		 // object.setScaleY(value);
-		 //// object.setTranslateY((bounds.getHeight()/2));
-		
-		 if(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT) < 0)
-		 {
+			 @Override
+			 public void handle(ActionEvent event) {
+				 
+			 if((Math.abs(calculateImageDistance(mSlider1.getValue(), mSlider2.getValue())) > 600) || (Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)) > 350)){
+				 
+				 JOptionPane.showMessageDialog(frame,
+						    "The image is going to be out of the bounds of the screen! Try entering new values.",
+						    "Inane error",
+						    JOptionPane.ERROR_MESSAGE);
+				 
+				object.setVisible(false); 
+				
+			 }
 			 
-		 anim3.setToY((bounds.getHeight()/2) + calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT));	 
-		 object.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)));
-//		 image.setTranslateX((bounds.getWidth()*WIDTH_CONSTANT) + calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));	 
- 	     object.setTranslateY((bounds.getHeight()/2) + calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT));
-	     
-	     double testvalue = (bounds.getHeight()/2) - calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT);
-	     
-		 System.out.println("estoy aca ~~ " + testvalue);
-	     
-		 object.setVisible(true);
-		 
-		 }
-		 
-		 else{
-		 
-//		 image.setTranslateX((bounds.getWidth()*WIDTH_CONSTANT) + calculateImageDistance(mSlider1.getValue(), mSlider2.getValue()));	 
-	     object.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)));
-		 object.setTranslateY((bounds.getHeight()/2));
-		 
-		 double value = (bounds.getHeight()/2) - calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT);
-		 
-		 object.setVisible(true);
-		 System.out.println(bounds.getHeight()/2);
-		 
-		 }
-		 
-		 }
+			 else{
+			
+				 if(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT) < 0)
+				 {
+					 
+				 anim3.setToY((bounds.getHeight()/2) + calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT));	 
+				 object.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)));	 
+		 	     object.setTranslateY((bounds.getHeight()/2) + calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT));
+			     
+			     double testvalue = (bounds.getHeight()/2) - calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT);
+			     
+			     
+				 object.setVisible(true);
+				 
+				 }
+				 
+				 else{
+				  
+			     object.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT)));
+				 object.setTranslateY((bounds.getHeight()/2));
+				 
+				 double value = (bounds.getHeight()/2) - calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), OBJECT_HEIGHT);
+				 
+				 object.setVisible(true);
+			 
+			 }			 
+			 }
+			 }
 		 });
-		// //
-		// //
-//		 image.setHeight(Math.abs(calculateImageHeight(mSlider1.getValue(), mSlider2.getValue(), 20)));
-		// // object.setY(bounds.getHeight()/2);
-		//
-		 System.out.println(calculateImageDistance(mSlider1.getValue(),
-		 mSlider2.getValue()));
-		 System.out.println(calculateImageHeight(mSlider1.getValue(),
-		 mSlider2.getValue(), OBJECT_HEIGHT));
-//		 System.out.println(value);
+
 
 	}
 

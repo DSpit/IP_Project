@@ -17,6 +17,8 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -40,6 +42,7 @@ public class NewtonContainer extends MIContainer implements Resources{
 	Slider mSlider1, mSlider2;
 	Animation gAnim;
 	double mForce, mMass, mAcceleration;
+	ImageView image, image_flag;
 	
 	public NewtonContainer(){
 		
@@ -97,7 +100,17 @@ public class NewtonContainer extends MIContainer implements Resources{
 				         (double)0.1);
 				
 				
+				Image image1 = new Image("ip_project/icons/tank.png");
+				image = new ImageView();
+				image.setImage(image1);
 				
+				Image image2 = new Image("ip_project/icons/soviet-flag.png");
+				image_flag = new ImageView();
+				image_flag.setImage(image2);
+				image_flag.setTranslateX(700);
+				image_flag.setTranslateY(15);
+				
+				mCanvas.getChildren().add(image_flag);
 				
 				yAxis1.setAutoRanging(false);
 				xAxis1.setAutoRanging(false);
@@ -117,13 +130,13 @@ public class NewtonContainer extends MIContainer implements Resources{
 				object1.setTranslateX(10);
 				object1.setTranslateY(200);
 				
-				TranslateTransition anim1 = new TranslateTransition(Duration.seconds(5), object1);
+				TranslateTransition anim1 = new TranslateTransition(Duration.seconds(5), image);
 				anim1.setInterpolator(new NewtonInterpolator());		
 				anim1.setFromX(10);
 				anim1.setCycleCount(1);
 				anim1.setToX(500);
 		        
-				TranslateTransition anim2 = new TranslateTransition(Duration.seconds(5), object1);
+				TranslateTransition anim2 = new TranslateTransition(Duration.seconds(5), image);
 				anim2.setInterpolator(Interpolator.LINEAR);		//this is where you put in the custom interpolator
 				anim2.setFromY(200);
 				anim2.setCycleCount(1);
@@ -135,9 +148,11 @@ public class NewtonContainer extends MIContainer implements Resources{
 
 				
 				this.addAnimations(comboAnim);
-				this.addAnimationElements(object1);
+				this.addAnimationElements(image);
 				
 				mGraph1.setAnimated(false);
+				
+				this.getStyleClass().add("newtons-second-law-canvas");
 				
 							
 			}
