@@ -61,6 +61,16 @@
 	-fx-background-image: url("http://www.motorcycleclassics.com/~/media/Images/MCC/Editorial/Articles/Magazine%20Articles/2012/07-01/Destinations%20The%20Extraterrestrial%20Highway/Extra%20Terrestrial%20Highway.jpg");
 }
 
+.newtons-second-law-canvas #canvas{
+	
+	-fx-background-radius: 30;
+	-fx-border-radius: 30;
+	-fx-border-width: 1;
+	-fx-border-color: transparent;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-background-image: url("http://i.imgur.com/OxmjSW0.jpg");
+}
+
 .chart-plot-background {
 	
     -fx-background-color: #e2ecfe;
