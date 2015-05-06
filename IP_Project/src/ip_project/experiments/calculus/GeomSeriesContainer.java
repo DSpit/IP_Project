@@ -170,7 +170,7 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		gif.setVisible(true);
 		this.getStyleClass().add("geometric-series-canvas-2");
 		
-		String psyS = new File("src/ip_project/sounds/psychedelic2.mp3").toURI().toString(); 
+		String psyS = new File("src/ip_project/sounds/stilldre.mp3").toURI().toString(); 
 
         Media pick = new Media(psyS);
         MediaPlayer player = new MediaPlayer(pick);
