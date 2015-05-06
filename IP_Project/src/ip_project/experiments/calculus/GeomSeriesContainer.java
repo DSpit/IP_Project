@@ -1,10 +1,16 @@
 package ip_project.experiments.calculus;
 
+import java.io.File;
+
 import ip_project.main.MIContainer;
 import ip_project.main.Resources;
+import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -13,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -24,9 +32,10 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 
 	XYChart.Series<Number, Number> series1;
 	TranslateTransition anim1, anim2;
+	FadeTransition anim3;
 	Slider mSlider1, mSlider2;
 	LineChart<Number, Number> mGraph1, mGraph2;
-	ImageView image;
+	ImageView image, gif;
 
 	public GeomSeriesContainer() {
 
@@ -72,31 +81,49 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		image.setImage(image1);
 		image.setFitHeight(100);
 		image.setFitWidth(100);
+		image.setVisible(false);
 
 		image.setTranslateX(10);
 		image.setTranslateY(700);
+		
+		Image image2 = new Image("ip_project/icons/snoopdog.gif");
+		gif = new ImageView();
+		gif.setImage(image2);
+		gif.setTranslateX(-10);
+		gif.setTranslateY(400);
+		gif.setVisible(false);
 
-		anim1 = new TranslateTransition(Duration.seconds(5), image);
+		anim1 = new TranslateTransition(Duration.seconds(10), image);
 		anim1.setInterpolator(new GeomSeriesXInterpolator());
 		anim1.setFromX(15);
 		anim1.setCycleCount(1);
 
 		anim1.setToX(356);
 
-		anim2 = new TranslateTransition(Duration.seconds(5), image);
+		anim2 = new TranslateTransition(Duration.seconds(10), image);
 		anim2.setInterpolator(Interpolator.LINEAR); // this is where you put in
 													// the custom interpolator
 		anim2.setFromY(100);
 		anim2.setCycleCount(1);
+		
+
 
 		anim2.setToY(700);
+		
+		anim3 = new FadeTransition(Duration.seconds(3), image);
+		anim3.setInterpolator(Interpolator.LINEAR);
+		anim3.setCycleCount(1);
+		anim3.setFromValue(0);
+		anim3.setToValue(1);
 
 		// set up the animation
 		ParallelTransition comboAnim = new ParallelTransition();
-		comboAnim.getChildren().addAll(anim1, anim2);
+		comboAnim.getChildren().addAll(anim1, anim2, anim3);
 
 		this.addAnimations(comboAnim);
 		this.addAnimationElements(image);
+		
+		mCanvas.getChildren().add(gif);
 		
 		this.getStyleClass().add("geometric-series-canvas-1");
 
@@ -134,11 +161,34 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		anim1.setToX((this.mCanvas.getWidth() / 2) - 10);
 
 		anim2.setToY(this.mCanvas.getHeight() - 100);
+		
+//		anim3.play();
 
 		image.setFitHeight(100);
 		image.setFitHeight(80);
-		
+		image.setVisible(true);
+		gif.setVisible(true);
 		this.getStyleClass().add("geometric-series-canvas-2");
+		
+		String psyS = new File("src/ip_project/sounds/psychedelic2.mp3").toURI().toString(); 
+
+        Media pick = new Media(psyS);
+        MediaPlayer player = new MediaPlayer(pick);
+
+        
+        player.play();
+		
+		anim2.setOnFinished(new EventHandler<ActionEvent>() {
+			
+			 @Override
+			 public void handle(ActionEvent event) {
+				 
+				 player.stop();
+
+			 }
+		 });
+		
+		
 	}
 
 	public String getTitle() {

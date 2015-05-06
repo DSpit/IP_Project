@@ -65,6 +65,13 @@ public interface Resources {
 	public double FOCAL_HEIGHT = 10;
 	
 	
+    public double DurationBobbing1 = 500;
+    public double DurationBobbing2 = 100;
+    public double BobbingFromX = 0;
+    public double BobbingToX = 10;
+    public double BobbingByX = 3;
+	
+	
 	public String NEWTON_HELP = "The first Slider is Force \n "
 			+ "The second Slider is Mass  " ;
 			

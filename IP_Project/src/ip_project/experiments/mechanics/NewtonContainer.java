@@ -16,6 +16,7 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -157,10 +158,23 @@ public class NewtonContainer extends MIContainer implements Resources {
 		fadetransition2.setCycleCount(1);
 		fadetransition2.setFromValue(0);
 		fadetransition2.setToValue(1);
+		
+        TranslateTransition bobbing = new TranslateTransition(Duration.millis(DurationBobbing1), image);
+        TranslateTransition bobbing2 = new TranslateTransition(Duration.millis(DurationBobbing2), image);
+
+        bobbing.setFromX(BobbingFromX);
+        bobbing.setToX(BobbingToX);
+        bobbing.setInterpolator(Interpolator.LINEAR);
+        bobbing.setAutoReverse(true);
+        bobbing2.setByY(BobbingByX);
+        bobbing2.setInterpolator(Interpolator.LINEAR);
+
+        bobbing2.setAutoReverse(true);
+	
 
 		// set up the animation
 		ParallelTransition comboAnim = new ParallelTransition();
-		comboAnim.getChildren().addAll(anim1, anim2);
+		comboAnim.getChildren().addAll(anim1, anim2, bobbing, bobbing2);
 
 		this.addAnimations(comboAnim);
 		this.addAnimationElements(image);
