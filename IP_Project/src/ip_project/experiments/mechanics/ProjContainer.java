@@ -2,12 +2,16 @@
 
 package ip_project.experiments.mechanics;
 
+import java.io.File;
+
 import ip_project.main.MIContainer;
 import ip_project.main.Resources;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -16,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -86,25 +92,26 @@ public class ProjContainer extends MIContainer implements Resources{
 		
 		
 		
-		//specify object- look and location
-		Circle object1 = new Circle(10);
-		object1.setFill(Color.BLUE);
+
 		Image image1 = new Image("ip_project/icons/ovni.png");
 		image = new ImageView();
 		image.setImage(image1);
+		image.setFitHeight(this.mCanvas.getHeight()/15);
+		image.setFitWidth(this.mCanvas.getWidth()/10);
+		image.setVisible(false);
 		
 		
 		image.setTranslateX(10);
-		image.setTranslateY(700);
+		image.setTranslateY(500);
 		
-		anim1 = new TranslateTransition(Duration.seconds(5), image);
+		anim1 = new TranslateTransition(Duration.seconds(10), image);
 		anim1.setInterpolator(new ProjXInterpolator());		
 		anim1.setFromX(10);
 		anim1.setCycleCount(1);
 		anim1.setToX(500);
 		
 		
-		anim2 = new TranslateTransition(Duration.seconds(5), image);
+		anim2 = new TranslateTransition(Duration.seconds(10), image);
 		anim2.setInterpolator(new ProjYInterpolator());		//this is where you put in the custom interpolator
 		anim2.setFromY(this.mCanvas.getHeight()/2); //useless line, values is updated before playing animation
 		anim2.setCycleCount(1);
@@ -165,19 +172,19 @@ public class ProjContainer extends MIContainer implements Resources{
 			}		
 		}
 		
-	public double calculateXPosition(double velocity, double angle, double time){
+	private double calculateXPosition(double velocity, double angle, double time){
 		return ((velocity) * Math.cos(Math.toRadians(angle)) * time );
 	}	
 	
 	
-	public double calculateYPosition(double velocity, double angle, double time){
+	private double calculateYPosition(double velocity, double angle, double time){
 		
 		return ((time * velocity * Math.sin(Math.toRadians(angle))) -
 				( 0.5 * Math.pow(time, 2)* GRAVITY_CONSTANT))/1.27551;
 	}	
 	
 	
-	public double maxHeight(){
+	private double maxHeight(){
 		double time = ((mSlider1.getValue()*Math.sin(Math.toRadians(mSlider2.getValue())))
 				/ GRAVITY_CONSTANT);
 		
@@ -193,9 +200,28 @@ public class ProjContainer extends MIContainer implements Resources{
 		anim2.setToY((this.mCanvas.getHeight()/2) -	(this.mCanvas.getHeight()/(2))
 				* maxHeight());
 		
+		String ovniS = new File("src/ip_project/sounds/ovni.mp3").toURI().toString(); 
+
+        Media pick = new Media(ovniS);
+        MediaPlayer player = new MediaPlayer(pick);
+
+        
+        player.play();
 		
-		image.setFitHeight(this.mCanvas.getHeight()/15);
+		anim2.setOnFinished(new EventHandler<ActionEvent>() {
+			
+			 @Override
+			 public void handle(ActionEvent event) {
+				 
+				 player.stop();
+				 image.setVisible(false);
+
+			 }
+		 });
+		
+		image.setFitHeight(this.mCanvas.getHeight()/10);
 		image.setFitWidth(this.mCanvas.getWidth()/10);
+		image.setVisible(true);
 
 		
 	}

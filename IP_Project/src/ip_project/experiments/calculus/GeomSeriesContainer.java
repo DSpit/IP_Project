@@ -97,6 +97,8 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 
 		this.addAnimations(comboAnim);
 		this.addAnimationElements(image);
+		
+		this.getStyleClass().add("geometric-series-canvas-1");
 
 
 	}
@@ -135,6 +137,8 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 
 		image.setFitHeight(100);
 		image.setFitHeight(80);
+		
+		this.getStyleClass().add("geometric-series-canvas-2");
 	}
 
 	public String getTitle() {

@@ -1,75 +1,96 @@
 .button{
    
     -fx-background-color:  #000000, linear-gradient(#7ebcea, #2f4b8f), linear-gradient(#426ab7, #263e75), linear-gradient(#395cab, #223768);
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 3,2,2,2;
-    -fx-padding: 12 30 12 30;
+    -fx-background-insets: 0.0,1.0,2.0,3.0;
+    -fx-background-radius: 3.0,2.0,2.0,2.0;
+    -fx-padding: 12.0 30.0 12.0 30.0;
     -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-pref-width: 150px;
+    -fx-font-size: 12.0px;
+    -fx-pref-width: 150.0px;
 }
 
 .linear-grad-repeat2{
 	
-    -fx-background-color: linear-gradient(from 41px 34px to 50px 50px, reflect,  #ff7f50 30%, #faebd7  47%);
-    -fx-background-radius: 30;
-    -fx-border-radius: 30;
- 	-fx-border-width: 1;
- 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); 	
+    -fx-background-color: linear-gradient(from 41.0px 34.0px to 50.0px 50.0px, reflect,  #ff7f50 30.0%, #faebd7  47.0%);
+    -fx-background-radius: 30.0;
+    -fx-border-radius: 30.0;
+ 	-fx-border-width: 1.0;
+ 	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0); 	
  	
 }
 
 .main-container{
 	
-	-fx-background-radius: 30;
-	-fx-border-radius: 30;
-	-fx-border-width: 1; 
+	-fx-background-radius: 30.0;
+	-fx-border-radius: 30.0;
+	-fx-border-width: 1.0; 
 	-fx-border-color:transparent;
 	-fx-background-color: #BFB6BD;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
 }
 
 .button-container{
 	
 	-fx-background-color: darkgrey;
-	-fx-border-width: 3;
+	-fx-border-width: 3.0;
 	-fx-border-color: #FF0000;
-	-fx-border-insets: 0 -4 -4 -4;
+	-fx-border-insets: 0.0 -4.0 -4.0 -4.0;
 
 }
 
 .graph-container {
 	
-	-fx-background-radius: 30;
-	-fx-border-radius: 30;
-	-fx-border-width: 1;
+	-fx-background-radius: 30.0;
+	-fx-border-radius: 30.0;
+	-fx-border-width: 1.0;
 	-fx-border-color: transparent;
 	-fx-background-color: #EBEBEB;
-	-fx-spacing: 10;
-	-fx-padding: 30;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-spacing: 10.0;
+	-fx-padding: 30.0;
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
 	
 }
 
 .projectile-motion-canvas #canvas{
 	
-	-fx-background-radius: 30;
-	-fx-border-radius: 30;
-	-fx-border-width: 1;
+	-fx-background-radius: 30.0;
+	-fx-border-radius: 30.0;
+	-fx-border-width: 1.0;
 	-fx-border-color: transparent;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
 	-fx-background-image: url("http://www.motorcycleclassics.com/~/media/Images/MCC/Editorial/Articles/Magazine%20Articles/2012/07-01/Destinations%20The%20Extraterrestrial%20Highway/Extra%20Terrestrial%20Highway.jpg");
 }
 
 .newtons-second-law-canvas #canvas{
 	
-	-fx-background-radius: 30;
-	-fx-border-radius: 30;
-	-fx-border-width: 1;
+	-fx-background-radius: 30.0;
+	-fx-border-radius: 30.0;
+	-fx-border-width: 1.0;
 	-fx-border-color: transparent;
-	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
 	-fx-background-image: url("http://i.imgur.com/OxmjSW0.jpg");
 }
+
+.geometric-series-canvas-1 #canvas{
+	
+	-fx-background-radius: 30.0;
+	-fx-border-radius: 30.0;
+	-fx-border-width: 1.0;
+	-fx-border-color: transparent;
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
+	-fx-background-image: url("http://i.imgur.com/2qICiDs.jpg");
+}
+
+.geometric-series-canvas-2 #canvas{
+	
+	-fx-background-radius: 30.0;
+	-fx-border-radius: 30.0;
+	-fx-border-width: 1.0;
+	-fx-border-color: transparent;
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
+	-fx-background-image: url("http://i.imgur.com/f2Bb6fS.jpg");
+}
+
 
 .chart-plot-background {
 	
@@ -87,6 +108,6 @@
 	
     -fx-fill: #99bcfd;
     -fx-stroke: transparent;
-    -fx-stroke-width: 0;
+    -fx-stroke-width: 0.0;
 }
 
