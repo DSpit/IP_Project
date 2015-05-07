@@ -48,7 +48,7 @@ public class RadioActContainer extends MIContainer implements Resources{
 		String yAxisLabel = "Number of Protons";
 		
 		NumberAxis xAxis = new NumberAxis(xAxisLabel, 0, 1, 0.1);
-		NumberAxis yAxis = new NumberAxis(yAxisLabel, 0, 0.0001, 0.000001);
+		NumberAxis yAxis = new NumberAxis(yAxisLabel, 0, 300 , 10);
 		
 //		xAxis.setAutoRanging(false);
 //		yAxis.setAutoRanging(false);
@@ -76,7 +76,7 @@ public class RadioActContainer extends MIContainer implements Resources{
 		mParticleHolder.setMaxHeight(this.mCanvas.getHeight());
 		
 		for(int i = 0, j = 0, a = 0 ;(i+1)*2*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getWidth() 
-				|| j*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getHeight(); i++, a++){
+				|| (j+1)*2*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getHeight(); i++, a++){
 			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (a%2 == 0+j%2)?Color.BLUE : Color.RED);
 			
 			if(i*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getWidth()){
@@ -120,26 +120,29 @@ public class RadioActContainer extends MIContainer implements Resources{
 	
 	private class RadioActInterpolator extends Interpolator{
 		
-		private final int mOriginalNumParticles;
 		private double mOldValue;
-		
-		public RadioActInterpolator(){
-			mOriginalNumParticles = mParticleHolder.getChildren().size();
-			mOldValue = mOriginalNumParticles;
-		}
 		
 		@Override
 		protected double curve(double t){
-			double value = (mOriginalNumParticles*Math.pow(mHalfLifeSlider.getValue()*60*60*24*7*52*1E17, -t*60*60*24*7*52*1E15/(mHalfLifeSlider.getValue()*1E10)));
+			mOldValue = mParticleHolder.getChildren().size();
+			double value = (int)(mParticleHolder.getChildren().size()*Math.pow(Math.E, -t*1E14/(mHalfLifeSlider.getValue())));
+			System.out.println(value);
 			
 			XYChart.Series<Number, Number> series = mGraph.getData().get(mGraph.getData().size()-1);
-			//System.out.println(series.toString());
 			series.getData().add(new Data<Number, Number>(t, value));
 			
 			if(mOldValue > value){
 				for(int i = 0; i < mOldValue-value; i++){
-					FadeTransition ft = new FadeTransition(Duration.millis(50),
-					mParticleHolder.getChildren().get((int)(Math.random()*mParticleHolder.getChildren().size())));
+					
+					Circle temp;
+					
+					do{
+						temp = (Circle)mParticleHolder.getChildren().get((int)(Math.random()*mParticleHolder.getChildren().size()));
+						System.out.println(temp.getOpacity());
+					}while(temp.getOpacity() == 0);
+					
+					FadeTransition ft = new FadeTransition(Duration.millis(50), temp);
+					
 					ft.setCycleCount(1);
 					ft.setFromValue(1);
 					ft.setToValue(0);
