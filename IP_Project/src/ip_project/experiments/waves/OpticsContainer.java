@@ -34,11 +34,11 @@ public class OpticsContainer extends MIContainer implements Resources {
 		return OPTIC_TITLE;
 	}
 
-	LineChart<Number, Number> mGraph1;
-	Slider mSlider1, mSlider2;
-	Rectangle object, image, focalpoint1, focalpoint2;
-	TranslateTransition anim1, anim2, anim3;
-	JFrame frame;
+	protected LineChart<Number, Number> mGraph1;
+	protected Slider mSlider1, mSlider2;
+	private Rectangle object, image, focalpoint1, focalpoint2;
+	private TranslateTransition anim1, anim2, anim3;
+	private JFrame frame;
 
 	public OpticsContainer() {
 		// example of slider set up
