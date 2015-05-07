@@ -40,6 +40,15 @@ public interface Resources {
 	public String DECAY_IMAGE_PATH = "ip_project/icons/molecule.png";
 	public String BALL_IMAGE_PATH = "ip_project/icons/ball.png";
 	public String BIKE_IMAGE_PATH = "ip_project/icons/abacus.png";
+	
+	public String NSB_FACE_1 = "ip_project/icons/face-1.png";
+	public String NSB_FACE_2 = "ip_project/icons/face-2.png";
+	public String NSB_FACE_3 = "ip_project/icons/face-3.png";
+	public String NSB_FACE_4 = "ip_project/icons/face-4.png";
+	public String NSB_FACE_5 = "ip_project/icons/face-5.png";
+	public String NSB_FACE_6 = "ip_project/icons/face-6.png";
+	public String NSB_FACE_7 = "ip_project/icons/face-7.png";
+	
 
 	public int MAX_FORCE = 100, MAX_MASS = 100, MIN_FORCE = 5, MIN_MASS = 5;
 	
