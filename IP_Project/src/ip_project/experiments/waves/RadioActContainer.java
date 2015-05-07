@@ -27,6 +27,7 @@ public class RadioActContainer extends MIContainer implements Resources{
 	Slider mHalfLifeSlider;
 	LineChart<Number, Number> mGraph;
 	GridPane mParticleHolder;
+	TranslateTransition mTimeKeep;
 	
 	
 	public RadioActContainer(){
@@ -47,8 +48,8 @@ public class RadioActContainer extends MIContainer implements Resources{
 		String xAxisLabel = "Time";
 		String yAxisLabel = "Number of Protons";
 		
-		NumberAxis xAxis = new NumberAxis(xAxisLabel, 0, 1, 0.1);
-		NumberAxis yAxis = new NumberAxis(yAxisLabel, 0, 300 , 10);
+		NumberAxis xAxis = new NumberAxis(xAxisLabel, 0, 1000, 100);
+		NumberAxis yAxis = new NumberAxis(yAxisLabel, 700, 800 , 10);
 		
 //		xAxis.setAutoRanging(false);
 //		yAxis.setAutoRanging(false);
@@ -60,11 +61,11 @@ public class RadioActContainer extends MIContainer implements Resources{
 		//set up animations
 		mParticleHolder = new GridPane();
 		
-		TranslateTransition timeKeep = new TranslateTransition(Duration.INDEFINITE, mParticleHolder);
-		timeKeep.setCycleCount(1);
-		timeKeep.setInterpolator(new RadioActInterpolator() );
+		mTimeKeep = new TranslateTransition(Duration.INDEFINITE, mParticleHolder);
+		mTimeKeep.setCycleCount(1);
+		mTimeKeep.setInterpolator(new RadioActInterpolator() );
 		
-		this.addAnimations(timeKeep);
+		this.addAnimations(mTimeKeep);
 		this.addAnimationElements(mParticleHolder);
 	}
 	
@@ -98,6 +99,8 @@ public class RadioActContainer extends MIContainer implements Resources{
 			
 		}
 		
+		
+		
 	}
 	
 	
@@ -125,21 +128,36 @@ public class RadioActContainer extends MIContainer implements Resources{
 		@Override
 		protected double curve(double t){
 			mOldValue = mParticleHolder.getChildren().size();
-			double value = (int)(mParticleHolder.getChildren().size()*Math.pow(Math.E, -t*1E14/(mHalfLifeSlider.getValue())));
-			System.out.println(value);
+			double value = (int)(mParticleHolder.getChildren().size()*Math.pow(Math.E, -t*1E12/(mHalfLifeSlider.getValue())));
 			
-			XYChart.Series<Number, Number> series = mGraph.getData().get(mGraph.getData().size()-1);
-			series.getData().add(new Data<Number, Number>(t, value));
+			/*XYChart.Series<Number, Number> series = mGraph.getData().get(mGraph.getData().size()-1);
+			series.getData().add(new Data<Number, Number>(t, t));
+			*/
+			
+			XYChart.Series<Number, Number> series = mGraph.getData().get(
+					mGraph.getData().size() - 1);
+
+			series.getData().add(new Data<Number, Number>(t*10E16, value));
+			
+			
+			
+			//System.out.println(t + " + " + value);
+			
 			
 			if(mOldValue > value){
 				for(int i = 0; i < mOldValue-value; i++){
 					
-					Circle temp;
+					Circle temp = (Circle)mParticleHolder.getChildren().get((int)(Math.random()*mParticleHolder.getChildren().size()));
 					
-					do{
-						temp = (Circle)mParticleHolder.getChildren().get((int)(Math.random()*mParticleHolder.getChildren().size()));
-						System.out.println(temp.getOpacity());
-					}while(temp.getOpacity() == 0);
+//					int count = 0;
+//					do{
+//						temp = (Circle)mParticleHolder.getChildren().get((int)(Math.random()*mParticleHolder.getChildren().size()));
+//						if(count > 7){
+//							break;
+//						}else{
+//							count++;
+//						}
+//					}while(temp.getOpacity() == 0);
 					
 					FadeTransition ft = new FadeTransition(Duration.millis(50), temp);
 					
@@ -149,6 +167,11 @@ public class RadioActContainer extends MIContainer implements Resources{
 					ft.play();
 				}
 				mOldValue = value;
+				
+				if(value < 1){
+					value = 0;
+					mTimeKeep.stop();
+				}
 			}
 			return value;
 		}

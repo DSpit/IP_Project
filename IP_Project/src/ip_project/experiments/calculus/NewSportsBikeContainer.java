@@ -37,13 +37,13 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 
 	// XYChart.Series<Number, Number> series1, series2;
 
-	XYChart.Series<String, Number> series3; 
-	Slider mSlider1, mSlider2;
-	TranslateTransition anim1;
-	Timeline anim2;
-	Image[] imgs = new Image[7];
-	ImageView Face = new ImageView();
-	LineChart<Number, Number> mGraph1, mGraph2;
+	protected XYChart.Series<String, Number> series3; 
+	protected Slider mSlider1, mSlider2;
+	private TranslateTransition anim1;
+	private Timeline anim2;
+	protected Image[] imgs = new Image[7];
+	protected ImageView Face = new ImageView();
+	protected LineChart<Number, Number> mGraph1, mGraph2;
 
 	public NewSportsBikeContainer() {
 
