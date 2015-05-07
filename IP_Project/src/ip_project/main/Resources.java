@@ -78,7 +78,6 @@ public interface Resources {
 	public double GS_SLIDER_MIN_1 = 0;
 	public double GS_SLIDER_DEFAULT_1 = 0.75;
 	
-	
 	public double GS_SLIDER_MAX_2 = 10;
 	public double GS_SLIDER_MIN_2 = 3;
 	public double GS_SLIDER_DEFAULT_2 = 5;
@@ -102,6 +101,56 @@ public interface Resources {
 	
 	public double GS_TRANSLATE_FROM_X_1 = 15;
 	public double GS_TRANSLATE_TO_X_1 = 356;		
+	public double GS_TRANSLATE_FROM_Y_2 = 100;
+	public double GS_TRANSLATE_TO_Y_2 = 700;	
+	
+	
+	public double PROJ_SLIDER_MAX_1 = 5;
+	public double PROJ_SLIDER_MIN_1 = 1;
+	public double PROJ_SLIDER_DEFAULT_1 = 5;
+	
+	public double PROJ_SLIDER_MAX_2 = 90;
+	public double PROJ_SLIDER_MIN_2 = 0;
+	public double PROJ_SLIDER_DEFAULT_2 = 45;
+	
+	
+	public double PROJ_AXIS_X_MIN_1 = 0;
+	public double PROJ_AXIS_X_MAX_1 = 1;
+	public double PROJ_AXIS_Y_MIN_1 = -5;
+	public double PROJ_AXIS_Y_MAX_1 = 5;
+	public double PROJ_SPACING_AXIS_X = 0.1;
+	public double PROJ_SPACING_AXIS_Y = 1;
+	
+	public double PROJ_AXIS_X_MIN_2 = 0;
+	public double PROJ_AXIS_X_MAX_2 = 1;
+	public double PROJ_AXIS_Y_MIN_2 = -1;
+	public double PROJ_AXIS_Y_MAX_2 = 1;
+	public double PROJ_SPACING_AXIS_X_2 = 0.1;
+	public double PROJ_SPACING_AXIS_Y_2 = 1;
+	
+	public double PROJ_X_POSITION_1 = 10;
+	public double PROJ_Y_POSITION_1 = 500;
+	public double PROJ_TRANSLATE_FROM_X_1 = 10;
+	public double PROJ_TRANSLATE_TO_X_1 = 500;
+	public double PROJ_TRANSLATE_TO_Y_1 = 700;
+	
+	public double OPTICS_SLIDER_MAX_1 = 100;
+	public double OPTICS_SLIDER_MIN_1 = 30;
+	public double OPTICS_SLIDER_DEFAULT_1 = 50;
+	
+	public double OPTICS_SLIDER_MAX_2 = 300;
+	public double OPTICS_SLIDER_MIN_2 = 50;
+	public double OPTICS_SLIDER_DEFAULT_2 = 150;
+	
+	public double OPTICS_AXIS_X_MIN_1 = 0;
+	public double OPTICS_AXIS_X_MAX_1 = 1;
+	public double OPTICS_AXIS_Y_MIN_1 = -350;
+	public double OPTICS_AXIS_Y_MAX_1 = 350;
+	public double OPTICS_SPACING_AXIS_X = 0.1;
+	public double OPTICS_SPACING_AXIS_Y = 50;
+	
+	public double OPTICS_MAX_HEIGHT = 350;
+	public double OPTICS_MAX_WIDTH = 600;
 	
     public double DurationBobbing1 = 500;
     public double DurationBobbing2 = 100;

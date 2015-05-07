@@ -42,7 +42,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 
 	public OpticsContainer() {
 		// example of slider set up
-		mSlider1 = new Slider(30, 100, 50);
+		mSlider1 = new Slider(OPTICS_SLIDER_MIN_1, OPTICS_SLIDER_MAX_1, OPTICS_SLIDER_DEFAULT_1);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
 		mSlider1.setMajorTickUnit(1);
@@ -51,7 +51,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		mSlider1.setId("Slider 1");
 		this.addInputs(mSlider1);
 
-		mSlider2 = new Slider(50, 300, 150);
+		mSlider2 = new Slider(OPTICS_SLIDER_MIN_2, OPTICS_SLIDER_MAX_2, OPTICS_SLIDER_DEFAULT_2);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
 		mSlider2.setMajorTickUnit(0.5);
@@ -63,8 +63,8 @@ public class OpticsContainer extends MIContainer implements Resources {
 		String Xstr1 = "Time";
 		String Ystr1 = "Image Height";
 
-		NumberAxis xAxis = new NumberAxis(Xstr1, 0, 1, 0.1);
-		NumberAxis yAxis = new NumberAxis(Ystr1, -500, 500, 50);
+		NumberAxis xAxis = new NumberAxis(Xstr1, OPTICS_AXIS_X_MIN_1, OPTICS_AXIS_X_MAX_1, OPTICS_SPACING_AXIS_X );
+		NumberAxis yAxis = new NumberAxis(Ystr1, OPTICS_AXIS_Y_MIN_1, OPTICS_AXIS_Y_MAX_1, OPTICS_SPACING_AXIS_Y);
 
 		mGraph1 = new LineChart<Number, Number>(xAxis, yAxis);
 
@@ -75,21 +75,22 @@ public class OpticsContainer extends MIContainer implements Resources {
 		Rectangle2D bounds = screen.getVisualBounds();
 
 		image = new Rectangle(OBJECT_WIDTH, OBJECT_HEIGHT);
-		image.setFill(Color.BLUE);
+		image.setFill(Color.ALICEBLUE);
 		image.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
 		image.setTranslateY((bounds.getHeight() / 2) - OBJECT_HEIGHT);
 		image.setVisible(true);
-		image.setStroke(Color.WHITE);
-		image.setStyle("-fx-opacity: 0.7");
+		image.setStroke(Color.BLACK);
+		image.getStyleClass().add("opacity-shapes");
 
 		// specify object- look and location
 		object = new Rectangle(OBJECT_WIDTH, OBJECT_HEIGHT);
-		object.setFill(Color.RED);
+		object.setFill(Color.SILVER);
 		object.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
 		object.setTranslateY((bounds.getHeight() / 2) - OBJECT_HEIGHT);
-		object.setStroke(Color.WHITE);
+		object.setStroke(Color.BLACK);
 		object.setVisible(false);
-		object.setStyle("-fx-opacity: 0.7");
+
+		object.getStyleClass().add("opacity-shapes");
 
 		Ellipse ellipse = new Ellipse();
 		ellipse.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
@@ -98,7 +99,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		ellipse.setStroke(Color.BLACK);
 		ellipse.setRadiusX(15f);
 		ellipse.setRadiusY(150f);
-		ellipse.setStyle("-fx-opacity: 0.8");
+		ellipse.getStyleClass().add("opacity-shapes");
 
 		focalpoint1 = new Rectangle(FOCAL_WIDTH, FOCAL_HEIGHT);
 		focalpoint1.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
@@ -129,7 +130,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 
 		// TODO fix the width of the line
 
-		Line line1 = new Line(0, bounds.getHeight() / 2, 1300,
+		Line line1 = new Line(0, bounds.getHeight() / 2, 1400,
 				bounds.getHeight() / 2);
 		line1.setStroke(Color.BLACK);
 		mCanvas.getChildren().addAll(line1);
@@ -216,9 +217,9 @@ public class OpticsContainer extends MIContainer implements Resources {
 			public void handle(ActionEvent event) {
 
 				if ((Math.abs(calculateImageDistance(mSlider1.getValue(),
-						mSlider2.getValue())) > 600)
+						mSlider2.getValue())) > OPTICS_MAX_WIDTH)
 						|| (Math.abs(calculateImageHeight(mSlider1.getValue(),
-								mSlider2.getValue(), OBJECT_HEIGHT)) > 350)) {
+								mSlider2.getValue(), OBJECT_HEIGHT)) > OPTICS_MAX_HEIGHT)) {
 
 					JOptionPane
 							.showMessageDialog(
