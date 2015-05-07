@@ -31,7 +31,7 @@ import javafx.util.Duration;
  */
 public class ProjContainer extends MIContainer implements Resources{
 
-	XYChart.Series<Number, Number> series1, series2;
+//	XYChart.Series<Number, Number> series1, series2;
 	LineChart<Number, Number> mGraph1, mGraph2;
 	Slider mSlider1, mSlider2;
 	TranslateTransition anim1, anim2;
@@ -60,18 +60,16 @@ public class ProjContainer extends MIContainer implements Resources{
 		mSlider2.setMinorTickCount(0);
 		mSlider2.setSnapToTicks(true);
 		mSlider2.setId("Slider 2");
-		this.addInputs(mSlider2);
+		this.addInputs(mSlider2);	
 		
+		//example of graph set up
 		String Xstr1 = "Time";
 		String Ystr1 = "X Position";
 
 		
 		String Xstr2 = "Time";
-		String Ystr2 = "Y Position";				
+		String Ystr2 = "Y Position";			
 		
-			
-		
-		//example of graph set up
 		NumberAxis xAxis1 = new NumberAxis(Xstr1, 0, 1, 0.1);
 		NumberAxis yAxis1 =new NumberAxis(Ystr1,-5,	5, 1);
 		         

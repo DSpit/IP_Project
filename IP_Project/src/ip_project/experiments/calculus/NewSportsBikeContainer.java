@@ -55,7 +55,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
         
         
 		
-		this.addGraphs(barGraph);
+//		this.addGraphs(barGraph);
 		
 		
 	}

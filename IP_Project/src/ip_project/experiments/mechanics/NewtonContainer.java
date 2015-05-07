@@ -54,7 +54,6 @@ public class NewtonContainer extends MIContainer implements Resources {
 	Animation gAnim;
 	TranslateTransition anim1;
 	
-	double mForce, mMass, mAcceleration;
 	ImageView image, imageflag, imagetext;
 	FadeTransition fadetransition1, fadetransition2;
 
