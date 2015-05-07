@@ -168,11 +168,17 @@ public interface Resources {
     public double BobbingByX = 3;
 	
 	
-	public String NEWTON_HELP = "The first Slider is Force \n "
-			+ "The second Slider is Mass  " ;
+	public String NEWTON_HELP = "This experiment aims to simulate Newton's Second Law of Motion. The net force applied" + 
+	"to a body produces a proportional acceleration. In other words, if a body is accelerating, then there is a force on it." 
+			+ "\n	The first slider is Force\n "
+			+ "	The second slider is Mass" ;
 			
-	public String PROJ_HELP = "The first Slider is Initial velocity \n "
-			+ "The second Slider is Angle  " ;
+	public String PROJ_HELP = "Projectile motion is a form of motion in which an object or particle (called a projectile) is "
+			+ "thrown near the earth's surface, and it moves along a curved path under the action of gravity only. \nThe only force of"
+			+ " significance that acts on the object is gravity, which acts downward to cause a downward acceleration. "
+			+ "\nThere are no horizontal forces needed to maintain the horizontal motion – consistent "
+			+ "with the concept of inertia." + "\n	The first slider is the Initial velocity \n "
+			+ "	The second slider is the Angle" ;
 	public String OPTIC_HELP = "Optics and Lenses";
 	public String RAD_ACT_HELP = "Radioactive Decay";
 	public String BIKE_HELP = "New Sports Bike";
