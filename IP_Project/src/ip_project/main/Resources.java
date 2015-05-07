@@ -209,7 +209,7 @@ public interface Resources {
 	public double NSB_TRANSLATE_TO_X_1 = 1000;
 	
 	public double NSB_WIDTH = 150;
-	public double NSB_HEIGHT = 150;
+	public double NSB_HEIGHT = 100;
 	
 	public double NSB_X_POSITION_2 = 400;
 	public double NSB_Y_POSITION_2 = 200;
