@@ -1,5 +1,7 @@
 package ip_project.experiments.calculus;
 
+import java.io.File;
+
 import com.sun.javafx.geom.Rectangle;
 
 import ip_project.main.MIContainer;
@@ -9,6 +11,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -19,6 +23,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -31,7 +37,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 
 	// XYChart.Series<Number, Number> series1, series2;
 
-	XYChart.Series<String, Number> series3; // = new XYChart.Series();
+	XYChart.Series<String, Number> series3; 
 	Slider mSlider1, mSlider2;
 	TranslateTransition anim1;
 	Timeline anim2;
@@ -188,6 +194,25 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 	public void updateValues() {
 
 		anim2.play();
+		
+		
+		String flyS = new File("src/ip_project/sounds/fly.mp3").toURI()
+				.toString();
+
+		Media pick = new Media(flyS);
+		MediaPlayer player = new MediaPlayer(pick);
+
+		player.play();
+
+		anim2.setOnFinished(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+
+				player.stop();
+
+			}
+		});
 
 	}
 
