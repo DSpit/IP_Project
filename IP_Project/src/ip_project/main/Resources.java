@@ -33,6 +33,8 @@ public interface Resources {
 	public String HELP_TITLE = "Help";
 	
 	public String EXIT = "Exit";
+	public double BAR_WIDTH = 500;
+	public double MIC_HEIGHT = 150;
 	
 	public String APPLE_IMAGE_PATH = "ip_project/icons/apple.png";
 	public String PROJ_IMAGE_PATH = "ip_project/icons/projectile.png";
@@ -40,6 +42,13 @@ public interface Resources {
 	public String DECAY_IMAGE_PATH = "ip_project/icons/molecule.png";
 	public String BALL_IMAGE_PATH = "ip_project/icons/ball.png";
 	public String BIKE_IMAGE_PATH = "ip_project/icons/abacus.png";
+	public String SNOOP_DOG_PATH = "ip_project/icons/snoopdog.gif";
+	public String LEAF_PATH = "ip_project/icons/leaf.gif";
+	public String TANK_PATH = "ip_project/icons/tank.png";
+	public String SOVIET_FLAG = "ip_project/icons/soviet-flag.png";
+	public String MEANWHILE_PATH = "ip_project/icons/meanwhile.png";
+	public String OVNI_PATH = "ip_project/icons/ovni.png";
+	
 	
 	public String NSB_FACE_1 = "ip_project/icons/face-1.png";
 	public String NSB_FACE_2 = "ip_project/icons/face-2.png";
@@ -49,13 +58,63 @@ public interface Resources {
 	public String NSB_FACE_6 = "ip_project/icons/face-6.png";
 	public String NSB_FACE_7 = "ip_project/icons/face-7.png";
 	
+	public String NSB_X_AXIS = "Price";
+	
+	public String NSB_Y_AXIS_1 = "Profit";
+	public String NSB_Y_AXIS_2 = "Units Old";
+	
 
 	public int MAX_FORCE = 100, MAX_MASS = 100, MIN_FORCE = 5, MIN_MASS = 5;
 	
+	
+	public String GS_X_AXIS = "Time";
+	public String GS_Y_AXIS = "X Position";
+	
+	public String NEWTON_X_AXIS = "Time";
+	public String NEWTON_Y_AXIS_1 = "Position";
+	public String NEWTON_Y_AXIS_2 = "Velocity";
+	
+	public int ZERO_DEFAULT = 0;
+	public int ONE_DEFAULT = 1; 
+	public int HALF_FACTOR = 2;
+	public String ICON_PATH = "ip_project/icons/icon.png";
+	
+	public double TICK_UNIT_1 = 0.1; 
+	public double TICK_UNIT_2 = 1;
+	public double TICK_UNIT_3 = 3;
+	public double TICK_UNIT_4 = 5;
+	public double TICK_UNIT_5 = 1000;
+	public double TICK_UNIT_6 = 0.5;
+	
+	public double GS_FROM_WIDTH_1 = 15;
+	public double GS_FROM_WIDTH_2 = 10;
+	public double GS_FROM_HEIGHT_1 = 15;
+	
+	public String OPTICS_X = "Time";
+	public String OPTICS_Y = "Image Height";
+	
+	public double FULL_CIRCLE = 360;
+	
 	public double GRAVITY_CONSTANT = 9.8;
 	
+	public double NSB_COSTS = 70000;
+	public double NSB_UNITS = 200;
+	public double NSB_CONSTANT = 350;
+	
+	
+	public String PC_X_AXIS = "Time";
+	public String PC_Y_AXIS_1 = "X Poisition";
+	public String PC_Y_AXIS_2 = "Y Poisition";
+	
+	public String ERROR_MESSAGE_OPTICS = "The image is going to be out of the bounds of the screen! Try entering new values.";
+	
+	public double PC_CONSTANT_1 = 15;
+	public double PC_CONSTANT_2 = 10;
+	public double PC_CONSTANT_3 = 1.27551;
+	public double PC_CONSTANT_4 = 5;
 	
 	public double INITIAL_HEIGHT = 50;
+	public double LINE_WIDTH = 1400; 
 	
 	
 	public double OBJECT_HEIGHT = 100;
@@ -63,6 +122,8 @@ public interface Resources {
 	public double WIDTH_CONSTANT = 0.294140625; 
 	public double FOCAL_WIDTH = 5;
 	public double FOCAL_HEIGHT = 10;
+	
+	public int NUMBER_OF_PARTICLES = 100;
 	
 	public double NEWTON_SLIDER_MAX_1 = 10;
 	public double NEWTON_SLIDER_MIN_1 = 0;
@@ -83,10 +144,7 @@ public interface Resources {
 	public double NEWTON_Y_POSITION_3 = 700;
 	
 	public double NEWTON_TRANSLATE_FROM_X = 10;
-	public double NEWTON_TRANSLATE_TO_X = 600;
-	
-	
-	
+	public double NEWTON_TRANSLATE_TO_X = 600;	
 	
 	public double GS_SLIDER_MAX_1 = 1;
 	public double GS_SLIDER_MIN_1 = 0;
@@ -206,7 +264,7 @@ public interface Resources {
 	public double NSB_X_POSITION_1 = 350;
 	public double NSB_Y_POSITION_1 = 100;
 	public double NSB_TRANSLATE_FROM_X_1 = 350;
-	public double NSB_TRANSLATE_TO_X_1 = 1000;
+	public double aNSB_TRANSLATE_TO_X_1 = 1000;
 	
 	public double NSB_WIDTH = 150;
 	public double NSB_HEIGHT = 100;
@@ -222,7 +280,27 @@ public interface Resources {
 	
 	public String NSB_SLIDER_1_ID = "Advertisement Costs";
 	public String NSB_SLIDER_2_ID = "Cost per bike";
+	
+	public int RAD_ACT_SLIDER_MIN = 0;
+	public int RAD_ACT_SLIDER_MAX = 1;
+	public double RAD_ACT_SLIDER_DEFAULT = 0.5;
+	
+	public int RAD_ACT_X_AXIS_MIN = 0;
+	public int RAD_ACT_X_AXIS_MAX = 1000;
+	public int RAD_ACT_X_AXIS_TICK = 100;
+	
+	public int RAD_ACT_Y_AXIS_MIN = 700;
+	public int RAD_ACT_Y_AXIS_MAX = 800;
+	public int RAD_ACT_Y_AXIS_TICK = 10;
 
+	public int RAD_ACT_WIGGLE_DISTANCE = 4;
+	public double RAD_ACT_VISUAL_CONSTANT = 1E12;
+	public double RAD_ACT_VISUAL_CONSTANT_2 = 10E16;
+	public int RAD_ACT_FADE_TIME = 50;
+
+	public String RAD_ACT_X_AXIS_LABEL = "Time";
+	public String RAD_ACT_Y_AXIS_LABEL = "Number of Praticles";
+	
 	
 	public String NEWTON_HELP = "This experiment aims to simulate Newton's Second Law of Motion. The net force applied" + 
 	"to a body produces a proportional acceleration. \nIn other words, if a body is accelerating, then there is a force on it." 

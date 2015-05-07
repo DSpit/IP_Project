@@ -37,7 +37,7 @@ import javafx.util.Duration;
 /**
  *
  */
-public abstract class MIContainer extends VBox{
+public abstract class MIContainer extends VBox implements Resources{
 	
 	private VBox mGContainer = new VBox();
 	private HBox mIContainer = new HBox();
@@ -46,7 +46,7 @@ public abstract class MIContainer extends VBox{
 	private ArrayList<Transition> mAnimation = new ArrayList<Transition>();
 	private ArrayList<LineChart<Number, Number>> mGraphs = new ArrayList<LineChart<Number,Number>>();
 	private boolean mIsChanged = false;
-	private int mExperimentCount = 1;
+	private double mExperimentCount = ONE_DEFAULT;
 	private Button btn;
 	
 	public MIContainer(){
@@ -69,7 +69,7 @@ public abstract class MIContainer extends VBox{
 		HBox content = new HBox();
 		//create graph and input bar
 		VBox bar = new VBox();
-		bar.setPrefWidth(500);
+		bar.setPrefWidth(BAR_WIDTH);
 		
 		//create graph container
 		mGContainer.getStyleClass().add("graph-container");
@@ -77,7 +77,7 @@ public abstract class MIContainer extends VBox{
 		VBox.setVgrow(mGContainer, Priority.ALWAYS);
 		
 		//create input container
-		mIContainer.setPrefHeight(150);
+		mIContainer.setPrefHeight(MIC_HEIGHT);
 		mIContainer.setAlignment(Pos.CENTER);
 		mIContainer.getStyleClass().add("linear-grad-repeat2");
 		
@@ -215,21 +215,20 @@ public abstract class MIContainer extends VBox{
 			}
 		}
 		
-		//resets the experiment count
-		mExperimentCount = 1;
+		mExperimentCount = ONE_DEFAULT;
 		
-		//makes sure that change flag is set to false
+	
 		mIsChanged = false;
 	}
 	
-	public void unpause(){	//Note: Could not use "Continue" because clash with reserved syntax
+	public void unpause(){	
 		for(Slider input: mInputs){
 			input.setDisable(true);
 			input.setOnMouseReleased(null);
 		}
 		
 		if(mIsChanged){
-			//TODO create new trial in graphs
+
 			this.start();
 		}else{
 			for(Transition animation : mAnimation){

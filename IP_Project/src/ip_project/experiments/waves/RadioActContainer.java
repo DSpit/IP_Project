@@ -22,7 +22,6 @@ import javafx.util.Duration;
  */
 public class RadioActContainer extends MIContainer implements Resources{
 	
-	public static final int NUMBER_OF_PARTICLES = 100;
 	
 	Slider mHalfLifeSlider;
 	LineChart<Number, Number> mGraph;
@@ -33,11 +32,12 @@ public class RadioActContainer extends MIContainer implements Resources{
 	public RadioActContainer(){
 		super();
 		
-		mHalfLifeSlider = new Slider(0, 1, 0.5);
+		mHalfLifeSlider = new Slider(RAD_ACT_SLIDER_MIN,
+				RAD_ACT_SLIDER_MAX, RAD_ACT_SLIDER_DEFAULT);
 		mHalfLifeSlider.setShowTickMarks(true);
 		mHalfLifeSlider.setShowTickLabels(true);
-		mHalfLifeSlider.setMajorTickUnit(0.1);
-		mHalfLifeSlider.setMinorTickCount(0);
+		mHalfLifeSlider.setMajorTickUnit(TICK_UNIT_1);
+		mHalfLifeSlider.setMinorTickCount(ZERO_DEFAULT);
 		mHalfLifeSlider.setSnapToTicks(true);
 		mHalfLifeSlider.setId(RAD_ACT_SLIDER_1_ID);
 		
@@ -45,14 +45,11 @@ public class RadioActContainer extends MIContainer implements Resources{
 		
 		
 		//Graph set up
-		String xAxisLabel = "Time";
-		String yAxisLabel = "Number of Protons";
+		String xAxisLabel = RAD_ACT_X_AXIS_LABEL;
+		String yAxisLabel = RAD_ACT_Y_AXIS_LABEL;
 		
-		NumberAxis xAxis = new NumberAxis(xAxisLabel, 0, 1000, 100);
-		NumberAxis yAxis = new NumberAxis(yAxisLabel, 700, 800 , 10);
-		
-//		xAxis.setAutoRanging(false);
-//		yAxis.setAutoRanging(false);
+		NumberAxis xAxis = new NumberAxis(xAxisLabel, RAD_ACT_X_AXIS_MIN, RAD_ACT_X_AXIS_MAX, RAD_ACT_X_AXIS_TICK);
+		NumberAxis yAxis = new NumberAxis(yAxisLabel, RAD_ACT_Y_AXIS_MIN, RAD_ACT_Y_AXIS_MAX , RAD_ACT_Y_AXIS_TICK);
 		
 		mGraph = new LineChart<Number, Number>(xAxis, yAxis);
 		
@@ -62,7 +59,7 @@ public class RadioActContainer extends MIContainer implements Resources{
 		mParticleHolder = new GridPane();
 		
 		mTimeKeep = new TranslateTransition(Duration.INDEFINITE, mParticleHolder);
-		mTimeKeep.setCycleCount(1);
+		mTimeKeep.setCycleCount(ONE_DEFAULT);
 		mTimeKeep.setInterpolator(new RadioActInterpolator() );
 		
 		this.addAnimations(mTimeKeep);
@@ -76,12 +73,12 @@ public class RadioActContainer extends MIContainer implements Resources{
 		mParticleHolder.setMaxWidth(this.mCanvas.getWidth());
 		mParticleHolder.setMaxHeight(this.mCanvas.getHeight());
 		
-		for(int i = 0, j = 0, a = 0 ;(i+1)*2*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getWidth() 
-				|| (j+1)*2*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getHeight(); i++, a++){
-			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (a%2 == 0+j%2)?Color.BLUE : Color.RED);
+		for(int i = ZERO_DEFAULT, j = ZERO_DEFAULT, a = ZERO_DEFAULT ;(i+ONE_DEFAULT)*HALF_FACTOR*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getWidth() 
+				|| (j+ONE_DEFAULT)*2*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getHeight(); i++, a++){
+			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (a%HALF_FACTOR == 0+j%HALF_FACTOR)?Color.BLUE : Color.RED);
 			
-			if(i*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getWidth()){
-				i = 0;
+			if(i*HALF_FACTOR*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getWidth()){
+				i = ZERO_DEFAULT;
 				j++;
 			}
 			
@@ -91,9 +88,9 @@ public class RadioActContainer extends MIContainer implements Resources{
 			
 			mParticleHolder.getChildren().add(circle);
 			
-			TranslateTransition wigglingAnim = new TranslateTransition(Duration.millis(10), circle);
+			TranslateTransition wigglingAnim = new TranslateTransition(Duration.INDEFINITE, circle);
 			wigglingAnim.setCycleCount(Animation.INDEFINITE);
-			wigglingAnim.setByX(4);
+			wigglingAnim.setByX(RAD_ACT_WIGGLE_DISTANCE);
 			
 			wigglingAnim.play();
 			
@@ -119,8 +116,6 @@ public class RadioActContainer extends MIContainer implements Resources{
 		
 		mParticleHolder.getChildren().removeAll(mParticleHolder.getChildren());
 	}
-	
-	
 	private class RadioActInterpolator extends Interpolator{
 		
 		private double mOldValue;
@@ -128,48 +123,31 @@ public class RadioActContainer extends MIContainer implements Resources{
 		@Override
 		protected double curve(double t){
 			mOldValue = mParticleHolder.getChildren().size();
-			double value = (int)(mParticleHolder.getChildren().size()*Math.pow(Math.E, -t*1E12/(mHalfLifeSlider.getValue())));
-			
-			/*XYChart.Series<Number, Number> series = mGraph.getData().get(mGraph.getData().size()-1);
-			series.getData().add(new Data<Number, Number>(t, t));
-			*/
+			double value = (int)(mParticleHolder.getChildren().size()*Math.pow(Math.E, -t*RAD_ACT_VISUAL_CONSTANT/(mHalfLifeSlider.getValue())));
 			
 			XYChart.Series<Number, Number> series = mGraph.getData().get(
-					mGraph.getData().size() - 1);
+					mGraph.getData().size() - ONE_DEFAULT);
 
-			series.getData().add(new Data<Number, Number>(t*10E16, value));
-			
-			
-			
-			//System.out.println(t + " + " + value);
-			
+			series.getData().add(new Data<Number, Number>(t*RAD_ACT_VISUAL_CONSTANT_2, value));
+						
 			
 			if(mOldValue > value){
-				for(int i = 0; i < mOldValue-value; i++){
+				for(int i = ZERO_DEFAULT; i < mOldValue-value; i++){
 					
 					Circle temp = (Circle)mParticleHolder.getChildren().get((int)(Math.random()*mParticleHolder.getChildren().size()));
 					
-//					int count = 0;
-//					do{
-//						temp = (Circle)mParticleHolder.getChildren().get((int)(Math.random()*mParticleHolder.getChildren().size()));
-//						if(count > 7){
-//							break;
-//						}else{
-//							count++;
-//						}
-//					}while(temp.getOpacity() == 0);
 					
-					FadeTransition ft = new FadeTransition(Duration.millis(50), temp);
+					FadeTransition ft = new FadeTransition(Duration.millis(RAD_ACT_FADE_TIME), temp);
 					
-					ft.setCycleCount(1);
-					ft.setFromValue(1);
-					ft.setToValue(0);
+					ft.setCycleCount(ONE_DEFAULT);
+					ft.setFromValue(ONE_DEFAULT);
+					ft.setToValue(ZERO_DEFAULT);
 					ft.play();
 				}
 				mOldValue = value;
 				
-				if(value < 1){
-					value = 0;
+				if(value < ONE_DEFAULT){
+					value = ZERO_DEFAULT;
 					mTimeKeep.stop();
 				}
 			}

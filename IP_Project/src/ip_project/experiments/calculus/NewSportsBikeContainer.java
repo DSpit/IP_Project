@@ -51,8 +51,8 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		mSlider1 = new Slider(NSB_SLIDER_MIN_1, NSB_SLIDER_MAX_1, NSB_SLIDER_DEFAULT_1);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
-		mSlider1.setMajorTickUnit(1000);
-		mSlider1.setMinorTickCount(0);
+		mSlider1.setMajorTickUnit(TICK_UNIT_5);
+		mSlider1.setMinorTickCount((int) ZERO_DEFAULT);
 		mSlider1.setSnapToTicks(true);
 		mSlider1.setId(NSB_SLIDER_1_ID);
 		this.addInputs(mSlider1);
@@ -60,8 +60,8 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		mSlider2 = new Slider(NSB_SLIDER_MIN_2, NSB_SLIDER_MAX_2, NSB_SLIDER_DEFAULT_2);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
-		mSlider2.setMajorTickUnit(5);
-		mSlider2.setMinorTickCount(0);
+		mSlider2.setMajorTickUnit(TICK_UNIT_4);
+		mSlider2.setMinorTickCount((int) ZERO_DEFAULT);
 		mSlider2.setSnapToTicks(true);
 		mSlider2.setId(NSB_SLIDER_2_ID);
 		this.addInputs(mSlider2);
@@ -74,16 +74,12 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		imgs[5] = new Image(NSB_FACE_6);
 		imgs[6] = new Image(NSB_FACE_7);
 
-		String Ystr2 = "Units Sold";
-		String Ystr1 = "Profit";
 
-		String Xstr = "Price";
+		NumberAxis xAxis1 = new NumberAxis(NSB_X_AXIS, NSB_AXIS_X_MIN_1, NSB_AXIS_X_MAX_1, NSB_SPACING_AXIS_X);
+		NumberAxis yAxis1 = new NumberAxis(NSB_Y_AXIS_1, NSB_AXIS_Y_MIN_1, NSB_AXIS_Y_MAX_1, NSB_SPACING_AXIS_Y);
 
-		NumberAxis xAxis1 = new NumberAxis(Xstr, NSB_AXIS_X_MIN_1, NSB_AXIS_X_MAX_1, NSB_SPACING_AXIS_X);
-		NumberAxis yAxis1 = new NumberAxis(Ystr1, NSB_AXIS_Y_MIN_1, NSB_AXIS_Y_MAX_1, NSB_SPACING_AXIS_Y);
-
-		NumberAxis xAxis2 = new NumberAxis(Xstr, NSB_AXIS_X_MIN_2, NSB_AXIS_X_MAX_2, NSB_SPACING_AXIS_X_2);
-		NumberAxis yAxis2 = new NumberAxis(Ystr2, NSB_AXIS_Y_MIN_2, NSB_AXIS_Y_MAX_2, NSB_SPACING_AXIS_Y_2);
+		NumberAxis xAxis2 = new NumberAxis(NSB_X_AXIS, NSB_AXIS_X_MIN_2, NSB_AXIS_X_MAX_2, NSB_SPACING_AXIS_X_2);
+		NumberAxis yAxis2 = new NumberAxis(NSB_Y_AXIS_2, NSB_AXIS_Y_MIN_2, NSB_AXIS_Y_MAX_2, NSB_SPACING_AXIS_Y_2);
 
 		mGraph1 = new LineChart<Number, Number>(xAxis1, yAxis1);
 		mGraph2 = new LineChart<Number, Number>(xAxis2, yAxis2);
@@ -124,7 +120,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		anim1 = new TranslateTransition(Duration.seconds(10), bike);
 		anim1.setInterpolator(new NewSportsInterpolator());
 		anim1.setFromX(NSB_TRANSLATE_FROM_X_1);
-		anim1.setCycleCount(1);
+		anim1.setCycleCount((int) ONE_DEFAULT);
 		
 
 		anim1.setToX(NSB_TRANSLATE_TO_X_1);
@@ -140,14 +136,14 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		@Override
 		protected double curve(double t) {
 
-			double maxPrice = calculateBestPrice() * 2;
+			double maxPrice = calculateBestPrice() * HALF_FACTOR;
 
 			// get top level series
 			XYChart.Series<Number, Number> series1 = mGraph1.getData().get(
-					mGraph1.getData().size() - 1);
+					(int) (mGraph1.getData().size() - ONE_DEFAULT));
 
 			XYChart.Series<Number, Number> series2 = mGraph2.getData().get(
-					mGraph2.getData().size() - 1);
+					(int) (mGraph2.getData().size() - ONE_DEFAULT));
 
 			series1.getData().add(
 					new Data<Number, Number>(t * maxPrice, calculateProfit(t
@@ -163,7 +159,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 	}
 
 	public double calculateUnitSales(double price) {
-		return 70000 - 200 * price;
+		return NSB_COSTS - NSB_UNITS * price;
 	}
 
 	public double calculateSales(double price) {
@@ -183,7 +179,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 	}
 
 	public double calculateBestPrice() {
-		return (350 + mSlider2.getValue()) / 2;
+		return (NSB_CONSTANT + mSlider2.getValue()) / HALF_FACTOR;
 	}
 
 	public void stopAnimation() {
@@ -195,6 +191,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 
 		anim2.play();
 		
+		// FILE PATH NOT IN INTERFACE BECAUSE OF CONVERSION 
 		
 		String flyS = new File("src/ip_project/sounds/fly.mp3").toURI()
 				.toString();

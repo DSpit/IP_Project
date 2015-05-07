@@ -61,17 +61,17 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			
 			//set main scene
 
-			mStage.setX(0);
-			mStage.setY(0);
+			mStage.setX((int) ZERO_DEFAULT);
+			mStage.setY((int) ZERO_DEFAULT);
 //			mStage.setMinHeight(WINDOW_HEIGHT);
 //			mStage.setMinWidth(WINDOW_WIDTH);
-			mStage.setWidth(bounds.getWidth()/2);
-			mStage.setHeight(bounds.getHeight()/2);
+			mStage.setWidth(bounds.getWidth()/HALF_FACTOR);
+			mStage.setHeight(bounds.getHeight()/HALF_FACTOR);
 			mStage.show();
 			mStage.sizeToScene();
 			mStage.setScene(this.createScene());
 			
-	        mStage.getIcons().add(new Image("ip_project/icons/icon.png"));
+	        mStage.getIcons().add(new Image(ICON_PATH));
 			mStage.setTitle("IP Project"); 
 			mStage.setMaximized(true);
 			
@@ -97,11 +97,10 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
         exitLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-               System.exit(0);
+               System.exit((int) ZERO_DEFAULT);
             }
         });
         
-        // TODO needs fixing, can't fucking figure out how to link a path from the git project to here ~a
         //menu items images
         Image apple = new Image(APPLE_IMAGE_PATH, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);
         Image projectile = new Image(PROJ_IMAGE_PATH, MENU_THUMBNAIL_SIZE, MENU_THUMBNAIL_SIZE, false, false);

@@ -58,8 +58,8 @@ public class NewtonContainer extends MIContainer implements Resources {
 				NEWTON_SLIDER_DEFAULT_1);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
-		mSlider1.setMajorTickUnit(1);
-		mSlider1.setMinorTickCount(0);
+		mSlider1.setMajorTickUnit(TICK_UNIT_1);
+		mSlider1.setMinorTickCount((int) ZERO_DEFAULT);
 		mSlider1.setSnapToTicks(true);
 		mSlider1.setId(NEWTON_SLIDER_1_ID);
 		this.addInputs(mSlider1);
@@ -68,46 +68,40 @@ public class NewtonContainer extends MIContainer implements Resources {
 				NEWTON_SLIDER_DEFAULT_1);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
-		mSlider2.setMajorTickUnit(1);
-		mSlider2.setMinorTickCount(0);
+		mSlider2.setMajorTickUnit(TICK_UNIT_2);
+		mSlider2.setMinorTickCount((int) ZERO_DEFAULT);
 		mSlider2.setSnapToTicks(true);
 		mSlider2.setId(NEWTON_SLIDER_2_ID);
 		this.addInputs(mSlider2);
 
-		String Xstr1 = "Time";
-		String Ystr1 = "Position";
-
-		String Xstr2 = "Time";
-		String Ystr2 = "Velocity";
-
 		// example of graph set up
-		NumberAxis xAxis1 = new NumberAxis(Xstr1, NEWTON_AXIS_X_MIN_1,
-				calculate(calculateAcceleration(), 1), NEWTON_SPACING_AXIS);
+		NumberAxis xAxis1 = new NumberAxis(NEWTON_X_AXIS, NEWTON_AXIS_X_MIN_1,
+				calculate(calculateAcceleration(), ONE_DEFAULT), NEWTON_SPACING_AXIS);
 
-		NumberAxis yAxis1 = new NumberAxis(Ystr1, NEWTON_AXIS_Y_MIN_1,
-				calculate(calculateAcceleration(), 1), NEWTON_SPACING_AXIS);
+		NumberAxis yAxis1 = new NumberAxis(NEWTON_Y_AXIS_1, NEWTON_AXIS_Y_MIN_1,
+				calculate(calculateAcceleration(), ONE_DEFAULT), NEWTON_SPACING_AXIS);
 
-		NumberAxis xAxis2 = new NumberAxis(Xstr2, NEWTON_AXIS_X_MIN_1,
-				calculate(calculateAcceleration(), 1), NEWTON_SPACING_AXIS);
+		NumberAxis xAxis2 = new NumberAxis(NEWTON_X_AXIS, NEWTON_AXIS_X_MIN_1,
+				calculate(calculateAcceleration(), ONE_DEFAULT), NEWTON_SPACING_AXIS);
 
-		NumberAxis yAxis2 = new NumberAxis(Ystr2, NEWTON_AXIS_Y_MIN_1,
-				calculate((double) 1, (double) 1), NEWTON_SPACING_AXIS);
+		NumberAxis yAxis2 = new NumberAxis(NEWTON_Y_AXIS_2, NEWTON_AXIS_Y_MIN_1,
+				calculate((double) ONE_DEFAULT, (double) ONE_DEFAULT), NEWTON_SPACING_AXIS);
 
-		Image image1 = new Image("ip_project/icons/tank.png");
+		Image image1 = new Image(TANK_PATH);
 		image = new ImageView();
 		image.setImage(image1);
 		image.setTranslateX(NEWTON_X_POSITION_1);
 		image.setTranslateY(NEWTON_Y_POSITION_1);
 		image.setVisible(false);
 
-		Image image2 = new Image("ip_project/icons/soviet-flag.png");
+		Image image2 = new Image(SOVIET_FLAG);
 		imageflag = new ImageView();
 		imageflag.setImage(image2);
 		imageflag.setTranslateX(NEWTON_X_POSITION_2);
 		imageflag.setTranslateY(NEWTON_Y_POSITION_2);
 		imageflag.setVisible(false);
 
-		Image image3 = new Image("ip_project/icons/meanwhile.png");
+		Image image3 = new Image(MEANWHILE_PATH);
 		imagetext = new ImageView();
 		imagetext.setImage(image3);
 		imagetext.setTranslateX(NEWTON_X_POSITION_3);
@@ -208,7 +202,7 @@ public class NewtonContainer extends MIContainer implements Resources {
 
 	// @Override
 	public double calculate(double value, double time) {
-		return value * Math.pow(time, 2);
+		return value * Math.pow(time, HALF_FACTOR);
 	}
 	
 	public String getTitle() {
@@ -228,11 +222,11 @@ public class NewtonContainer extends MIContainer implements Resources {
 
 			// get top level series
 			XYChart.Series<Number, Number> series1 = mGraph1.getData().get(
-					mGraph1.getData().size() - 1);
+					(int) (mGraph1.getData().size() - ONE_DEFAULT));
 			XYChart.Series<Number, Number> series2 = mGraph2.getData().get(
-					mGraph2.getData().size() - 1);
+					(int) (mGraph2.getData().size() - ONE_DEFAULT));
 
-			if (value < 1) {
+			if (value < ONE_DEFAULT) {
 				series1.getData().add(new Data<Number, Number>(t, value));
 				series2.getData()
 						.add(new Data<Number, Number>(t,
@@ -240,8 +234,7 @@ public class NewtonContainer extends MIContainer implements Resources {
 
 				return value;
 			} else
-				// series.getData().add(new Data<Number, Number>(t, 1));
-				return 1;
+				return ONE_DEFAULT;
 		}
 
 	}

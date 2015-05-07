@@ -42,8 +42,8 @@ public class ProjContainer extends MIContainer implements Resources {
 				PROJ_SLIDER_DEFAULT_1);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
-		mSlider1.setMajorTickUnit(1);
-		mSlider1.setMinorTickCount(0);
+		mSlider1.setMajorTickUnit(TICK_UNIT_2);
+		mSlider1.setMinorTickCount((int) ZERO_DEFAULT);
 		mSlider1.setSnapToTicks(true);
 		mSlider1.setId(PROJ_SLIDER_1_ID);
 		this.addInputs(mSlider1);
@@ -52,29 +52,23 @@ public class ProjContainer extends MIContainer implements Resources {
 				PROJ_SLIDER_DEFAULT_2);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
-		mSlider2.setMajorTickUnit(1);
-		mSlider2.setMinorTickCount(0);
+		mSlider2.setMajorTickUnit(TICK_UNIT_2);
+		mSlider2.setMinorTickCount((int) ZERO_DEFAULT);
 		mSlider2.setSnapToTicks(true);
 		mSlider2.setId(PROJ_SLIDER_2_ID);
 
 		this.addInputs(mSlider2);
 
-		String Xstr1 = "Time";
-		String Ystr1 = "X Position";
-
-		String Xstr2 = "Time";
-
-		String Ystr2 = "Y Position";
 
 		// example of graph set up
-		NumberAxis xAxis1 = new NumberAxis(Xstr1, PROJ_AXIS_X_MIN_1,
+		NumberAxis xAxis1 = new NumberAxis(PC_X_AXIS, PROJ_AXIS_X_MIN_1,
 				PROJ_AXIS_X_MAX_1, PROJ_SPACING_AXIS_X);
-		NumberAxis yAxis1 = new NumberAxis(Ystr1, PROJ_AXIS_Y_MIN_1,
+		NumberAxis yAxis1 = new NumberAxis(PC_Y_AXIS_1, PROJ_AXIS_Y_MIN_1,
 				PROJ_AXIS_Y_MAX_1, PROJ_SPACING_AXIS_Y);
 
-		NumberAxis xAxis2 = new NumberAxis(Xstr2, PROJ_AXIS_X_MIN_2,
+		NumberAxis xAxis2 = new NumberAxis(PC_X_AXIS, PROJ_AXIS_X_MIN_2,
 				PROJ_AXIS_X_MAX_2, PROJ_SPACING_AXIS_X_2);
-		NumberAxis yAxis2 = new NumberAxis(Ystr2, PROJ_AXIS_Y_MIN_2,
+		NumberAxis yAxis2 = new NumberAxis(PC_Y_AXIS_2, PROJ_AXIS_Y_MIN_2,
 				PROJ_AXIS_Y_MAX_2, PROJ_SPACING_AXIS_Y_2);
 
 		yAxis1.setAutoRanging(false);
@@ -88,11 +82,11 @@ public class ProjContainer extends MIContainer implements Resources {
 		this.addGraphs(mGraph1);
 		this.addGraphs(mGraph2);
 
-		Image image1 = new Image("ip_project/icons/ovni.png");
+		Image image1 = new Image(OVNI_PATH);
 		image = new ImageView();
 		image.setImage(image1);
-		image.setFitHeight(this.mCanvas.getHeight() / 15);
-		image.setFitWidth(this.mCanvas.getWidth() / 10);
+		image.setFitHeight(this.mCanvas.getHeight() / PC_CONSTANT_1);
+		image.setFitWidth(this.mCanvas.getWidth() / PC_CONSTANT_2);
 		image.setVisible(false);
 
 		image.setTranslateX(PROJ_X_POSITION_1);
@@ -101,17 +95,17 @@ public class ProjContainer extends MIContainer implements Resources {
 		anim1 = new TranslateTransition(Duration.seconds(10), image);
 		anim1.setInterpolator(new ProjXInterpolator());
 		anim1.setFromX(PROJ_TRANSLATE_FROM_X_1);
-		anim1.setCycleCount(1);
+		anim1.setCycleCount((int) ONE_DEFAULT);
 		anim1.setToX(PROJ_TRANSLATE_TO_X_1);
 
 		anim2 = new TranslateTransition(Duration.seconds(10), image);
 		anim2.setInterpolator(new ProjYInterpolator()); // this is where you put
 														// in the custom
 														// interpolator
-		anim2.setFromY(this.mCanvas.getHeight() / 2); // useless line, values is
+		anim2.setFromY(this.mCanvas.getHeight() / HALF_FACTOR); // useless line, values is
 														// updated before
 														// playing animation
-		anim2.setCycleCount(1);
+		anim2.setCycleCount((int) ONE_DEFAULT);
 		anim2.setToY(PROJ_TRANSLATE_TO_Y_1);
 
 		// set up the animation
@@ -134,7 +128,7 @@ public class ProjContainer extends MIContainer implements Resources {
 					mSlider2.getValue(), t);
 
 			XYChart.Series<Number, Number> series2 = mGraph2.getData().get(
-					mGraph2.getData().size() - 1);
+					mGraph2.getData().size() - (int) ONE_DEFAULT);
 			
 			series2.getData().add(new Data<Number, Number>(t, value));
 
@@ -152,7 +146,7 @@ public class ProjContainer extends MIContainer implements Resources {
 
 			// get top level series
 			XYChart.Series<Number, Number> series1 = mGraph1.getData().get(
-					mGraph1.getData().size() - 1);
+					mGraph1.getData().size() - (int) ONE_DEFAULT);
 
 			series1.getData().add(new Data<Number, Number>(t, value));
 
@@ -167,8 +161,8 @@ public class ProjContainer extends MIContainer implements Resources {
 
 	private double calculateYPosition(double velocity, double angle, double time) {
 
-		return ((time * velocity * Math.sin(Math.toRadians(angle))) - (0.5 * Math
-				.pow(time, 2) * GRAVITY_CONSTANT)) / 1.27551;
+		return ((time * velocity * Math.sin(Math.toRadians(angle))) - (ONE_DEFAULT/HALF_FACTOR * Math
+				.pow(time, HALF_FACTOR) * GRAVITY_CONSTANT)) / PC_CONSTANT_3;
 	}
 
 	private double maxHeight() {
@@ -180,13 +174,16 @@ public class ProjContainer extends MIContainer implements Resources {
 	}
 
 	public void updateValues() {
-		anim1.setToX((this.mCanvas.getWidth() / 5)
+		anim1.setToX((this.mCanvas.getWidth() / PC_CONSTANT_4)
 				* calculateXPosition(mSlider1.getValue(), mSlider2.getValue(),
-						1));
+						ONE_DEFAULT));
 
-		anim2.setFromY(this.mCanvas.getHeight() / 2);
-		anim2.setToY((this.mCanvas.getHeight() / 2)
-				- (this.mCanvas.getHeight() / (2)) * maxHeight());
+		anim2.setFromY(this.mCanvas.getHeight() / HALF_FACTOR);
+		anim2.setToY((this.mCanvas.getHeight() / HALF_FACTOR)
+				- (this.mCanvas.getHeight() / (HALF_FACTOR)) * maxHeight());
+		
+		
+		// CANNOT PUT PATH IN INTERFACE  BECAUSE OF CONVERSION
 
 		String ovniS = new File("src/ip_project/sounds/ovni.mp3").toURI()
 				.toString();
@@ -207,8 +204,8 @@ public class ProjContainer extends MIContainer implements Resources {
 			}
 		});
 
-		image.setFitHeight(this.mCanvas.getHeight() / 10);
-		image.setFitWidth(this.mCanvas.getWidth() / 10);
+		image.setFitHeight(this.mCanvas.getHeight() / PC_CONSTANT_2);
+		image.setFitWidth(this.mCanvas.getWidth() / PC_CONSTANT_2);
 		image.setVisible(true);
 
 	}

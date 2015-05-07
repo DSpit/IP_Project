@@ -45,8 +45,8 @@ public class OpticsContainer extends MIContainer implements Resources {
 		mSlider1 = new Slider(OPTICS_SLIDER_MIN_1, OPTICS_SLIDER_MAX_1, OPTICS_SLIDER_DEFAULT_1);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
-		mSlider1.setMajorTickUnit(1);
-		mSlider1.setMinorTickCount(0);
+		mSlider1.setMajorTickUnit(ONE_DEFAULT);
+		mSlider1.setMinorTickCount((int) ZERO_DEFAULT);
 		mSlider1.setSnapToTicks(true);
 		mSlider1.setId(OPTICS_SLIDER_1_ID);
 		this.addInputs(mSlider1);
@@ -54,17 +54,16 @@ public class OpticsContainer extends MIContainer implements Resources {
 		mSlider2 = new Slider(OPTICS_SLIDER_MIN_2, OPTICS_SLIDER_MAX_2, OPTICS_SLIDER_DEFAULT_2);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
-		mSlider2.setMajorTickUnit(0.5);
-		mSlider2.setMinorTickCount(0);
+		mSlider2.setMajorTickUnit(TICK_UNIT_6);
+		mSlider2.setMinorTickCount((int) ZERO_DEFAULT);
 		mSlider2.setSnapToTicks(true);
 		mSlider2.setId(OPTICS_SLIDER_2_ID);
 		this.addInputs(mSlider2);
 
-		String Xstr1 = "Time";
-		String Ystr1 = "Image Height";
 
-		NumberAxis xAxis = new NumberAxis(Xstr1, OPTICS_AXIS_X_MIN_1, OPTICS_AXIS_X_MAX_1, OPTICS_SPACING_AXIS_X );
-		NumberAxis yAxis = new NumberAxis(Ystr1, OPTICS_AXIS_Y_MIN_1, OPTICS_AXIS_Y_MAX_1, OPTICS_SPACING_AXIS_Y);
+
+		NumberAxis xAxis = new NumberAxis(OPTICS_X, OPTICS_AXIS_X_MIN_1, OPTICS_AXIS_X_MAX_1, OPTICS_SPACING_AXIS_X );
+		NumberAxis yAxis = new NumberAxis(OPTICS_Y, OPTICS_AXIS_Y_MIN_1, OPTICS_AXIS_Y_MAX_1, OPTICS_SPACING_AXIS_Y);
 
 		mGraph1 = new LineChart<Number, Number>(xAxis, yAxis);
 
@@ -77,7 +76,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		image = new Rectangle(OBJECT_WIDTH, OBJECT_HEIGHT);
 		image.setFill(Color.ALICEBLUE);
 		image.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
-		image.setTranslateY((bounds.getHeight() / 2) - OBJECT_HEIGHT);
+		image.setTranslateY((bounds.getHeight() / HALF_FACTOR) - OBJECT_HEIGHT);
 		image.setVisible(true);
 		image.setStroke(Color.BLACK);
 		image.getStyleClass().add("opacity-shapes");
@@ -86,7 +85,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		object = new Rectangle(OBJECT_WIDTH, OBJECT_HEIGHT);
 		object.setFill(Color.SILVER);
 		object.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
-		object.setTranslateY((bounds.getHeight() / 2) - OBJECT_HEIGHT);
+		object.setTranslateY((bounds.getHeight() / HALF_FACTOR) - OBJECT_HEIGHT);
 		object.setStroke(Color.BLACK);
 		object.setVisible(false);
 
@@ -94,7 +93,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 
 		Ellipse ellipse = new Ellipse();
 		ellipse.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
-		ellipse.setTranslateY(bounds.getHeight() / 2);
+		ellipse.setTranslateY(bounds.getHeight() / HALF_FACTOR);
 		ellipse.setFill(Color.LIGHTSTEELBLUE);
 		ellipse.setStroke(Color.BLACK);
 		ellipse.setRadiusX(15f);
@@ -103,7 +102,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 
 		focalpoint1 = new Rectangle(FOCAL_WIDTH, FOCAL_HEIGHT);
 		focalpoint1.setTranslateX(bounds.getWidth() * WIDTH_CONSTANT);
-		focalpoint1.setTranslateY((bounds.getHeight() / 2));
+		focalpoint1.setTranslateY((bounds.getHeight() / HALF_FACTOR));
 
 		mCanvas.getChildren().add(ellipse);
 
@@ -111,14 +110,14 @@ public class OpticsContainer extends MIContainer implements Resources {
 		anim1.setInterpolator(Interpolator.LINEAR); // this is where you put in
 													// the custom interpolator
 		anim1.setFromX(bounds.getWidth() * WIDTH_CONSTANT);
-		anim1.setCycleCount(1);
+		anim1.setCycleCount((int) ONE_DEFAULT);
 
 		anim2 = new TranslateTransition(Duration.seconds(3), focalpoint1);
 		anim2.setInterpolator(new OpticsInterpolator()); // this is where you
 															// put in the custom
 															// interpolator
 		anim2.setFromX(bounds.getWidth() * WIDTH_CONSTANT);
-		anim2.setCycleCount(1);
+		anim2.setCycleCount((int) ONE_DEFAULT);
 
 		anim3 = new TranslateTransition(Duration.seconds(4), object);
 		anim3.setInterpolator(Interpolator.LINEAR); // this is where you put in
@@ -126,12 +125,12 @@ public class OpticsContainer extends MIContainer implements Resources {
 		anim3.setFromX(bounds.getWidth() * WIDTH_CONSTANT);
 		anim3.setToX(calculateImageDistance(mSlider1.getValue(),
 				mSlider2.getValue()));
-		anim3.setCycleCount(1);
+		anim3.setCycleCount((int) ONE_DEFAULT);
 
 		// TODO fix the width of the line
 
-		Line line1 = new Line(0, bounds.getHeight() / 2, 1400,
-				bounds.getHeight() / 2);
+		Line line1 = new Line(0, bounds.getHeight() / HALF_FACTOR, LINE_WIDTH,
+				bounds.getHeight() / HALF_FACTOR);
 		line1.setStroke(Color.BLACK);
 		mCanvas.getChildren().addAll(line1);
 
@@ -158,7 +157,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 	 * @return
 	 */
 	private double calculateImageDistance(double focal, double object) {
-		return 1 / (1 / focal - 1 / object);
+		return ONE_DEFAULT / (ONE_DEFAULT / focal - ONE_DEFAULT / object);
 	}
 
 	/**
@@ -188,7 +187,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 					mSlider2.getValue(), OBJECT_HEIGHT);
 			// get top level series
 			XYChart.Series<Number, Number> series = mGraph1.getData().get(
-					mGraph1.getData().size() - 1);
+					(int) (mGraph1.getData().size() - ONE_DEFAULT));
 			series.getData().add(new Data<Number, Number>(t, value2 * t));
 
 			return t;
@@ -224,7 +223,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 					JOptionPane
 							.showMessageDialog(
 									frame,
-									"The image is going to be out of the bounds of the screen! Try entering new values.",
+									ERROR_MESSAGE_OPTICS,
 									"Inane error", JOptionPane.ERROR_MESSAGE);
 
 					object.setVisible(false);
@@ -234,19 +233,19 @@ public class OpticsContainer extends MIContainer implements Resources {
 				else {
 
 					if (calculateImageHeight(mSlider1.getValue(),
-							mSlider2.getValue(), OBJECT_HEIGHT) < 0) {
+							mSlider2.getValue(), OBJECT_HEIGHT) < ZERO_DEFAULT) {
 
-						anim3.setToY((bounds.getHeight() / 2)
+						anim3.setToY((bounds.getHeight() / HALF_FACTOR)
 								+ calculateImageHeight(mSlider1.getValue(),
 										mSlider2.getValue(), OBJECT_HEIGHT));
 						object.setHeight(Math.abs(calculateImageHeight(
 								mSlider1.getValue(), mSlider2.getValue(),
 								OBJECT_HEIGHT)));
-						object.setTranslateY((bounds.getHeight() / 2)
+						object.setTranslateY((bounds.getHeight() / HALF_FACTOR)
 								+ calculateImageHeight(mSlider1.getValue(),
 										mSlider2.getValue(), OBJECT_HEIGHT));
 
-						double testvalue = (bounds.getHeight() / 2)
+						double testvalue = (bounds.getHeight() / HALF_FACTOR)
 								- calculateImageHeight(mSlider1.getValue(),
 										mSlider2.getValue(), OBJECT_HEIGHT);
 
@@ -259,9 +258,9 @@ public class OpticsContainer extends MIContainer implements Resources {
 						object.setHeight(Math.abs(calculateImageHeight(
 								mSlider1.getValue(), mSlider2.getValue(),
 								OBJECT_HEIGHT)));
-						object.setTranslateY((bounds.getHeight() / 2));
+						object.setTranslateY((bounds.getHeight() / HALF_FACTOR));
 
-						double value = (bounds.getHeight() / 2)
+						double value = (bounds.getHeight() / HALF_FACTOR)
 								- calculateImageHeight(mSlider1.getValue(),
 										mSlider2.getValue(), OBJECT_HEIGHT);
 
