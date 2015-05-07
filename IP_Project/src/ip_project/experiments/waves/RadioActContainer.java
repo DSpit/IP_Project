@@ -72,33 +72,47 @@ public class RadioActContainer extends MIContainer implements Resources{
 	@Override
 	public void updateValues(){
 		
-		//populates the particles based on alowed size of canvas
-		int count = 0;
-		int i = 0;
-		int j = 0;
+		mParticleHolder.setMaxWidth(this.mCanvas.getWidth());
+		mParticleHolder.setMaxHeight(this.mCanvas.getHeight());
 		
-//		mParticleHolder.setMaxWidth(this.mCanvas.getWidth());
-//		mParticleHolder.setMaxHeight(this.mCanvas.getHeight());
-		
-		while(true){
-			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (count%2 == 0+(int)(count/Math.sqrt(NUMBER_OF_PARTICLES))%2)?Color.BLUE : Color.RED);
+		for(int i = 0, j = 0, a = 0 ;i*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getWidth() 
+				&& j*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getHeight(); i++, a++){
+			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (a%2 == 0+(int)(a/Math.sqrt(NUMBER_OF_PARTICLES))%2)?Color.BLUE : Color.RED);
 			
-			if((count+1)*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getHeight()){
-				break;
-			}else{
-				count++;
-			}
+			if()
 			
-			GridPane.setColumnIndex(circle, ((i*RAD_ACT_PARTICLE_RADIUS*2 < this.mCanvas.getWidth())? i++ : ++i ));
-			GridPane.setRowIndex(circle, j );
-			mParticleHolder.getChildren().add(circle);
+			//set and update index values
+			GridPane.setColumnIndex(circle, i);
+			GridPane.setRowIndex(circle, (i*RAD_ACT_PARTICLE_RADIUS >)? :);
 			
-			TranslateTransition wigglingAnim = new TranslateTransition(Duration.millis(10), circle);
-			wigglingAnim.setCycleCount(Animation.INDEFINITE);
-			wigglingAnim.setByX(4);
-			
-			wigglingAnim.play();
 		}
+		
+//		while(true){
+//			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (count%2 == 0+(int)(count/Math.sqrt(NUMBER_OF_PARTICLES))%2)?Color.BLUE : Color.RED);
+//			
+//			if((j)*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getHeight()){
+//				break;
+//			}else{
+//				count++;
+//			}
+//			
+//			//set and update index values
+//			GridPane.setColumnIndex(circle, i++);
+//			GridPane.setRowIndex(circle, j);
+//			
+//			if(i*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getWidth()){
+//				j++;
+//			}
+//
+//			
+//			mParticleHolder.getChildren().add(circle);
+//			
+//			TranslateTransition wigglingAnim = new TranslateTransition(Duration.millis(10), circle);
+//			wigglingAnim.setCycleCount(Animation.INDEFINITE);
+//			wigglingAnim.setByX(4);
+//			
+//			wigglingAnim.play();
+//		}
 		
 	}
 	
@@ -110,6 +124,13 @@ public class RadioActContainer extends MIContainer implements Resources{
 	
 	public String getHelp(){
 		return RAD_ACT_HELP;
+	}
+	
+	@Override
+	public void done(){
+		super.done();
+		
+		mParticleHolder.getChildren().removeAll(mParticleHolder.getChildren());
 	}
 	
 	
