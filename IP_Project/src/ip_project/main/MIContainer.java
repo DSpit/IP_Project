@@ -2,6 +2,7 @@
 
 package ip_project.main;
 
+import ip_project.experiments.calculus.NewSportsBikeContainer;
 import ip_project.experiments.mechanics.ProjContainer;
 
 import java.util.ArrayList;
@@ -192,6 +193,9 @@ public abstract class MIContainer extends VBox{
 	
 	public void done(){
 		
+		((NewSportsBikeContainer)this).stopAnimation();
+
+		
 		for(Slider input : mInputs){
 			input.setDisable(false);
 			input.setOnMouseReleased(null);
@@ -199,6 +203,9 @@ public abstract class MIContainer extends VBox{
 		for(Transition animation: mAnimation){
 			animation.playFromStart();
 			animation.stop();
+			
+			
+		
 		}
 		
 		//removes all the previous experiments
@@ -236,6 +243,10 @@ public abstract class MIContainer extends VBox{
 	}
 		
 	public void pause(){
+		
+		((NewSportsBikeContainer)this).stopAnimation();
+
+		
 		for(Slider input: mInputs){
 			input.setDisable(true);
 		}

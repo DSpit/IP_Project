@@ -5,10 +5,11 @@ import com.sun.javafx.geom.Rectangle;
 import ip_project.main.MIContainer;
 import ip_project.main.Resources;
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.chart.Axis;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -16,6 +17,7 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -30,17 +32,14 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 	
 	 XYChart.Series<String, Number> series3; // = new XYChart.Series();
 	Slider mSlider1, mSlider2;
-	TranslateTransition anim1, anim2;
-	ImageView image;
+	TranslateTransition anim1;
+	Timeline anim2;
+	Image[] imgs = new Image[7];
+	ImageView Face = new ImageView();
 	LineChart<Number, Number> mGraph1, mGraph2;
 
 	
-	BarChart<String,Number> barGraph;
-	
-	//= new BarChart<String,Number>(xAxis,yAxis);
-	
-	
-	
+
 	public NewSportsBikeContainer(){
 		
 		
@@ -65,6 +64,13 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 		this.addInputs(mSlider2);
 		
 		
+		imgs[0] = new Image(NSB_FACE_1);
+		imgs[1] = new Image(NSB_FACE_2);
+		imgs[2] = new Image(NSB_FACE_3);
+		imgs[3] = new Image(NSB_FACE_4);
+		imgs[4] = new Image(NSB_FACE_5);
+		imgs[5] = new Image(NSB_FACE_6);
+		imgs[6] = new Image(NSB_FACE_7);
 		
 		
 		String Ystr2 = "Units Sold";
@@ -80,8 +86,6 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 		
 		NumberAxis xAxis2 = new NumberAxis(Xstr,0,	500, 100);
 		NumberAxis yAxis2 =new NumberAxis(Ystr2,-30000,	70000, 5000);
-		CategoryAxis xAxis3 = new CategoryAxis();
-        NumberAxis yAxis3 = new NumberAxis();
 		
 		
 		
@@ -89,50 +93,37 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 		mGraph1 = new LineChart<Number, Number>(xAxis1, yAxis1);
 		mGraph2 = new LineChart<Number, Number>(xAxis2, yAxis2);
 
-		
-		 
-		barGraph =  new BarChart<String,Number>(xAxis3,yAxis3);
-		barGraph.setAnimated(true);
-		
-		/*XYChart.Series series1 = new XYChart.Series();
-        series1.setName("2003");       
-        series1.getData().add(new XYChart.Data(25601.34, "austria"));
-        series1.getData().add(new XYChart.Data(20148.82, "brazil"));
-        series1.getData().add(new XYChart.Data(10000, "france"));
-        series1.getData().add(new XYChart.Data(35407.15, "italy"));
-        series1.getData().add(new XYChart.Data(12000, "usa"));    
-		*/
-		
-        
-        
-		
+	
 		this.addGraphs(mGraph1);
 		this.addGraphs(mGraph2);
 
         
         Circle circulo = new Circle(20);
-        
-        
+
         circulo.setTranslateX(15);
 		circulo.setTranslateY(100);
         
 		
-    
+		Face.setTranslateX(200);
+		Face.setTranslateY(300);
+
+		Face.setFitHeight(300);
+		Face.setFitWidth(300);
+
 		
+         anim2 = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(Face.imageProperty(), imgs[0])),
+                new KeyFrame(Duration.seconds(1), new KeyValue(Face.imageProperty(), imgs[1])),
+                new KeyFrame(Duration.seconds(3), new KeyValue(Face.imageProperty(), imgs[2])),    
+                new KeyFrame(Duration.seconds(5), new KeyValue(Face.imageProperty(), imgs[3])),
+                new KeyFrame(Duration.seconds(7), new KeyValue(Face.imageProperty(), imgs[4])),
+                new KeyFrame(Duration.seconds(9), new KeyValue(Face.imageProperty(), imgs[5])),
+                new KeyFrame(Duration.seconds(10), new KeyValue(Face.imageProperty(), imgs[6]))
+
+        		);
 		
-        
-        
-        
-       /* 
-		object1.setFill(Color.BLUE);
-        
-		object1.setTranslateX(15);
-		object1.setTranslateY(400);
-		
-		*/
-		
-		
-		anim1 = new TranslateTransition(Duration.seconds(5), circulo);
+ 
+		anim1 = new TranslateTransition(Duration.seconds(10), circulo);
 		anim1.setInterpolator(new NewSportsInterpolator());		
 		anim1.setFromX(15);
 		anim1.setCycleCount(1);
@@ -142,12 +133,14 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 		
 		
 		this.addAnimations(anim1);
+		this.addAnimationElements(Face);
 		this.addAnimationElements(circulo);
 		
-		//this.addAnimationElements(barGraph);
 			
 	}
 	
+	
+
 	
 	
 	
@@ -168,16 +161,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 			XYChart.Series<Number, Number> series2 
 			= mGraph2.getData().get(mGraph2.getData().size() - 1);
 	
-		/*	XYChart.Series<String, Number> series3 = 
-					series3.getData().add(new Data<String, Number>
-					("Costs", calculateProfit(t*maxPrice))); 
-			
-			*/
-			
-			
-			//lineChart.getData().remove(/*(lineChart.getData().size()-1)*/0);
-
-			
+		
 			
 			series1.getData().add(new Data<Number, Number>
 			(t*maxPrice, calculateProfit(t*maxPrice)));
@@ -185,39 +169,21 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 			series2.getData().add(new Data<Number, Number>
 			(t*maxPrice, calculateUnitSales(t*maxPrice)));
 			
-			series3 =  new Series<String, Number>();
-			
-			//barGraph.
-			/*System.out.println(t);
-			if(t>0.01)
-				barGraph.getData().removeAll();
-			*/
-			
-	        series3.getData().add(new XYChart.Data<String, Number>
-	        ("Costs", calculateTotalCost(t*maxPrice)));
-	        
-	        //barGraph.dataItemChanged(barGraph.getData().)
-	      /*  series3.getData().add(new XYChart.Data<String, Number>
-	        ("Sales", calculateUnitSales(t*maxPrice)));
-	        
-	        series3.getData().add(new XYChart.Data<String, Number>
-	        ("Profit", calculateProfit(t*maxPrice)));*/
-	        
-	        barGraph.getData().addAll(series3);
-	        
-			//barGraph.getData().remove(0);
-
-
-			
-			
-			//System.out.println( calculateProfit(t*maxPrice)  + " + " +  calculateUnitSales(t*maxPrice) );
-			
+			/*if(calculateProfit(t*maxPrice)==0){
+				if(imgs[0]==imgs[1]){
+					imgs[0]=imgs[2];
+				}
+				
+				
+			}*/
+				
 			
 			
 			return t;
 				
 			}		
 		}
+	
 	
 	
 	
@@ -250,8 +216,15 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 	
 	
 	
+	public void stopAnimation(){
+		anim2.stop();
+	}
+	
 	@Override
 	public void updateValues(){
+		
+		anim2.play();
+		
 	}
 	
 	
