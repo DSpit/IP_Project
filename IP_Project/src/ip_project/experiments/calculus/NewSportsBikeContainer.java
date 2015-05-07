@@ -42,7 +42,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 	public NewSportsBikeContainer() {
 
 		// example of slider set up
-		mSlider1 = new Slider(400000, 700000, 700000);
+		mSlider1 = new Slider(NSB_SLIDER_MIN_1, NSB_SLIDER_MAX_1, NSB_SLIDER_DEFAULT_1);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
 		mSlider1.setMajorTickUnit(1000);
@@ -51,7 +51,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		mSlider1.setId(NSB_SLIDER_1_ID);
 		this.addInputs(mSlider1);
 
-		mSlider2 = new Slider(50, 130, 110);
+		mSlider2 = new Slider(NSB_SLIDER_MIN_2, NSB_SLIDER_MAX_2, NSB_SLIDER_DEFAULT_2);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
 		mSlider2.setMajorTickUnit(5);
@@ -73,11 +73,11 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 
 		String Xstr = "Price";
 
-		NumberAxis xAxis1 = new NumberAxis(Xstr, 0, 500, 100);
-		NumberAxis yAxis1 = new NumberAxis(Ystr1, -10000000, 10000000, 1000000);
+		NumberAxis xAxis1 = new NumberAxis(Xstr, NSB_AXIS_X_MIN_1, NSB_AXIS_X_MAX_1, NSB_SPACING_AXIS_X);
+		NumberAxis yAxis1 = new NumberAxis(Ystr1, NSB_AXIS_Y_MIN_1, NSB_AXIS_Y_MAX_1, NSB_SPACING_AXIS_Y);
 
-		NumberAxis xAxis2 = new NumberAxis(Xstr, 0, 500, 100);
-		NumberAxis yAxis2 = new NumberAxis(Ystr2, -30000, 70000, 5000);
+		NumberAxis xAxis2 = new NumberAxis(Xstr, NSB_AXIS_X_MIN_2, NSB_AXIS_X_MAX_2, NSB_SPACING_AXIS_X_2);
+		NumberAxis yAxis2 = new NumberAxis(Ystr2, NSB_AXIS_Y_MIN_2, NSB_AXIS_Y_MAX_2, NSB_SPACING_AXIS_Y_2);
 
 		mGraph1 = new LineChart<Number, Number>(xAxis1, yAxis1);
 		mGraph2 = new LineChart<Number, Number>(xAxis2, yAxis2);
@@ -85,16 +85,18 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		this.addGraphs(mGraph1);
 		this.addGraphs(mGraph2);
 
-		Circle circulo = new Circle(20);
+		Image image1 = new Image(BIKE_URL);
+		ImageView bike = new ImageView();
+		bike.setImage(image1);
 
-		circulo.setTranslateX(15);
-		circulo.setTranslateY(100);
+		bike.setTranslateX(NSB_X_POSITION_1);
+		bike.setTranslateY(NSB_Y_POSITION_1);
+		
+		bike.setFitWidth(NSB_WIDTH);
+		bike.setFitHeight(NSB_HEIGHT);
 
-		Face.setTranslateX(200);
-		Face.setTranslateY(300);
-
-		// Face.setFitHeight(300);
-		// Face.setFitWidth(300);
+		Face.setTranslateX(NSB_X_POSITION_2);
+		Face.setTranslateY(NSB_Y_POSITION_2);
 
 		anim2 = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(
 				Face.imageProperty(), imgs[0])), new KeyFrame(
@@ -113,16 +115,17 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 
 		);
 
-		anim1 = new TranslateTransition(Duration.seconds(10), circulo);
+		anim1 = new TranslateTransition(Duration.seconds(10), bike);
 		anim1.setInterpolator(new NewSportsInterpolator());
-		anim1.setFromX(15);
+		anim1.setFromX(NSB_TRANSLATE_FROM_X_1);
 		anim1.setCycleCount(1);
+		
 
-		anim1.setToX(356);
+		anim1.setToX(NSB_TRANSLATE_TO_X_1);
 
 		this.addAnimations(anim1);
 		this.addAnimationElements(Face);
-		this.addAnimationElements(circulo);
+		this.addAnimationElements(bike);
 
 	}
 

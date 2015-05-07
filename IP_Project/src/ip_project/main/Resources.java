@@ -181,6 +181,41 @@ public interface Resources {
     public double BobbingToX = 10;
     public double BobbingByX = 3;
     
+    public double NSB_SLIDER_MAX_1 = 700000;
+	public double NSB_SLIDER_MIN_1 = 400000;
+	public double NSB_SLIDER_DEFAULT_1 = 700000;
+	
+	public double NSB_SLIDER_MAX_2 = 130;
+	public double NSB_SLIDER_MIN_2 = 50;
+	public double NSB_SLIDER_DEFAULT_2 = 110;
+	
+	public double NSB_AXIS_X_MIN_1 = 0;
+	public double NSB_AXIS_X_MAX_1 = 500;
+	public double NSB_AXIS_Y_MIN_1 = -10000000;
+	public double NSB_AXIS_Y_MAX_1 = 10000000;
+	public double NSB_SPACING_AXIS_X = 100;
+	public double NSB_SPACING_AXIS_Y = 1000000;
+	
+	public double NSB_AXIS_X_MIN_2 = 0;
+	public double NSB_AXIS_X_MAX_2 = 500;
+	public double NSB_AXIS_Y_MIN_2 = -30000;
+	public double NSB_AXIS_Y_MAX_2 = 70000;
+	public double NSB_SPACING_AXIS_X_2 = 100;
+	public double NSB_SPACING_AXIS_Y_2 = 5000;
+	
+	public double NSB_X_POSITION_1 = 350;
+	public double NSB_Y_POSITION_1 = 100;
+	public double NSB_TRANSLATE_FROM_X_1 = 350;
+	public double NSB_TRANSLATE_TO_X_1 = 1000;
+	
+	public double NSB_WIDTH = 150;
+	public double NSB_HEIGHT = 150;
+	
+	public double NSB_X_POSITION_2 = 400;
+	public double NSB_Y_POSITION_2 = 200;
+	
+	public String BIKE_URL = "ip_project/icons/bike.png";
+    
 
 	public String RAD_ACT_SLIDER_1_ID = "Half Life";
 	
