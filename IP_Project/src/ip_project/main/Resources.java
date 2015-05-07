@@ -68,6 +68,9 @@ public interface Resources {
 	public double NEWTON_SLIDER_MIN_1 = 0;
 	public double NEWTON_SLIDER_DEFAULT_1 = 5;
 	
+	public String NEWTON_SLIDER_1_ID = "Force";
+	public String NEWTON_SLIDER_2_ID = "Mass";
+	
 	public double NEWTON_AXIS_X_MIN_1 = 0;
 	public double NEWTON_AXIS_Y_MIN_1 = 0;
 	public double NEWTON_SPACING_AXIS = 0.1;
@@ -81,6 +84,8 @@ public interface Resources {
 	
 	public double NEWTON_TRANSLATE_FROM_X = 10;
 	public double NEWTON_TRANSLATE_TO_X = 600;
+	
+	
 	
 	
 	public double GS_SLIDER_MAX_1 = 1;
@@ -97,6 +102,9 @@ public interface Resources {
 	public double GS_AXIS_Y_MAX_1 = 50;
 	public double GS_SPACING_AXIS_X = 0.1;
 	public double GS_SPACING_AXIS_Y = 5;
+	
+	public String GS_SLIDER_ID_1 = "Percentage of Decrease";
+	public String GS_SLIDER_ID_2 = "# Periods"; 
 	
 	public double GS_IMAGE_WIDTH = 100;
 	public double GS_IMAGE_HEIGHT = 100;
@@ -122,6 +130,8 @@ public interface Resources {
 	public double PROJ_SLIDER_MIN_2 = 0;
 	public double PROJ_SLIDER_DEFAULT_2 = 45;
 	
+	public String PROJ_SLIDER_1_ID = "Initial Velocity";
+	public String PROJ_SLIDER_2_ID = "Angle";
 	
 	public double PROJ_AXIS_X_MIN_1 = 0;
 	public double PROJ_AXIS_X_MAX_1 = 1;
@@ -137,6 +147,7 @@ public interface Resources {
 	public double PROJ_SPACING_AXIS_X_2 = 0.1;
 	public double PROJ_SPACING_AXIS_Y_2 = 1;
 	
+	
 	public double PROJ_X_POSITION_1 = 10;
 	public double PROJ_Y_POSITION_1 = 500;
 	public double PROJ_TRANSLATE_FROM_X_1 = 10;
@@ -146,6 +157,9 @@ public interface Resources {
 	public double OPTICS_SLIDER_MAX_1 = 100;
 	public double OPTICS_SLIDER_MIN_1 = 30;
 	public double OPTICS_SLIDER_DEFAULT_1 = 50;
+	
+	public String OPTICS_SLIDER_1_ID = "Focal Length";
+	public String OPTICS_SLIDER_2_ID = "Object Distance";
 	
 	public double OPTICS_SLIDER_MAX_2 = 300;
 	public double OPTICS_SLIDER_MIN_2 = 50;
@@ -166,7 +180,13 @@ public interface Resources {
     public double BobbingFromX = 0;
     public double BobbingToX = 10;
     public double BobbingByX = 3;
+    
+
+	public String RAD_ACT_SLIDER_1_ID = "Half Life";
 	
+	public String NSB_SLIDER_1_ID = "Advertisement Costs";
+	public String NSB_SLIDER_2_ID = "Cost per bike";
+
 	
 	public String NEWTON_HELP = "This experiment aims to simulate Newton's Second Law of Motion. The net force applied" + 
 	"to a body produces a proportional acceleration. \nIn other words, if a body is accelerating, then there is a force on it." 
@@ -176,7 +196,7 @@ public interface Resources {
 	public String PROJ_HELP = "Projectile motion is a form of motion in which an object or particle (called a projectile) is "
 			+ "thrown near the earth's surface, and it moves along a curved path under the action of gravity only. \nThe only force of"
 			+ " significance that acts on the object is gravity, which acts downward to cause a downward acceleration. "
-			+ "\nThere are no horizontal forces needed to maintain the horizontal motion – consistent "
+			+ "\nThere are no horizontal forces needed to maintain the horizontal motion ï¿½ consistent "
 			+ "with the concept of inertia." + "\n	The first slider is the Initial Velocity \n "
 			+ "	The second slider is the Angle" ;
 	public String OPTIC_HELP = "The image formed by a single lens can be located and sized with three principal "
