@@ -75,44 +75,28 @@ public class RadioActContainer extends MIContainer implements Resources{
 		mParticleHolder.setMaxWidth(this.mCanvas.getWidth());
 		mParticleHolder.setMaxHeight(this.mCanvas.getHeight());
 		
-		for(int i = 0, j = 0, a = 0 ;i*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getWidth() 
-				&& j*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getHeight(); i++, a++){
-			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (a%2 == 0+(int)(a/Math.sqrt(NUMBER_OF_PARTICLES))%2)?Color.BLUE : Color.RED);
+		for(int i = 0, j = 0, a = 0 ;(i+1)*2*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getWidth() 
+				|| j*RAD_ACT_PARTICLE_RADIUS < this.mCanvas.getHeight(); i++, a++){
+			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (a%2 == 0+j%2)?Color.BLUE : Color.RED);
 			
-			if()
+			if(i*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getWidth()){
+				i = 0;
+				j++;
+			}
 			
 			//set and update index values
 			GridPane.setColumnIndex(circle, i);
-			GridPane.setRowIndex(circle, (i*RAD_ACT_PARTICLE_RADIUS >)? :);
+			GridPane.setRowIndex(circle, j);
+			
+			mParticleHolder.getChildren().add(circle);
+			
+			TranslateTransition wigglingAnim = new TranslateTransition(Duration.millis(10), circle);
+			wigglingAnim.setCycleCount(Animation.INDEFINITE);
+			wigglingAnim.setByX(4);
+			
+			wigglingAnim.play();
 			
 		}
-		
-//		while(true){
-//			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (count%2 == 0+(int)(count/Math.sqrt(NUMBER_OF_PARTICLES))%2)?Color.BLUE : Color.RED);
-//			
-//			if((j)*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getHeight()){
-//				break;
-//			}else{
-//				count++;
-//			}
-//			
-//			//set and update index values
-//			GridPane.setColumnIndex(circle, i++);
-//			GridPane.setRowIndex(circle, j);
-//			
-//			if(i*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getWidth()){
-//				j++;
-//			}
-//
-//			
-//			mParticleHolder.getChildren().add(circle);
-//			
-//			TranslateTransition wigglingAnim = new TranslateTransition(Duration.millis(10), circle);
-//			wigglingAnim.setCycleCount(Animation.INDEFINITE);
-//			wigglingAnim.setByX(4);
-//			
-//			wigglingAnim.play();
-//		}
 		
 	}
 	
