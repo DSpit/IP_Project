@@ -3,15 +3,6 @@ package ip_project.main;
 public interface Resources {
 	
 	
-	//temporary until added to CSS
-	String buttonStyle = "-fx-background-color:  #000000, linear-gradient(#7ebcea, #2f4b8f), linear-gradient(#426ab7, #263e75), linear-gradient(#395cab, #223768); "
-							+ "-fx-background-insets: 0,1,2,3;"
-						    + "-fx-background-radius: 3,2,2,2;"
-						    + "-fx-padding: 12 30 12 30;"
-						    + "-fx-text-fill: white;"
-						    + "-fx-font-size: 12px;"
-							+ "-fx-pref-width: 150px;";
-	
 	public int CONTENT_HEIGHT = 900;
 	public int CONTENT_WIDTH = 1000;
 	public int WINDOW_PADDING = 100;
@@ -49,6 +40,15 @@ public interface Resources {
 	public String DECAY_IMAGE_PATH = "ip_project/icons/molecule.png";
 	public String BALL_IMAGE_PATH = "ip_project/icons/ball.png";
 	public String BIKE_IMAGE_PATH = "ip_project/icons/abacus.png";
+	
+	public String NSB_FACE_1 = "ip_project/icons/face-1.png";
+	public String NSB_FACE_2 = "ip_project/icons/face-2.png";
+	public String NSB_FACE_3 = "ip_project/icons/face-3.png";
+	public String NSB_FACE_4 = "ip_project/icons/face-4.png";
+	public String NSB_FACE_5 = "ip_project/icons/face-5.png";
+	public String NSB_FACE_6 = "ip_project/icons/face-6.png";
+	public String NSB_FACE_7 = "ip_project/icons/face-7.png";
+	
 
 	public int MAX_FORCE = 100, MAX_MASS = 100, MIN_FORCE = 5, MIN_MASS = 5;
 	
@@ -64,6 +64,102 @@ public interface Resources {
 	public double FOCAL_WIDTH = 5;
 	public double FOCAL_HEIGHT = 10;
 	
+	public double NEWTON_SLIDER_MAX_1 = 10;
+	public double NEWTON_SLIDER_MIN_1 = 0;
+	public double NEWTON_SLIDER_DEFAULT_1 = 5;
+	
+	public double NEWTON_AXIS_X_MIN_1 = 0;
+	public double NEWTON_AXIS_Y_MIN_1 = 0;
+	public double NEWTON_SPACING_AXIS = 0.1;
+	
+	public double NEWTON_X_POSITION_1 = 10;
+	public double NEWTON_Y_POSITION_1 = 400;
+	public double NEWTON_X_POSITION_2 = 700;
+	public double NEWTON_Y_POSITION_2 = 15;
+	public double NEWTON_X_POSITION_3 = 350;
+	public double NEWTON_Y_POSITION_3 = 700;
+	
+	public double NEWTON_TRANSLATE_FROM_X = 10;
+	public double NEWTON_TRANSLATE_TO_X = 600;
+	
+	
+	public double GS_SLIDER_MAX_1 = 1;
+	public double GS_SLIDER_MIN_1 = 0;
+	public double GS_SLIDER_DEFAULT_1 = 0.75;
+	
+	public double GS_SLIDER_MAX_2 = 10;
+	public double GS_SLIDER_MIN_2 = 3;
+	public double GS_SLIDER_DEFAULT_2 = 5;
+	
+	public double GS_AXIS_X_MIN_1 = 0;
+	public double GS_AXIS_X_MAX_1 = 1;
+	public double GS_AXIS_Y_MIN_1 = -50;
+	public double GS_AXIS_Y_MAX_1 = 50;
+	public double GS_SPACING_AXIS_X = 0.1;
+	public double GS_SPACING_AXIS_Y = 5;
+	
+	public double GS_IMAGE_WIDTH = 100;
+	public double GS_IMAGE_HEIGHT = 100;
+	
+	public double GS_X_POSITION_1 = 10;
+	public double GS_Y_POSITION_1 = 700;
+	public double GS_X_POSITION_2 = -10;
+	public double GS_Y_POSITION_2 = 400;
+	public double GS_X_POSITION_3 = 350;
+	public double GS_Y_POSITION_3 = 700;
+	
+	public double GS_TRANSLATE_FROM_X_1 = 15;
+	public double GS_TRANSLATE_TO_X_1 = 356;		
+	public double GS_TRANSLATE_FROM_Y_2 = 100;
+	public double GS_TRANSLATE_TO_Y_2 = 700;	
+	
+	
+	public double PROJ_SLIDER_MAX_1 = 5;
+	public double PROJ_SLIDER_MIN_1 = 1;
+	public double PROJ_SLIDER_DEFAULT_1 = 5;
+	
+	public double PROJ_SLIDER_MAX_2 = 90;
+	public double PROJ_SLIDER_MIN_2 = 0;
+	public double PROJ_SLIDER_DEFAULT_2 = 45;
+	
+	
+	public double PROJ_AXIS_X_MIN_1 = 0;
+	public double PROJ_AXIS_X_MAX_1 = 1;
+	public double PROJ_AXIS_Y_MIN_1 = -5;
+	public double PROJ_AXIS_Y_MAX_1 = 5;
+	public double PROJ_SPACING_AXIS_X = 0.1;
+	public double PROJ_SPACING_AXIS_Y = 1;
+	
+	public double PROJ_AXIS_X_MIN_2 = 0;
+	public double PROJ_AXIS_X_MAX_2 = 1;
+	public double PROJ_AXIS_Y_MIN_2 = -1;
+	public double PROJ_AXIS_Y_MAX_2 = 1;
+	public double PROJ_SPACING_AXIS_X_2 = 0.1;
+	public double PROJ_SPACING_AXIS_Y_2 = 1;
+	
+	public double PROJ_X_POSITION_1 = 10;
+	public double PROJ_Y_POSITION_1 = 500;
+	public double PROJ_TRANSLATE_FROM_X_1 = 10;
+	public double PROJ_TRANSLATE_TO_X_1 = 500;
+	public double PROJ_TRANSLATE_TO_Y_1 = 700;
+	
+	public double OPTICS_SLIDER_MAX_1 = 100;
+	public double OPTICS_SLIDER_MIN_1 = 30;
+	public double OPTICS_SLIDER_DEFAULT_1 = 50;
+	
+	public double OPTICS_SLIDER_MAX_2 = 300;
+	public double OPTICS_SLIDER_MIN_2 = 50;
+	public double OPTICS_SLIDER_DEFAULT_2 = 150;
+	
+	public double OPTICS_AXIS_X_MIN_1 = 0;
+	public double OPTICS_AXIS_X_MAX_1 = 1;
+	public double OPTICS_AXIS_Y_MIN_1 = -350;
+	public double OPTICS_AXIS_Y_MAX_1 = 350;
+	public double OPTICS_SPACING_AXIS_X = 0.1;
+	public double OPTICS_SPACING_AXIS_Y = 50;
+	
+	public double OPTICS_MAX_HEIGHT = 350;
+	public double OPTICS_MAX_WIDTH = 600;
 	
     public double DurationBobbing1 = 500;
     public double DurationBobbing2 = 100;
@@ -72,14 +168,24 @@ public interface Resources {
     public double BobbingByX = 3;
 	
 	
-	public String NEWTON_HELP = "The first Slider is Force \n "
-			+ "The second Slider is Mass  " ;
+	public String NEWTON_HELP = "This experiment aims to simulate Newton's Second Law of Motion. The net force applied" + 
+	"to a body produces a proportional acceleration. \nIn other words, if a body is accelerating, then there is a force on it." 
+			+ "\n	The first slider is Force\n "
+			+ "	The second slider is Mass" ;
 			
-	public String PROJ_HELP = "The first Slider is Initial velocity \n "
-			+ "The second Slider is Angle  " ;
-	public String OPTIC_HELP = "Optics and Lenses";
+	public String PROJ_HELP = "Projectile motion is a form of motion in which an object or particle (called a projectile) is "
+			+ "thrown near the earth's surface, and it moves along a curved path under the action of gravity only. \nThe only force of"
+			+ " significance that acts on the object is gravity, which acts downward to cause a downward acceleration. "
+			+ "\nThere are no horizontal forces needed to maintain the horizontal motion – consistent "
+			+ "with the concept of inertia." + "\n	The first slider is the Initial Velocity \n "
+			+ "	The second slider is the Angle" ;
+	public String OPTIC_HELP = "The image formed by a single lens can be located and sized with three principal "
+			+ "rays. \nThe lens is converging, and therefore if the object is located to the left of the focal length, then the image will be located to the right of the "
+			+ "lense. \nOtherwise, the image is going to be to the left of the lens."
+			+ "\n	The first slider is the Focal Length."
+			+ "\n	The second slider is the Object Distance.";
 	public String RAD_ACT_HELP = "Radioactive Decay";
 	public String BIKE_HELP = "New Sports Bike";
-	public String GEOM_SER_HELP = "The first Slider is Percentaje? \n "
-			+ "The second Slider is Bounces  " ;
+	public String GEOM_SER_HELP = "A geometric series is a series with a constant ratio between successive terms. \n	The first slider is Percentage of Decrease \n "
+			+ "	The second slider is the Amount of Periods";
 }

@@ -32,9 +32,10 @@
 .button-container{
 	
 	-fx-background-color: darkgrey;
-	-fx-border-width: 3.0;
-	-fx-border-color: #FF0000;
+	-fx-border-width: 1.0;
+	-fx-border-color: #000000;
 	-fx-border-insets: 0.0 -4.0 -4.0 -4.0;
+	-fx-border-style: dashed;
 
 }
 
@@ -91,11 +92,29 @@
 	-fx-background-image: url("http://i.imgur.com/f2Bb6fS.jpg");
 }
 
+.optics-canvas #canvas{
+	
+	-fx-background-radius: 30.0;
+	-fx-border-radius: 30.0;
+	-fx-border-width: 1.0;
+	-fx-border-color: transparent;
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
+	-fx-background-image: url("http://i.ytimg.com/vi/m1Bfkc3jGC8/maxresdefault.jpg");
+}
+
 
 .chart-plot-background {
 	
     -fx-background-color: #e2ecfe;
     
+}
+
+.opacity-shapes {
+	
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) ,
+                1, 0.0 , 0 , 1);
+	-fx-opacity: 0.6;
+	
 }
 .chart-vertical-grid-lines {
     -fx-stroke: #3278fa;

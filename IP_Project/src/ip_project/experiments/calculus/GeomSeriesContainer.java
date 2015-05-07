@@ -30,17 +30,17 @@ import javafx.util.Duration;
  */
 public class GeomSeriesContainer extends MIContainer implements Resources {
 
-	XYChart.Series<Number, Number> series1;
-	TranslateTransition anim1, anim2;
-	FadeTransition anim3;
-	Slider mSlider1, mSlider2;
-	LineChart<Number, Number> mGraph1, mGraph2;
-	ImageView image, gif;
+	protected XYChart.Series<Number, Number> series1;
+	protected TranslateTransition anim1, anim2;
+	private FadeTransition anim3;
+	protected Slider mSlider1, mSlider2;
+	protected LineChart<Number, Number> mGraph1, mGraph2;
+	private ImageView image, gif;
 
 	public GeomSeriesContainer() {
 
 		// example of slider set up
-		mSlider1 = new Slider(0, 1, 0.75);
+		mSlider1 = new Slider(GS_SLIDER_MIN_1, GS_SLIDER_MAX_1, GS_SLIDER_DEFAULT_1);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
 		mSlider1.setMajorTickUnit(0.1);
@@ -49,7 +49,7 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		mSlider1.setId("Slider 1");
 		this.addInputs(mSlider1);
 
-		mSlider2 = new Slider(3, 10, 5);
+		mSlider2 = new Slider(GS_SLIDER_MIN_2, GS_SLIDER_MAX_2, GS_SLIDER_DEFAULT_2);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
 		mSlider2.setMajorTickUnit(1);
@@ -62,8 +62,8 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		String Ystr1 = "X Position";
 
 		// example of graph set up
-		NumberAxis xAxis1 = new NumberAxis(Xstr1, 0, 1, 0.1);
-		NumberAxis yAxis1 = new NumberAxis(Ystr1, -50, 50, 5);
+		NumberAxis xAxis1 = new NumberAxis(Xstr1, GS_AXIS_X_MIN_1, GS_AXIS_X_MAX_1, GS_SPACING_AXIS_X);
+		NumberAxis yAxis1 = new NumberAxis(Ystr1, GS_AXIS_Y_MIN_1, GS_AXIS_Y_MAX_1, GS_SPACING_AXIS_Y);
 
 		yAxis1.setAutoRanging(false);
 		xAxis1.setAutoRanging(false);
@@ -79,36 +79,30 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		image = new ImageView();
 
 		image.setImage(image1);
-		image.setFitHeight(100);
-		image.setFitWidth(100);
+		image.setFitHeight(GS_IMAGE_WIDTH);
+		image.setFitWidth(GS_IMAGE_HEIGHT);
 		image.setVisible(false);
 
-		image.setTranslateX(10);
-		image.setTranslateY(700);
+		image.setTranslateX(GS_X_POSITION_1);
+		image.setTranslateY(GS_Y_POSITION_1);
 		
 		Image image2 = new Image("ip_project/icons/snoopdog.gif");
 		gif = new ImageView();
 		gif.setImage(image2);
-		gif.setTranslateX(-10);
-		gif.setTranslateY(400);
+		gif.setTranslateX(GS_X_POSITION_2);
+		gif.setTranslateY(GS_Y_POSITION_2);
 		gif.setVisible(false);
 
 		anim1 = new TranslateTransition(Duration.seconds(10), image);
 		anim1.setInterpolator(new GeomSeriesXInterpolator());
-		anim1.setFromX(15);
+		anim1.setFromX(GS_TRANSLATE_FROM_X_1);
 		anim1.setCycleCount(1);
-
-		anim1.setToX(356);
+		anim1.setToX(GS_TRANSLATE_TO_X_1);
 
 		anim2 = new TranslateTransition(Duration.seconds(10), image);
-		anim2.setInterpolator(Interpolator.LINEAR); // this is where you put in
-													// the custom interpolator
-		anim2.setFromY(100);
-		anim2.setCycleCount(1);
-		
-
-
-		anim2.setToY(700);
+		anim2.setInterpolator(Interpolator.LINEAR); 
+		anim2.setFromY(GS_TRANSLATE_FROM_Y_2);
+		anim2.setToY(GS_TRANSLATE_TO_Y_2);
 		
 		anim3 = new FadeTransition(Duration.seconds(3), image);
 		anim3.setInterpolator(Interpolator.LINEAR);
@@ -116,7 +110,6 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		anim3.setFromValue(0);
 		anim3.setToValue(1);
 
-		// set up the animation
 		ParallelTransition comboAnim = new ParallelTransition();
 		comboAnim.getChildren().addAll(anim1, anim2, anim3);
 
@@ -162,10 +155,6 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 
 		anim2.setToY(this.mCanvas.getHeight() - 100);
 		
-//		anim3.play();
-
-		image.setFitHeight(100);
-		image.setFitHeight(80);
 		image.setVisible(true);
 		gif.setVisible(true);
 		this.getStyleClass().add("geometric-series-canvas-2");

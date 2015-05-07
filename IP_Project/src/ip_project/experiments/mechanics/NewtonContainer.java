@@ -39,28 +39,23 @@ import javafx.util.Duration;
  */
 public class NewtonContainer extends MIContainer implements Resources {
 
-	public String getTitle() {
-		return NEWTON_TITLE;
-	}
-
-	public String getHelp() {
-		return NEWTON_HELP;
-	}
-
 	// private ObservableList<XYChart.Series> XYlist;
-	XYChart.Series<Number, Number> series1, series2;
-	LineChart<Number, Number> mGraph1, mGraph2;
-	Slider mSlider1, mSlider2;
-	Animation gAnim;
-	TranslateTransition anim1;
-	
-	ImageView image, imageflag, imagetext;
-	FadeTransition fadetransition1, fadetransition2;
+
+	protected XYChart.Series<Number, Number> series1, series2;
+	protected LineChart<Number, Number> mGraph1, mGraph2;
+	protected Slider mSlider1, mSlider2;
+	protected Animation gAnim;
+	protected TranslateTransition anim1;
+
+	private ImageView image, imageflag, imagetext;
+	private FadeTransition fadetransition1, fadetransition2;
+	private TranslateTransition bobbing, bobbing2;
 
 	public NewtonContainer() {
 
 		// example of slider set up
-		mSlider1 = new Slider(0, 10, 5);
+		mSlider1 = new Slider(NEWTON_SLIDER_MIN_1, NEWTON_SLIDER_MAX_1,
+				NEWTON_SLIDER_DEFAULT_1);
 		mSlider1.setShowTickMarks(true);
 		mSlider1.setShowTickLabels(true);
 		mSlider1.setMajorTickUnit(1);
@@ -69,7 +64,8 @@ public class NewtonContainer extends MIContainer implements Resources {
 		mSlider1.setId("Slider 1");
 		this.addInputs(mSlider1);
 
-		mSlider2 = new Slider(0, 10, 5);
+		mSlider2 = new Slider(NEWTON_SLIDER_MIN_1, NEWTON_SLIDER_MAX_1,
+				NEWTON_SLIDER_DEFAULT_1);
 		mSlider2.setShowTickMarks(true);
 		mSlider2.setShowTickLabels(true);
 		mSlider2.setMajorTickUnit(1);
@@ -85,40 +81,38 @@ public class NewtonContainer extends MIContainer implements Resources {
 		String Ystr2 = "Velocity";
 
 		// example of graph set up
-		NumberAxis xAxis1 = new NumberAxis(Xstr1, 0, calculate(
-				calculateAcceleration(), 1), (double) 0.1);
+		NumberAxis xAxis1 = new NumberAxis(Xstr1, NEWTON_AXIS_X_MIN_1,
+				calculate(calculateAcceleration(), 1), NEWTON_SPACING_AXIS);
 
-		NumberAxis yAxis1 = new NumberAxis(Ystr1, 0, calculate(
-				calculateAcceleration(), 1), (double) 0.1);
+		NumberAxis yAxis1 = new NumberAxis(Ystr1, NEWTON_AXIS_Y_MIN_1,
+				calculate(calculateAcceleration(), 1), NEWTON_SPACING_AXIS);
 
-		NumberAxis xAxis2 = new NumberAxis(Xstr2, 0, calculate(
-				calculateAcceleration(), 1), (double) 0.1);
+		NumberAxis xAxis2 = new NumberAxis(Xstr2, NEWTON_AXIS_X_MIN_1,
+				calculate(calculateAcceleration(), 1), NEWTON_SPACING_AXIS);
 
-		NumberAxis yAxis2 = new NumberAxis(Ystr2, 0, calculate((double) 1,
-				(double) 1), (double) 0.1);
+		NumberAxis yAxis2 = new NumberAxis(Ystr2, NEWTON_AXIS_Y_MIN_1,
+				calculate((double) 1, (double) 1), NEWTON_SPACING_AXIS);
 
 		Image image1 = new Image("ip_project/icons/tank.png");
 		image = new ImageView();
 		image.setImage(image1);
-		image.setTranslateX(10);
-		image.setTranslateY(400);
+		image.setTranslateX(NEWTON_X_POSITION_1);
+		image.setTranslateY(NEWTON_Y_POSITION_1);
 		image.setVisible(false);
 
 		Image image2 = new Image("ip_project/icons/soviet-flag.png");
 		imageflag = new ImageView();
 		imageflag.setImage(image2);
-		imageflag.setTranslateX(700);
-		imageflag.setTranslateY(15);
+		imageflag.setTranslateX(NEWTON_X_POSITION_2);
+		imageflag.setTranslateY(NEWTON_Y_POSITION_2);
 		imageflag.setVisible(false);
-		
+
 		Image image3 = new Image("ip_project/icons/meanwhile.png");
 		imagetext = new ImageView();
 		imagetext.setImage(image3);
-		imagetext.setTranslateX(350);
-		imagetext.setTranslateY(700);
+		imagetext.setTranslateX(NEWTON_X_POSITION_3);
+		imagetext.setTranslateY(NEWTON_Y_POSITION_3);
 		imagetext.setVisible(false);
-
-
 
 		yAxis1.setAutoRanging(false);
 		xAxis1.setAutoRanging(false);
@@ -131,53 +125,47 @@ public class NewtonContainer extends MIContainer implements Resources {
 		this.addGraphs(mGraph1);
 		this.addGraphs(mGraph2);
 
-		anim1 = new TranslateTransition(
-				Duration.seconds(10), image);
+		anim1 = new TranslateTransition(Duration.seconds(10), image);
 		anim1.setInterpolator(new NewtonInterpolator());
-		anim1.setFromX(10);
+		anim1.setFromX(NEWTON_TRANSLATE_FROM_X);
 		anim1.setCycleCount(1);
-		anim1.setToX(600);
+		anim1.setToX(NEWTON_TRANSLATE_TO_X);
 
-		TranslateTransition anim2 = new TranslateTransition(
-				Duration.seconds(10), image);
-		anim2.setInterpolator(Interpolator.LINEAR); // this is where you put in
-													// the custom interpolator
-		anim2.setFromY(400);
-		anim2.setCycleCount(1);
-		anim2.setToY(400);
-		
 		fadetransition1 = new FadeTransition(Duration.seconds(3), imageflag);
 		fadetransition1.setInterpolator(Interpolator.LINEAR);
 		fadetransition1.setCycleCount(1);
 		fadetransition1.setFromValue(0);
 		fadetransition1.setToValue(1);
-		
+
 		fadetransition2 = new FadeTransition(Duration.seconds(3), imagetext);
 		fadetransition2.setInterpolator(Interpolator.LINEAR);
 		fadetransition2.setCycleCount(1);
 		fadetransition2.setFromValue(0);
 		fadetransition2.setToValue(1);
-		
-        TranslateTransition bobbing = new TranslateTransition(Duration.millis(DurationBobbing1), image);
-        TranslateTransition bobbing2 = new TranslateTransition(Duration.millis(DurationBobbing2), image);
 
-        bobbing.setFromX(BobbingFromX);
-        bobbing.setToX(BobbingToX);
-        bobbing.setInterpolator(Interpolator.LINEAR);
-        bobbing.setAutoReverse(true);
-        bobbing2.setByY(BobbingByX);
-        bobbing2.setInterpolator(Interpolator.LINEAR);
+		bobbing = new TranslateTransition(Duration.millis(DurationBobbing1),
+				image);
+		bobbing2 = new TranslateTransition(Duration.millis(DurationBobbing2),
+				image);
 
-        bobbing2.setAutoReverse(true);
-	
+		bobbing.setFromX(BobbingFromX);
+		bobbing.setToX(BobbingToX);
+		bobbing.setCycleCount(Timeline.INDEFINITE);
+		bobbing.setAutoReverse(true);
+		bobbing2.setByY(BobbingByX);
+		bobbing2.setCycleCount(Timeline.INDEFINITE);
+		bobbing2.setAutoReverse(true);
+
+		bobbing.play();
+		bobbing2.play();
 
 		// set up the animation
 		ParallelTransition comboAnim = new ParallelTransition();
-		comboAnim.getChildren().addAll(anim1, anim2, bobbing, bobbing2);
+		comboAnim.getChildren().addAll(anim1);
 
 		this.addAnimations(comboAnim);
 		this.addAnimationElements(image);
-		
+
 		mCanvas.getChildren().addAll(imageflag, imagetext);
 
 		mGraph1.setAnimated(false);
@@ -188,31 +176,31 @@ public class NewtonContainer extends MIContainer implements Resources {
 
 	@Override
 	public void updateValues() {
-		
-		String kalinkaS = new File("src/ip_project/sounds/kalinka.mp3").toURI().toString(); 
 
-        Media pick = new Media(kalinkaS);
-        MediaPlayer player = new MediaPlayer(pick);
+		String kalinkaS = new File("src/ip_project/sounds/kalinka.mp3").toURI()
+				.toString();
 
-        
-        player.play();
-		
+		Media pick = new Media(kalinkaS);
+		MediaPlayer player = new MediaPlayer(pick);
+
+		player.play();
+
 		fadetransition1.play();
 		fadetransition2.play();
+
 		image.setVisible(true);
 		imagetext.setVisible(true);
 		imageflag.setVisible(true);
 		anim1.setOnFinished(new EventHandler<ActionEvent>() {
-			
-			 @Override
-			 public void handle(ActionEvent event) {
-				 
-				 player.stop();
 
-			 }
-		 });
+			@Override
+			public void handle(ActionEvent event) {
+
+				player.stop();
+
+			}
+		});
 	}
-		
 
 	private double calculateAcceleration() {
 		return (mSlider1.getValue() / mSlider2.getValue());
@@ -221,6 +209,14 @@ public class NewtonContainer extends MIContainer implements Resources {
 	// @Override
 	public double calculate(double value, double time) {
 		return value * Math.pow(time, 2);
+	}
+	
+	public String getTitle() {
+		return NEWTON_TITLE;
+	}
+
+	public String getHelp() {
+		return NEWTON_HELP;
 	}
 
 	private class NewtonInterpolator extends Interpolator {

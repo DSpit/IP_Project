@@ -2,6 +2,9 @@
 
 package ip_project.main;
 
+import ip_project.experiments.calculus.NewSportsBikeContainer;
+import ip_project.experiments.mechanics.ProjContainer;
+
 import java.util.ArrayList;
 
 import javafx.animation.Timeline;
@@ -50,10 +53,8 @@ public abstract class MIContainer extends VBox{
 	public MIContainer(){
 		super();
 		
-		//add a title bar
 		StackPane titlebar = new StackPane();
 		titlebar.setAlignment(Pos.CENTER_RIGHT);
-//		this.setPadding(new Insets(10,10,10,10)); //works
 		
 		Label title = new Label(this.getTitle());
 		
@@ -72,8 +73,6 @@ public abstract class MIContainer extends VBox{
 		bar.setPrefWidth(500);
 		
 		//create graph container
-//		mGContainer.setBorder(new Border(new BorderStroke(Color.BROWN,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(2))));
-//		mGContainer.setPadding(new Insets(20, 20, 20, 20));
 		mGContainer.getStyleClass().add("graph-container");
 		mGContainer.setAlignment(Pos.CENTER);
 		VBox.setVgrow(mGContainer, Priority.ALWAYS);
@@ -81,19 +80,15 @@ public abstract class MIContainer extends VBox{
 		//create input container
 		mIContainer.setPrefHeight(150);
 		mIContainer.setAlignment(Pos.CENTER);
-//		mIContainer.setPadding(new Insets(20, 20, 20, 20));
 		mIContainer.getStyleClass().add("linear-grad-repeat2");
 		
-//		mIContainer.setBorder(new Border(new BorderStroke(Color.GREEN,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(2))));
 		
 		//add elements to bar
 		bar.getChildren().addAll(mGContainer, mIContainer);
 		
 		//create animation pane
-//		mCanvas.setBorder(new Border(new BorderStroke(Color.RED,  BorderStrokeStyle.SOLID,  CornerRadii.EMPTY, new BorderWidths(1))));	
 		mCanvas.getStyleClass().add("main-container");
 		mCanvas.setId("canvas");
-//		mCanvas.setPadding(new Insets(20, 20, 20, 20));
 		HBox.setHgrow(mCanvas, Priority.ALWAYS);
 		
 		//add elements to the container
@@ -192,6 +187,9 @@ public abstract class MIContainer extends VBox{
 	
 	public void done(){
 		
+		((NewSportsBikeContainer)this).stopAnimation();
+
+		
 		for(Slider input : mInputs){
 			input.setDisable(false);
 			input.setOnMouseReleased(null);
@@ -199,6 +197,9 @@ public abstract class MIContainer extends VBox{
 		for(Transition animation: mAnimation){
 			animation.playFromStart();
 			animation.stop();
+			
+			
+		
 		}
 		
 		//removes all the previous experiments
@@ -236,6 +237,10 @@ public abstract class MIContainer extends VBox{
 	}
 		
 	public void pause(){
+		
+		((NewSportsBikeContainer)this).stopAnimation();
+
+		
 		for(Slider input: mInputs){
 			input.setDisable(true);
 		}
