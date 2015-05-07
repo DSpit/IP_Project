@@ -2,8 +2,6 @@
 
 package ip_project.main;
 
-import ip_project.experiments.mechanics.ProjContainer;
-
 import java.util.ArrayList;
 
 import javafx.animation.Timeline;
@@ -23,18 +21,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -47,7 +39,7 @@ public abstract class MIContainer extends VBox{
 	
 	private VBox mGContainer = new VBox();
 	private HBox mIContainer = new HBox();
-	protected Pane mCanvas = new Pane();
+	protected AnchorPane mCanvas = new AnchorPane();
 	private ArrayList<Slider> mInputs = new ArrayList<Slider>();
 	private ArrayList<Transition> mAnimation = new ArrayList<Transition>();
 	private ArrayList<LineChart<Number, Number>> mGraphs = new ArrayList<LineChart<Number,Number>>();

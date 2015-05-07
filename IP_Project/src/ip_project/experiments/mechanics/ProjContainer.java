@@ -149,7 +149,7 @@ public class ProjContainer extends MIContainer implements Resources{
 				return value;
 		}	
 	}
-	
+	 
 
 	private class ProjXInterpolator extends Interpolator{
 
