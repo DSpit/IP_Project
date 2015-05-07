@@ -218,6 +218,7 @@ public interface Resources {
     
 
 	public String RAD_ACT_SLIDER_1_ID = "Half Life";
+	public double RAD_ACT_PARTICLE_RADIUS = 20;
 	
 	public String NSB_SLIDER_1_ID = "Advertisement Costs";
 	public String NSB_SLIDER_2_ID = "Cost per bike";

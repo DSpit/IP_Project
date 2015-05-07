@@ -59,20 +59,6 @@ public class RadioActContainer extends MIContainer implements Resources{
 		
 		//set up animations
 		mParticleHolder = new GridPane();
-		mParticleHolder.setPadding(new Insets(50));
-		
-		for(int i = 0; i < NUMBER_OF_PARTICLES; i++){
-			Circle circle = new Circle(20, (i%2 == 0+(int)(i/Math.sqrt(NUMBER_OF_PARTICLES))%2)?Color.BLUE : Color.RED);
-			GridPane.setColumnIndex(circle, (int)(i%Math.sqrt(NUMBER_OF_PARTICLES)));
-			GridPane.setRowIndex(circle, (int)(i/Math.sqrt(NUMBER_OF_PARTICLES)));
-			mParticleHolder.getChildren().add(circle);
-			
-			TranslateTransition wigglingAnim = new TranslateTransition(Duration.millis(5), circle);
-			wigglingAnim.setCycleCount(Animation.INDEFINITE);
-			wigglingAnim.setByX(6);
-			
-			wigglingAnim.play();
-		}
 		
 		TranslateTransition timeKeep = new TranslateTransition(Duration.INDEFINITE, mParticleHolder);
 		timeKeep.setCycleCount(1);
@@ -85,8 +71,29 @@ public class RadioActContainer extends MIContainer implements Resources{
 	
 	@Override
 	public void updateValues(){
-//		mHolder.setX(this.mCanvas.getWidth()/2);
-//		mHolder.setY(this.mCanvas.getHeight()/2);
+		
+		//populates the particles based on alowed size of canvas
+		int count = 0;
+		
+		while(true){
+			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (count%2 == 0+(int)(count/Math.sqrt(NUMBER_OF_PARTICLES))%2)?Color.BLUE : Color.RED);
+			
+			if((count+1)/this.mCanvas.getWidth()*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getHeight()){
+				break;
+			}else{
+				count++;
+			}
+			
+			GridPane.setColumnIndex(circle, (int)(count%(this.mCanvas.getWidth()/(RAD_ACT_PARTICLE_RADIUS*2))));
+			GridPane.setRowIndex(circle, (int)(count/this.mCanvas.getWidth()));
+			mParticleHolder.getChildren().add(circle);
+			
+			TranslateTransition wigglingAnim = new TranslateTransition(Duration.millis(10), circle);
+			wigglingAnim.setCycleCount(Animation.INDEFINITE);
+			wigglingAnim.setByX(4);
+			
+			wigglingAnim.play();
+		}
 		
 	}
 	
@@ -116,7 +123,7 @@ public class RadioActContainer extends MIContainer implements Resources{
 			double value = (mOriginalNumParticles*Math.pow(mHalfLifeSlider.getValue()*60*60*24*7*52*1E17, -t*60*60*24*7*52*1E15/(mHalfLifeSlider.getValue()*1E10)));
 			
 			XYChart.Series<Number, Number> series = mGraph.getData().get(mGraph.getData().size()-1);
-			System.out.println(series.toString());
+			//System.out.println(series.toString());
 			series.getData().add(new Data<Number, Number>(t, value));
 			
 			if(mOldValue > value){
