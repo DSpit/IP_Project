@@ -48,7 +48,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		mSlider1.setMajorTickUnit(1000);
 		mSlider1.setMinorTickCount(0);
 		mSlider1.setSnapToTicks(true);
-		mSlider1.setId("Slider 1");
+		mSlider1.setId(NSB_SLIDER_1_ID);
 		this.addInputs(mSlider1);
 
 		mSlider2 = new Slider(NSB_SLIDER_MIN_2, NSB_SLIDER_MAX_2, NSB_SLIDER_DEFAULT_2);
@@ -57,7 +57,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 		mSlider2.setMajorTickUnit(5);
 		mSlider2.setMinorTickCount(0);
 		mSlider2.setSnapToTicks(true);
-		mSlider2.setId("Slider 2");
+		mSlider2.setId(NSB_SLIDER_2_ID);
 		this.addInputs(mSlider2);
 
 		imgs[0] = new Image(NSB_FACE_1);

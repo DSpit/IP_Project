@@ -3,7 +3,6 @@
 package ip_project.main;
 
 import ip_project.experiments.calculus.NewSportsBikeContainer;
-import ip_project.experiments.mechanics.ProjContainer;
 
 import java.util.ArrayList;
 
@@ -24,8 +23,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -42,7 +41,7 @@ public abstract class MIContainer extends VBox{
 	
 	private VBox mGContainer = new VBox();
 	private HBox mIContainer = new HBox();
-	protected AnchorPane mCanvas = new AnchorPane();
+	protected Pane mCanvas = new Pane();
 	private ArrayList<Slider> mInputs = new ArrayList<Slider>();
 	private ArrayList<Transition> mAnimation = new ArrayList<Transition>();
 	private ArrayList<LineChart<Number, Number>> mGraphs = new ArrayList<LineChart<Number,Number>>();
@@ -105,14 +104,18 @@ public abstract class MIContainer extends VBox{
 	public void addInputs(Slider... inputs){
 		for(Slider s : inputs){
 			mInputs.add(s);
+			VBox b = new VBox();
 			HBox c = new HBox();
 			Label l = new Label(String.valueOf(s.getValue()));
+			Label t = new Label(s.getId());
 			s.valueProperty().addListener(new ValueChangeListener(l));
 			
 			c.getChildren().addAll(s, l);
 			c.setAlignment(Pos.CENTER);
 			
-			mIContainer.getChildren().add(c);
+			b.getChildren().addAll(t, c);
+			
+			mIContainer.getChildren().add(b);
 		}
 	}
 	

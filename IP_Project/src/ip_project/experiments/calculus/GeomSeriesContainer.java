@@ -46,7 +46,7 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		mSlider1.setMajorTickUnit(0.1);
 		mSlider1.setMinorTickCount(0);
 		mSlider1.setSnapToTicks(true);
-		mSlider1.setId("Slider 1");
+		mSlider1.setId(GS_SLIDER_ID_1);
 		this.addInputs(mSlider1);
 
 		mSlider2 = new Slider(GS_SLIDER_MIN_2, GS_SLIDER_MAX_2, GS_SLIDER_DEFAULT_2);
@@ -55,7 +55,7 @@ public class GeomSeriesContainer extends MIContainer implements Resources {
 		mSlider2.setMajorTickUnit(1);
 		mSlider2.setMinorTickCount(0);
 		mSlider2.setSnapToTicks(true);
-		mSlider2.setId("Slider 2");
+		mSlider2.setId(GS_SLIDER_ID_2);
 		this.addInputs(mSlider2);
 
 		String Xstr1 = "Time";

@@ -48,7 +48,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		mSlider1.setMajorTickUnit(1);
 		mSlider1.setMinorTickCount(0);
 		mSlider1.setSnapToTicks(true);
-		mSlider1.setId("Slider 1");
+		mSlider1.setId(OPTICS_SLIDER_1_ID);
 		this.addInputs(mSlider1);
 
 		mSlider2 = new Slider(OPTICS_SLIDER_MIN_2, OPTICS_SLIDER_MAX_2, OPTICS_SLIDER_DEFAULT_2);
@@ -57,7 +57,7 @@ public class OpticsContainer extends MIContainer implements Resources {
 		mSlider2.setMajorTickUnit(0.5);
 		mSlider2.setMinorTickCount(0);
 		mSlider2.setSnapToTicks(true);
-		mSlider2.setId("Slider 2");
+		mSlider2.setId(OPTICS_SLIDER_2_ID);
 		this.addInputs(mSlider2);
 
 		String Xstr1 = "Time";
