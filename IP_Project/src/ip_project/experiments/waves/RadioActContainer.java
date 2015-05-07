@@ -38,7 +38,7 @@ public class RadioActContainer extends MIContainer implements Resources{
 		mHalfLifeSlider.setMajorTickUnit(0.1);
 		mHalfLifeSlider.setMinorTickCount(0);
 		mHalfLifeSlider.setSnapToTicks(true);
-		mHalfLifeSlider.setId("Half Life");
+		mHalfLifeSlider.setId(RAD_ACT_SLIDER_1_ID);
 		
 		this.addInputs(mHalfLifeSlider);
 		
@@ -48,7 +48,7 @@ public class RadioActContainer extends MIContainer implements Resources{
 		String yAxisLabel = "Number of Protons";
 		
 		NumberAxis xAxis = new NumberAxis(xAxisLabel, 0, 1, 0.1);
-		NumberAxis yAxis = new NumberAxis(yAxisLabel, 0, 500, 50);
+		NumberAxis yAxis = new NumberAxis(yAxisLabel, 0, 0.0001, 0.000001);
 		
 //		xAxis.setAutoRanging(false);
 //		yAxis.setAutoRanging(false);
@@ -113,7 +113,7 @@ public class RadioActContainer extends MIContainer implements Resources{
 		
 		@Override
 		protected double curve(double t){
-			double value = (int)(mOriginalNumParticles*Math.pow(mHalfLifeSlider.getValue()*60*60*24*7*52*1E17, -t*60*60*24*7*52*1E15/(mHalfLifeSlider.getValue()*1E10)));
+			double value = (mOriginalNumParticles*Math.pow(mHalfLifeSlider.getValue()*60*60*24*7*52*1E17, -t*60*60*24*7*52*1E15/(mHalfLifeSlider.getValue()*1E10)));
 			
 			XYChart.Series<Number, Number> series = mGraph.getData().get(mGraph.getData().size()-1);
 			System.out.println(series.toString());

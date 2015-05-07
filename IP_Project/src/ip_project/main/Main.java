@@ -192,7 +192,7 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 		mCenteredPane.setAlignment(Pos.CENTER);
 		
 		//create starting container
-		mContainer = new Test();	//TODO change to starting experiment
+		mContainer = new NewtonContainer();
 		VBox.setVgrow(mContainer, Priority.ALWAYS);	
 		
 		mCenteredPane.getChildren().addAll(this.createMenu(), mContainer, this.createControl());

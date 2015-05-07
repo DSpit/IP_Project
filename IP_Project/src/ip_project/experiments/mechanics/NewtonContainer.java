@@ -61,7 +61,7 @@ public class NewtonContainer extends MIContainer implements Resources {
 		mSlider1.setMajorTickUnit(1);
 		mSlider1.setMinorTickCount(0);
 		mSlider1.setSnapToTicks(true);
-		mSlider1.setId("Slider 1");
+		mSlider1.setId(NEWTON_SLIDER_1_ID);
 		this.addInputs(mSlider1);
 
 		mSlider2 = new Slider(NEWTON_SLIDER_MIN_1, NEWTON_SLIDER_MAX_1,
@@ -71,7 +71,7 @@ public class NewtonContainer extends MIContainer implements Resources {
 		mSlider2.setMajorTickUnit(1);
 		mSlider2.setMinorTickCount(0);
 		mSlider2.setSnapToTicks(true);
-		mSlider2.setId("Slider 2");
+		mSlider2.setId(NEWTON_SLIDER_2_ID);
 		this.addInputs(mSlider2);
 
 		String Xstr1 = "Time";

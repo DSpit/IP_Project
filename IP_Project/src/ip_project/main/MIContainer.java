@@ -105,14 +105,18 @@ public abstract class MIContainer extends VBox{
 	public void addInputs(Slider... inputs){
 		for(Slider s : inputs){
 			mInputs.add(s);
+			VBox b = new VBox();
 			HBox c = new HBox();
 			Label l = new Label(String.valueOf(s.getValue()));
+			Label t = new Label(s.getId());
 			s.valueProperty().addListener(new ValueChangeListener(l));
 			
 			c.getChildren().addAll(s, l);
 			c.setAlignment(Pos.CENTER);
 			
-			mIContainer.getChildren().add(c);
+			b.getChildren().addAll(t, c);
+			
+			mIContainer.getChildren().add(b);
 		}
 	}
 	

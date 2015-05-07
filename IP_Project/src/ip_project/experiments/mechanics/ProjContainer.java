@@ -45,7 +45,7 @@ public class ProjContainer extends MIContainer implements Resources {
 		mSlider1.setMajorTickUnit(1);
 		mSlider1.setMinorTickCount(0);
 		mSlider1.setSnapToTicks(true);
-		mSlider1.setId("Slider 1");
+		mSlider1.setId(PROJ_SLIDER_1_ID);
 		this.addInputs(mSlider1);
 
 		mSlider2 = new Slider(PROJ_SLIDER_MIN_2, PROJ_SLIDER_MAX_2,
@@ -55,7 +55,7 @@ public class ProjContainer extends MIContainer implements Resources {
 		mSlider2.setMajorTickUnit(1);
 		mSlider2.setMinorTickCount(0);
 		mSlider2.setSnapToTicks(true);
-		mSlider2.setId("Slider 2");
+		mSlider2.setId(PROJ_SLIDER_2_ID);
 
 		this.addInputs(mSlider2);
 
