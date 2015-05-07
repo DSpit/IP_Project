@@ -31,7 +31,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources {
 
 	// XYChart.Series<Number, Number> series1, series2;
 
-	XYChart.Series<String, Number> series3; // = new XYChart.Series();
+	XYChart.Series<String, Number> series3; 
 	Slider mSlider1, mSlider2;
 	TranslateTransition anim1;
 	Timeline anim2;
