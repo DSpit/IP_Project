@@ -71,8 +71,8 @@ public class Main extends Application implements EventHandler<ActionEvent>, Reso
 			mStage.sizeToScene();
 			mStage.setScene(this.createScene());
 			
-	        mStage.getIcons().add(new Image("/path/to/stackoverflow.jpg"));
-			
+	        mStage.getIcons().add(new Image("ip_project/icons/icon.png"));
+			mStage.setTitle("IP Project"); 
 			mStage.setMaximized(true);
 			
 		} catch(Exception e) {

@@ -112,18 +112,12 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
         
         Circle circulo = new Circle(20);
         
-        Circle[] arr = new Circle[30];
         
         circulo.setTranslateX(15);
 		circulo.setTranslateY(100);
         
 		
-        
-        for(int a = 0 ; a <= 30 ; ++a)
-        {
-        	arr[a] =  new Circle(3);
-        }
-		
+    
 		
 		
         
@@ -148,7 +142,7 @@ public class NewSportsBikeContainer extends MIContainer implements Resources{
 		
 		
 		this.addAnimations(anim1);
-		//this.addAnimationElements(object1);
+		this.addAnimationElements(circulo);
 		
 		//this.addAnimationElements(barGraph);
 			
