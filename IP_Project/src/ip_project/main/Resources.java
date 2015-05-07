@@ -169,7 +169,7 @@ public interface Resources {
 	
 	
 	public String NEWTON_HELP = "This experiment aims to simulate Newton's Second Law of Motion. The net force applied" + 
-	"to a body produces a proportional acceleration. In other words, if a body is accelerating, then there is a force on it." 
+	"to a body produces a proportional acceleration. \nIn other words, if a body is accelerating, then there is a force on it." 
 			+ "\n	The first slider is Force\n "
 			+ "	The second slider is Mass" ;
 			
@@ -177,11 +177,15 @@ public interface Resources {
 			+ "thrown near the earth's surface, and it moves along a curved path under the action of gravity only. \nThe only force of"
 			+ " significance that acts on the object is gravity, which acts downward to cause a downward acceleration. "
 			+ "\nThere are no horizontal forces needed to maintain the horizontal motion – consistent "
-			+ "with the concept of inertia." + "\n	The first slider is the Initial velocity \n "
+			+ "with the concept of inertia." + "\n	The first slider is the Initial Velocity \n "
 			+ "	The second slider is the Angle" ;
-	public String OPTIC_HELP = "Optics and Lenses";
+	public String OPTIC_HELP = "The image formed by a single lens can be located and sized with three principal "
+			+ "rays. \nThe lens is converging, and therefore if the object is located to the left of the focal length, then the image will be located to the right of the "
+			+ "lense. \nOtherwise, the image is going to be to the left of the lens."
+			+ "\n	The first slider is the Focal Length."
+			+ "\n	The second slider is the Object Distance.";
 	public String RAD_ACT_HELP = "Radioactive Decay";
 	public String BIKE_HELP = "New Sports Bike";
-	public String GEOM_SER_HELP = "The first Slider is Percentaje? \n "
-			+ "The second Slider is Bounces  " ;
+	public String GEOM_SER_HELP = "A geometric series is a series with a constant ratio between successive terms. \n	The first slider is Percentage of Decrease \n "
+			+ "	The second slider is the Amount of Periods";
 }
