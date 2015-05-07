@@ -32,9 +32,10 @@
 .button-container{
 	
 	-fx-background-color: darkgrey;
-	-fx-border-width: 3.0;
-	-fx-border-color: #FF0000;
+	-fx-border-width: 1.0;
+	-fx-border-color: #000000;
 	-fx-border-insets: 0.0 -4.0 -4.0 -4.0;
+	-fx-border-style: dashed;
 
 }
 
@@ -106,6 +107,14 @@
 	
     -fx-background-color: #e2ecfe;
     
+}
+
+.opacity-shapes {
+	
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) ,
+                1, 0.0 , 0 , 1);
+	-fx-opacity: 0.6;
+	
 }
 .chart-vertical-grid-lines {
     -fx-stroke: #3278fa;

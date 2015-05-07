@@ -3,15 +3,6 @@ package ip_project.main;
 public interface Resources {
 	
 	
-	//temporary until added to CSS
-	String buttonStyle = "-fx-background-color:  #000000, linear-gradient(#7ebcea, #2f4b8f), linear-gradient(#426ab7, #263e75), linear-gradient(#395cab, #223768); "
-							+ "-fx-background-insets: 0,1,2,3;"
-						    + "-fx-background-radius: 3,2,2,2;"
-						    + "-fx-padding: 12 30 12 30;"
-						    + "-fx-text-fill: white;"
-						    + "-fx-font-size: 12px;"
-							+ "-fx-pref-width: 150px;";
-	
 	public int CONTENT_HEIGHT = 900;
 	public int CONTENT_WIDTH = 1000;
 	public int WINDOW_PADDING = 100;
@@ -64,6 +55,53 @@ public interface Resources {
 	public double FOCAL_WIDTH = 5;
 	public double FOCAL_HEIGHT = 10;
 	
+	public double NEWTON_SLIDER_MAX_1 = 10;
+	public double NEWTON_SLIDER_MIN_1 = 0;
+	public double NEWTON_SLIDER_DEFAULT_1 = 5;
+	
+	public double NEWTON_AXIS_X_MIN_1 = 0;
+	public double NEWTON_AXIS_Y_MIN_1 = 0;
+	public double NEWTON_SPACING_AXIS = 0.1;
+	
+	public double NEWTON_X_POSITION_1 = 10;
+	public double NEWTON_Y_POSITION_1 = 400;
+	public double NEWTON_X_POSITION_2 = 700;
+	public double NEWTON_Y_POSITION_2 = 15;
+	public double NEWTON_X_POSITION_3 = 350;
+	public double NEWTON_Y_POSITION_3 = 700;
+	
+	public double NEWTON_TRANSLATE_FROM_X = 10;
+	public double NEWTON_TRANSLATE_TO_X = 600;
+	
+	
+	public double GS_SLIDER_MAX_1 = 1;
+	public double GS_SLIDER_MIN_1 = 0;
+	public double GS_SLIDER_DEFAULT_1 = 0.75;
+	
+	
+	public double GS_SLIDER_MAX_2 = 10;
+	public double GS_SLIDER_MIN_2 = 3;
+	public double GS_SLIDER_DEFAULT_2 = 5;
+	
+	public double GS_AXIS_X_MIN_1 = 0;
+	public double GS_AXIS_X_MAX_1 = 1;
+	public double GS_AXIS_Y_MIN_1 = -50;
+	public double GS_AXIS_Y_MAX_1 = 50;
+	public double GS_SPACING_AXIS_X = 0.1;
+	public double GS_SPACING_AXIS_Y = 5;
+	
+	public double GS_IMAGE_WIDTH = 100;
+	public double GS_IMAGE_HEIGHT = 100;
+	
+	public double GS_X_POSITION_1 = 10;
+	public double GS_Y_POSITION_1 = 700;
+	public double GS_X_POSITION_2 = -10;
+	public double GS_Y_POSITION_2 = 400;
+	public double GS_X_POSITION_3 = 350;
+	public double GS_Y_POSITION_3 = 700;
+	
+	public double GS_TRANSLATE_FROM_X_1 = 15;
+	public double GS_TRANSLATE_TO_X_1 = 356;		
 	
     public double DurationBobbing1 = 500;
     public double DurationBobbing2 = 100;
