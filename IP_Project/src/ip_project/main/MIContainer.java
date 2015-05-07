@@ -114,6 +114,7 @@ public abstract class MIContainer extends VBox{
 			c.setAlignment(Pos.CENTER);
 			
 			b.getChildren().addAll(t, c);
+			b.setAlignment(Pos.CENTER);
 			
 			mIContainer.getChildren().add(b);
 		}
@@ -190,8 +191,9 @@ public abstract class MIContainer extends VBox{
 	
 	public void done(){
 		
-		((NewSportsBikeContainer)this).stopAnimation();
-
+		if(this instanceof NewSportsBikeContainer){
+			((NewSportsBikeContainer)this).stopAnimation();
+		}
 		
 		for(Slider input : mInputs){
 			input.setDisable(false);

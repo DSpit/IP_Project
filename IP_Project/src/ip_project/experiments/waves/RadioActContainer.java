@@ -74,18 +74,23 @@ public class RadioActContainer extends MIContainer implements Resources{
 		
 		//populates the particles based on alowed size of canvas
 		int count = 0;
+		int i = 0;
+		int j = 0;
+		
+//		mParticleHolder.setMaxWidth(this.mCanvas.getWidth());
+//		mParticleHolder.setMaxHeight(this.mCanvas.getHeight());
 		
 		while(true){
 			Circle circle = new Circle(RAD_ACT_PARTICLE_RADIUS, (count%2 == 0+(int)(count/Math.sqrt(NUMBER_OF_PARTICLES))%2)?Color.BLUE : Color.RED);
 			
-			if((count+1)/this.mCanvas.getWidth()*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getHeight()){
+			if((count+1)*2*RAD_ACT_PARTICLE_RADIUS > this.mCanvas.getHeight()){
 				break;
 			}else{
 				count++;
 			}
 			
-			GridPane.setColumnIndex(circle, (int)(count%(this.mCanvas.getWidth()/(RAD_ACT_PARTICLE_RADIUS*2))));
-			GridPane.setRowIndex(circle, (int)(count/this.mCanvas.getWidth()));
+			GridPane.setColumnIndex(circle, ((i*RAD_ACT_PARTICLE_RADIUS*2 < this.mCanvas.getWidth())? i++ : ++i ));
+			GridPane.setRowIndex(circle, j );
 			mParticleHolder.getChildren().add(circle);
 			
 			TranslateTransition wigglingAnim = new TranslateTransition(Duration.millis(10), circle);
