@@ -57,6 +57,7 @@ public class NewtonContainer extends MIContainer implements Resources {
 	double mForce, mMass, mAcceleration;
 	ImageView image, imageflag, imagetext;
 	FadeTransition fadetransition1, fadetransition2;
+	TranslateTransition bobbing, bobbing2;
 
 	public NewtonContainer() {
 
@@ -139,13 +140,13 @@ public class NewtonContainer extends MIContainer implements Resources {
 		anim1.setCycleCount(1);
 		anim1.setToX(600);
 
-		TranslateTransition anim2 = new TranslateTransition(
-				Duration.seconds(10), image);
-		anim2.setInterpolator(Interpolator.LINEAR); // this is where you put in
-													// the custom interpolator
-		anim2.setFromY(400);
-		anim2.setCycleCount(1);
-		anim2.setToY(400);
+//		TranslateTransition anim2 = new TranslateTransition(
+//				Duration.seconds(10), image);
+//		anim2.setInterpolator(Interpolator.LINEAR); // this is where you put in
+//													// the custom interpolator
+//		anim2.setFromY(400);
+//		anim2.setCycleCount(1);
+//		anim2.setToY(400);
 		
 		fadetransition1 = new FadeTransition(Duration.seconds(3), imageflag);
 		fadetransition1.setInterpolator(Interpolator.LINEAR);
@@ -159,22 +160,25 @@ public class NewtonContainer extends MIContainer implements Resources {
 		fadetransition2.setFromValue(0);
 		fadetransition2.setToValue(1);
 		
-        TranslateTransition bobbing = new TranslateTransition(Duration.millis(DurationBobbing1), image);
-        TranslateTransition bobbing2 = new TranslateTransition(Duration.millis(DurationBobbing2), image);
+        bobbing = new TranslateTransition(Duration.millis(DurationBobbing1), image);
+        bobbing2 = new TranslateTransition(Duration.millis(DurationBobbing2), image);
 
         bobbing.setFromX(BobbingFromX);
         bobbing.setToX(BobbingToX);
-        bobbing.setInterpolator(Interpolator.LINEAR);
+        bobbing.setCycleCount(Timeline.INDEFINITE);
         bobbing.setAutoReverse(true);
         bobbing2.setByY(BobbingByX);
-        bobbing2.setInterpolator(Interpolator.LINEAR);
-
+        bobbing2.setCycleCount(Timeline.INDEFINITE);
         bobbing2.setAutoReverse(true);
-	
+        
+        bobbing.play();
+        bobbing2.play();
+        
+
 
 		// set up the animation
 		ParallelTransition comboAnim = new ParallelTransition();
-		comboAnim.getChildren().addAll(anim1, anim2, bobbing, bobbing2);
+		comboAnim.getChildren().addAll(anim1);
 
 		this.addAnimations(comboAnim);
 		this.addAnimationElements(image);
@@ -200,6 +204,10 @@ public class NewtonContainer extends MIContainer implements Resources {
 		
 		fadetransition1.play();
 		fadetransition2.play();
+		
+//        bobbing.play();
+//        bobbing2.play();
+
 		image.setVisible(true);
 		imagetext.setVisible(true);
 		imageflag.setVisible(true);

@@ -91,6 +91,16 @@
 	-fx-background-image: url("http://i.imgur.com/f2Bb6fS.jpg");
 }
 
+.optics-canvas #canvas{
+	
+	-fx-background-radius: 30.0;
+	-fx-border-radius: 30.0;
+	-fx-border-width: 1.0;
+	-fx-border-color: transparent;
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
+	-fx-background-image: url("http://i.ytimg.com/vi/m1Bfkc3jGC8/maxresdefault.jpg");
+}
+
 
 .chart-plot-background {
 	
